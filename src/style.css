@@ -12,3 +12,11 @@ body {
     height: 100vh;
     background-color: var(--light-gray);
 }
+
+/* header styles */
+
+.header {
+    display: flex;
+    background-color: lightpink;
+    padding: 0.8rem;
+}
