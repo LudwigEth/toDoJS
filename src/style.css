@@ -13,6 +13,14 @@ body {
     background-color: var(--light-gray);
 }
 
+/* wrappers */
+
+.mainWrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 /* header styles */
 
 .header {
