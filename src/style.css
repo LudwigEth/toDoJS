@@ -25,3 +25,7 @@ body {
     scrollbar-width: none;
     -ms-overflow-style: none;
 }
+
+.container-scroll-h::-webkit-scrollbar {
+    display: none;
+}
