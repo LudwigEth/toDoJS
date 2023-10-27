@@ -20,3 +20,12 @@ body {
     background-color: lightpink;
     padding: 0.8rem;
 }
+
+/* navigation styles */
+
+.sideNav {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    background-color: lightgreen;
+}
