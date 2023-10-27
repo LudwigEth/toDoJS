@@ -16,3 +16,12 @@ body {
     flex: auto;
     background-color: #f5f5f6;
 }
+
+/* container */
+
+.container-scroll-h {
+    display: flex;
+    overflow-x: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
