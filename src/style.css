@@ -28,6 +28,12 @@ button {
 
 /* container */
 
+.container {
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
 .container-scroll-h {
     display: flex;
     justify-content: space-between;
