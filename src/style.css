@@ -99,3 +99,9 @@ button {
     border: 0.15rem solid #b8b8b8;
     border-radius: 50%;
 }
+
+/* main to do list */
+
+.main {
+    flex: auto;
+}
