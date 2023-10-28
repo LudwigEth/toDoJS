@@ -35,7 +35,10 @@ button {
 
 .container,
 .container-scroll-h,
-.container-settings {
+.container-settings,
+.main,
+.navbar,
+.navbar-item {
     display: flex;
     align-items: center;
     width: 100%;
@@ -114,4 +117,9 @@ button {
     background-color: #fafafc;
     box-shadow: 0 0.042rem 0.42rem 0.042rem #b8b8b8;
     height: 3rem;
+    padding: 1rem;
+}
+
+.navbar-item {
+    justify-content: center;
 }
