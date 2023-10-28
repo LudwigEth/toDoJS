@@ -28,7 +28,9 @@ button {
 
 /* container */
 
-.container {
+.container,
+.container-scroll-h,
+.container-settings {
     display: flex;
     align-items: center;
     width: 100%;
@@ -37,9 +39,7 @@ button {
 /* scrollable container */
 
 .container-scroll-h {
-    display: flex;
     justify-content: flex-start;
-    align-items: center;
     flex: auto;
     gap: 1rem;
     overflow-x: auto;
