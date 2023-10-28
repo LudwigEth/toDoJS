@@ -38,3 +38,7 @@ body {
 .container-scroll-h::-webkit-scrollbar {
     display: none;
 }
+
+.scroll-item {
+    flex: 0 0 auto;
+}
