@@ -105,3 +105,13 @@ button {
 .main {
     flex: auto;
 }
+
+/* navigation navbar */
+
+.navbar {
+    position: fixed;
+    bottom: 0;
+    background-color: #fafafc;
+    box-shadow: 0 0.042rem 0.42rem 0.042rem #b8b8b8;
+    height: 3rem;
+}
