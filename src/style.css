@@ -47,3 +47,9 @@ button {
 .scroll-item {
     flex: 0 0 auto;
 }
+
+.scroll-item button {
+    background-color: #ffd1dc;
+    border-radius: 1rem;
+    padding: 0.33rem 0.66rem;
+}
