@@ -78,17 +78,25 @@ button {
     max-width: 2.2rem;
 }
 
-.button-settings {
+.button-settings,
+.button-menu {
     padding: 1rem;
     border-radius: 50%;
-    transition: 0.2s;
+    transition: 0.42s;
 }
 
-.button-settings:active {
+.button-settings:active,
+.button-menu:active {
     background-color: #ffd1dc;
+    scale: 0.9;
 }
 
-.hamburger-menu-dots {
+.button-menu:active {
+    padding: 2rem;
+}
+
+.hamburger-menu-dots,
+.hamburger-menu-lines {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -118,8 +126,20 @@ button {
     box-shadow: 0 0.042rem 0.42rem 0.042rem #b8b8b8;
     height: 3rem;
     padding: 1rem;
+    overflow: hidden;
 }
 
 .navbar-item {
     justify-content: center;
+}
+
+.hamburger-lines {
+    border: 0.15rem solid #b8b8b8;
+    border-radius: 0.15rem;
+    width: 1.5rem;
+}
+
+.hamburger-lines:nth-child(2) {
+    border-color: #ffd1dc;
+    width: 1.35rem;
 }
