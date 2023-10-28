@@ -10,6 +10,11 @@ body {
     height: 100vh;
 }
 
+button {
+    border: none;
+    background-color: inherit;
+}
+
 /* wrappers */
 
 .wrapper-content {
