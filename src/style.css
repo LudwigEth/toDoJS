@@ -43,7 +43,7 @@ button {
     overflow-x: auto;
     scrollbar-width: none;
     -ms-overflow-style: none;
-    padding: 3rem 0;
+    padding: 1.5rem 0 1.5rem 1.5rem;
 }
 
 .container-scroll-h::-webkit-scrollbar {
