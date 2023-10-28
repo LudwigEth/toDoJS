@@ -34,6 +34,8 @@ button {
     width: 100%;
 }
 
+/* scrollable container */
+
 .container-scroll-h {
     display: flex;
     justify-content: flex-start;
@@ -58,4 +60,13 @@ button {
     background-color: #ffd1dc;
     border-radius: 1rem;
     padding: 0.33rem 0.66rem;
+}
+
+/* settings container */
+
+.container-settings {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 1rem;
 }
