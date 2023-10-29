@@ -16,6 +16,12 @@ button {
     cursor: pointer;
 }
 
+button,
+button:active,
+button:focus {
+    -webkit-tap-highlight-color: transparent;
+}
+
 /* wrappers */
 
 .wrapper-content {
