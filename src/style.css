@@ -136,18 +136,13 @@ button {
     align-items: center;
 }
 
-.navbar-item figcaption {
-    font-size: 0.8rem;
-    font-weight: 100;
-}
-
 .hamburger-lines {
-    border: 0.15rem solid #b8b8b8;
+    border: 0.08rem solid #b8b8b8;
     border-radius: 0.15rem;
-    width: 1.5rem;
+    width: 1rem;
 }
 
 .hamburger-lines:nth-child(2) {
     border-color: #ffd1dc;
-    width: 1.35rem;
+    width: 0.95rem;
 }
