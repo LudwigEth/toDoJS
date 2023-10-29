@@ -38,11 +38,7 @@ button {
 .container-settings,
 .main,
 .navbar,
-.navbar-item,
-.button-settings,
-.button-menu,
-.button-todo,
-.button-calendar {
+.navbar-item {
     display: flex;
     align-items: center;
     width: 100%;
@@ -87,9 +83,13 @@ button {
 .button-menu,
 .button-todo,
 .button-calendar {
+    display: flex;
+    align-items: center;
     justify-content: center;
     border-radius: 50%;
-    transition: 0.42s;
+    transition: 0.1337s;
+    height: 2rem;
+    width: 2rem;
 }
 
 
@@ -100,10 +100,6 @@ button {
     padding: 2rem;
 }
 
-.button-settings:active {
-    scale: 0.9;
-}
-
 .hamburger-menu-dots,
 .hamburger-menu-lines {
     display: flex;
@@ -111,8 +107,7 @@ button {
     justify-content: center;
     align-items: center;
     gap: 0.168rem;
-    height: 0;
-    width: 0;
+    border-radius: 50%;
 }
 
 .hamburger-dots {
@@ -146,12 +141,11 @@ button {
 }
 
 .hamburger-lines {
-    border: 0.08rem solid #b8b8b8;
+    border: 0.08rem solid #ffd1dc;
     border-radius: 0.15rem;
     width: 1rem;
 }
 
 .hamburger-lines:nth-child(2) {
-    border-color: #ffd1dc;
     width: 0.95rem;
 }
