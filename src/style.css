@@ -130,7 +130,15 @@ button {
 }
 
 .navbar-item {
+    display: flex;
+    flex-direction: column;
     justify-content: center;
+    align-items: center;
+}
+
+.navbar-item figcaption {
+    font-size: 0.8rem;
+    font-weight: 100;
 }
 
 .hamburger-lines {
