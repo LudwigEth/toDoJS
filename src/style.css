@@ -133,13 +133,43 @@ button:focus {
     flex: auto;
 }
 
+/* floating add new task button */
+
+.button-fixed {
+    position: fixed;
+    bottom: 4.5rem;
+    right: 1.5rem;
+    height: 3rem;
+    width: 3rem;
+    background-color: #ffd1dc;
+    border-radius: 50%;
+    box-shadow: 0 0 0.2rem 0.02rem #b8b8b888;
+}
+
+.button-fixed > .wrapper-centering {
+    flex-direction: column;
+    gap: 0.2rem;
+}
+
+.line-h,
+.line-v {
+    position: absolute;
+    border: 0.1rem solid white;
+    border-radius: 0.1rem;
+    width: 1.2rem;
+}
+
+.line-h {
+    transform: rotate(90deg);
+}
+
 /* navigation navbar */
 
 .navbar {
     position: fixed;
     bottom: 0;
     background-color: #fafafc;
-    box-shadow: 0 0.042rem 0.42rem 0.042rem #b8b8b8;
+    box-shadow: 0 0 0.2rem 0.02rem #b8b8b888;
     height: 3rem;
     padding: 1rem;
     overflow: hidden;
