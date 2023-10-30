@@ -33,6 +33,12 @@ button:focus {
     background-color: #f5f5f6;
 }
 
+.wrapper-centering {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 /* container */
 
 .container {
@@ -102,7 +108,7 @@ button:focus {
 .button-menu:active,
 .button-todo:active,
 .button-calendar:active {
-    background-color: #ffd1dc;
+    background-color: #ffd1dc80;
     padding: 2rem;
 }
 
