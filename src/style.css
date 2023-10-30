@@ -144,6 +144,11 @@ button:focus {
     background-color: #ffd1dc;
     border-radius: 50%;
     box-shadow: 0 0 0.2rem 0.02rem #b8b8b888;
+    transition: 0.1337s;
+}
+
+.button-fixed:active {
+    scale: 0.95;
 }
 
 .button-fixed > .wrapper-centering {
