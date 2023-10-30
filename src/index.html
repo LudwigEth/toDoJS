@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ToDo App</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="wrapper-content">
@@ -29,8 +30,14 @@
                         <div class="hamburger-dots"></div>
                     </div>
                 </button>
+                <dialog id="dialog-settings-tasks" open>
+                    <button class="test">Manage Tags</button>
+                    <button class="test">Search</button>
+                    <button class="test">Sort by</button>
+                </dialog>
             </div>
         </div>
+        <!-- main content contains todos -->
         <main id="to-do-container" class="main"></main>
         <!-- floating add new task button -->
         <button id="addNewTaskButton" class="button-fixed">

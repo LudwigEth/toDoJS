@@ -87,6 +87,7 @@ button:focus {
 
 .container-settings {
     justify-content: center;
+    position: relative;
     display: flex;
     max-width: 2.2rem;
     box-shadow: -1rem 0 0.5rem -0.2rem #f5f5f680;
@@ -202,4 +203,27 @@ button:focus {
 
 .hamburger-lines:nth-child(2) {
     width: 0.95rem;
+}
+
+/* modals */
+
+#dialog-settings-tasks {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    gap: 1.2rem;
+    position: absolute;
+    top: 3rem;
+    left: auto;
+    right: 1rem;
+    padding: 1rem;
+    border-radius: 0.32rem;
+    text-wrap: nowrap;
+    background-color: #ffe9ee;
+    border: none;
+    box-shadow: 0 0 0.2rem 0.02rem #b8b8b888;
+}
+
+.test {
+    text-align: start;
 }
