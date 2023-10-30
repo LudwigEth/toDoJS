@@ -135,6 +135,7 @@ button:focus {
     align-items: center;
     gap: 0.168rem;
     border-radius: 50%;
+    pointer-events: none;
 }
 
 .hamburger-dots {
@@ -227,6 +228,6 @@ button:focus {
     box-shadow: 0 0 0.2rem 0.02rem #b8b8b888;
 }
 
-.test {
+.dialog-btn {
     text-align: start;
 }
