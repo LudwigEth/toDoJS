@@ -1,4 +1,4 @@
-import './styles.css';
+import './style.css';
 
 const buttonSettings = document.getElementById('btn-settings');
 const dialogSettings = document.getElementById('dialog-settings-tasks');
