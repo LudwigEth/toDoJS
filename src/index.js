@@ -1,3 +1,4 @@
+import './style.css';
 const buttonSettings = document.getElementById('btn-settings');
 const dialogSettings = document.getElementById('dialog-settings-tasks');
 const wrapperContent = document.getElementById('wrapper-content');
