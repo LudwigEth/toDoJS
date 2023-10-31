@@ -221,11 +221,11 @@ button:focus {
     left: auto;
     right: 1rem;
     padding: 1rem;
-    border-radius: 0.32rem;
+    border-radius: 0.5rem;
     text-wrap: nowrap;
     background-color: #ffe9ee;
     border: none;
-    box-shadow: 0 0 0.2rem 0.02rem #b8b8b888;
+    box-shadow: 0 0.1rem 0.5rem 0.05rem #b8b8b888;
 }
 
 #dialog-settings-tasks[open] {
