@@ -228,6 +228,34 @@ button:focus {
     box-shadow: 0 0 0.2rem 0.02rem #b8b8b888;
 }
 
+#dialog-settings-tasks[open] {
+    animation: fade-in 168ms forwards;
+}
+
+.dialog-fade-out {
+    display: block;
+    animation: fade-out 168ms forwards;
+}
+
 .dialog-btn {
     text-align: start;
+}
+
+
+@keyframes fade-in {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+@keyframes fade-out {
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
 }
