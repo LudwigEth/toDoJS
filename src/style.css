@@ -49,7 +49,8 @@ button:focus {
 /* container */
 
 .container {
-    padding-top: 1rem;
+    padding-top: 1.2rem;
+    padding-bottom: 1rem;
 }
 
 .container,
@@ -72,7 +73,7 @@ button:focus {
     overflow-x: auto;
     scrollbar-width: none;
     -ms-overflow-style: none;
-    padding-left: 1rem;
+    padding-left: 1.2rem;
 }
 
 .container-scroll-h::-webkit-scrollbar {
@@ -143,10 +144,33 @@ button:focus {
     border-radius: 50%;
 }
 
-/* main to do list */
+/* main & to-do's */
 
-.main {
-    flex: auto;
+main.wrapper-content {
+    justify-content: start;
+    align-items: start;
+}
+
+.to-do-outer-container,
+.to-do-inner-container {
+    width: 100%;
+}
+
+.to-do-outer-container button {
+    padding: 0.2rem 0 0.8rem 1.2rem;
+    font-size: 1.2rem;
+    width: 100%;
+    text-align: start;
+}
+
+.to-do-outer-container button:active {
+    background-color: #cdcdcd;
+}
+
+.to-do {
+    padding: 0.2rem 1.2rem;
+    background-color: #b8b8b888;
+    border-radius: 0.5rem;
 }
 
 /* floating add new task button */
