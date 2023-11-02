@@ -210,7 +210,7 @@ main.wrapper-content {
     border-color: #ffd1dc;
 }
 
-.to-do {
+.to-do-task-container {
     display: flex;
     flex-direction: column;
     flex: auto;
