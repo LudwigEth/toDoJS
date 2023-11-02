@@ -216,6 +216,11 @@ main.wrapper-content {
     flex: auto;
 }
 
+.to-do-task {
+    font-weight: 600;
+    font-size: 1rem;
+}
+
 .to-do-subtask {
     padding-left: 2rem;
     padding-top: 0.5rem;
