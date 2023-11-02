@@ -10,6 +10,8 @@ export function createToDoCard(taskToDo) {
     const divHamburgerDotTop = document.createElement('div');
     const divHamburgerDotMiddle = document.createElement('div');
     const divHamburgerDotBottom = document.createElement('div');
+    const divToDoSubtask = document.createElement('div');
+    const ulForSubtasks = document.createElement('ul');
 
 
     divToDoCard.classList.add('to-do-card');
@@ -20,6 +22,7 @@ export function createToDoCard(taskToDo) {
     divHamburgerDotTop.classList.add('hamburger-dots');
     divHamburgerDotMiddle.classList.add('hamburger-dots');
     divHamburgerDotBottom.classList.add('hamburger-dots');
+    divToDoSubtask.classList.add('to-do-subtask');
 
     paraToDoTask.textContent = taskToDo;
 
@@ -30,11 +33,26 @@ export function createToDoCard(taskToDo) {
     divHamburgerMenuDots.appendChild(divHamburgerDotBottom);
     buttonToDoMenu.appendChild(divHamburgerMenuDots);
 
+    divToDoSubtask.appendChild(ulForSubtasks);
+
     divToDoTaskContainer.appendChild(paraToDoTask);
+    divToDoTaskContainer.appendChild(divToDoSubtask);
 
     divToDoCard.appendChild(buttonToDoCheck);
     divToDoCard.appendChild(divToDoTaskContainer);
     divToDoCard.appendChild(buttonToDoMenu);
 
     return divToDoCard;
+};
+
+
+export function createToDoSubtask(SubtaskToDo) {
+    const liToDoSubtask = document.createElement('li');
+    const buttonToDoSubtask = document.createElement('button');
+
+    buttonToDoSubtask.textContent = SubtaskToDo;
+
+    liToDoSubtask.appendChild(buttonToDoSubtask);
+
+    return liToDoSubtask;
 }
