@@ -151,7 +151,8 @@ main.wrapper-content {
     align-items: start;
 }
 
-.to-do-outer-container {
+.to-do-outer-container,
+.to-do-inner-container {
     display: flex;
     flex-direction: column;
 }
@@ -175,6 +176,7 @@ main.wrapper-content {
 
 .to-do-inner-container {
     padding: 0 1.2rem;
+    gap: 1rem;
 }
 
 .to-do-card {
