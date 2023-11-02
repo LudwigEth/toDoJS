@@ -151,27 +151,79 @@ main.wrapper-content {
     align-items: start;
 }
 
+.to-do-outer-container {
+    display: flex;
+    flex-direction: column;
+}
+
 .to-do-outer-container,
-.to-do-inner-container {
+.to-do-inner-container,
+.to-do-card {
     width: 100%;
 }
 
-.to-do-outer-container button {
+.to-do-outer-container > button {
     padding: 0.2rem 0 0.8rem 1.2rem;
     font-size: 1.2rem;
     width: 100%;
     text-align: start;
 }
 
-.to-do-outer-container button:active {
+.to-do-outer-container > button:active {
     background-color: #cdcdcd;
 }
 
-.to-do {
-    padding: 0.2rem 1.2rem;
-    background-color: #b8b8b888;
-    border-radius: 0.5rem;
+.to-do-inner-container {
+    padding: 0 1.2rem;
 }
+
+.to-do-card {
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    gap: 0.5rem;
+    background-color: #eaeaea;
+    border-radius: 0.5rem;
+    padding: 1rem 0.5rem;
+}
+
+.to-do-card > button:nth-child(1) {
+    border-radius: 0.2rem;
+    min-height: 1.2rem;
+    min-width: 1.2rem;
+    border: 0.1rem solid #ffd1dc;
+    align-self: flex-start;
+}
+
+.to-do-card .to-do-menu {
+    display: flex;
+    align-self: flex-start;
+    justify-content: center;
+    padding: 0;
+    height: 1.2rem;
+    width: 1.2rem;
+}
+
+.to-do-menu .hamburger-dots {
+    border-color: #ffd1dc;
+}
+
+.to-do {
+    display: flex;
+    flex-direction: column;
+    flex: auto;
+}
+
+.to-do-subtask {
+    padding-left: 2rem;
+    padding-top: 0.5rem;
+}
+
+.subtask-done {
+    text-decoration: line-through;
+}
+
+
 
 /* floating add new task button */
 

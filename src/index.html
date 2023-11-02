@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ToDo App</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div id="wrapper-content" class="wrapper-content">
@@ -38,8 +39,51 @@
                 </dialog>
             </div>
         </div>
+
+
+
+
+
+
         <!-- main content contains todos -->
-        <main id="to-do-container" class="main"></main>
+        <main class="main wrapper-content">
+          <div id="to-do-past" class="to-do-outer-container">
+            <button type="button">Last 7 days</button>
+            <div class="to-do-inner-container">
+                <div class="to-do-card">
+                    <button type="button"></button>
+                    <div class="to-do">
+                        <p>Gotta do this and that</p>
+                        <div class="to-do-subtask">
+                            <ul>
+                                <li><button class="subtask-done">and this</button></li>
+                                <li><button>and this</button></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <button id="btn-settings" class="to-do-menu">
+                        <div class="hamburger-menu-dots">
+                            <div class="hamburger-dots"></div>
+                            <div class="hamburger-dots"></div>
+                            <div class="hamburger-dots"></div>
+                        </div>
+                    </button>
+                </div>
+            </div>
+          </div>
+          <div id="to-do-today" class="to-do-outer-container">
+            <button type="button">Today</button>
+          </div>
+          <div id="to-do-future" class="to-do-outer-container">
+            <button type="button">Future</button>
+          </div>
+        </main>
+
+
+
+
+
+
         <!-- floating add new task button -->
         <button id="addNewTaskButton" class="button-fixed">
             <div class="wrapper-centering">
