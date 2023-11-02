@@ -176,7 +176,7 @@ main.wrapper-content {
 
 .to-do-inner-container {
     padding: 0 1.2rem;
-    gap: 1rem;
+    gap: 0.5rem;
 }
 
 .to-do-card {
