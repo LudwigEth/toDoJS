@@ -311,7 +311,7 @@ main.wrapper-content {
     box-shadow: 0 0.1rem 0.5rem 0.05rem #b8b8b888;
 }
 
-#dialog-settings-tasks[open] {
+.dialog-fade-in[open] {
     animation: fade-in 168ms forwards;
 }
 
@@ -324,6 +324,33 @@ main.wrapper-content {
     text-align: start;
 }
 
+
+.modal {
+    margin: 0 auto;
+    position: fixed;
+    top: 10rem;
+    height: 10rem;
+    width: 100%;
+    border-radius: 0.5rem;
+    border: none;
+    padding: 1rem 1.2rem 0;
+}
+
+.newToDoForm {
+    width: 100%;
+}
+
+.addNewTaskInput {
+    width: 100%;
+    padding: 1rem 0.8rem;
+    border-radius: 0.5rem;
+    border: none;
+    background-color: #eaeaea;
+}
+
+.addNewTaskInput:active {
+    outline: none;
+}
 
 @keyframes fade-in {
     0% {
