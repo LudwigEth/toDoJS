@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ToDo App</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div id="wrapper-content" class="wrapper-content">
@@ -29,7 +30,7 @@
                         <div class="hamburger-dots"></div>
                     </div>
                 </button>
-                <dialog id="dialog-settings-tasks">
+                <dialog id="dialog-settings-tasks" class="dialog-fade-in">
                     <div class="wrapper-dialog">
                         <button class="dialog-btn">Manage Tags</button>
                         <button class="dialog-btn">Search</button>
@@ -78,10 +79,9 @@
                 <div class="line-v"></div>
             </div>
         </button>
-        <dialog id="addNewTaskModal">
-            <form method="dialog">
-                <input type="text">
-                <button type="submit">Add To-Do</button>
+        <dialog id="addNewTaskModal" class="modal dialog-fade-in">
+            <form method="dialog" id="newToDoForm" class="newToDoForm">
+                <input id="newToDoDescription" class="addNewTaskInput" type="text" placeholder="Add new task here">
             </form>
         </dialog>
         <!-- fixed navbar bottom -->
