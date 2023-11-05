@@ -1,4 +1,5 @@
 import { settingsButton, settingsDialog } from "./settings";
+import { modalCallbackWrapper } from "..\/";
 
 export function addClickEventListener(element, callback) {
     element.addEventListener('click', callback);
@@ -43,3 +44,17 @@ export function outsideDialogClickHandler(event, dialogElement, openDialogButton
 export function documentOpenSettingsDialogClickHandler(event) {
     outsideDialogClickHandler(event, settingsDialog, settingsButton);
 };
+
+export function closeModalOnOutsideClick(dialogModal, e) {
+    const dialogModalDimension = dialogModal.getBoundingClientRect();
+    if (
+        e.clientX < dialogModalDimension.left ||
+        e.clientX > dialogModalDimension.right ||
+        e.clientY < dialogModalDimension.top ||
+        e.clientY > dialogModalDimension.bottom
+    ) {
+        dialogModal.close();
+        removeClickEventListener('click', modalCallbackWrapper);
+    };
+};
+
