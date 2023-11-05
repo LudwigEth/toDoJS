@@ -1,4 +1,4 @@
-export function createToDoCard(taskToDo) {
+export function createToDoCard(taskID, taskDescription) {
 
 
     const divToDoCard = document.createElement('div');
@@ -24,7 +24,9 @@ export function createToDoCard(taskToDo) {
     divHamburgerDotBottom.classList.add('hamburger-dots');
     divToDoSubtask.classList.add('to-do-subtask');
 
-    paraToDoTask.textContent = taskToDo;
+    paraToDoTask.textContent = taskDescription;
+
+    divToDoCard.dataset.taskId = taskID;
 
     // still need to attach eventlisteners to the buttons
 
