@@ -348,7 +348,7 @@ main.wrapper-content {
     background-color: #eaeaea;
 }
 
-.addNewTaskInput:active {
+.addNewTaskInput:focus {
     outline: none;
 }
 
