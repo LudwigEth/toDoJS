@@ -55,4 +55,13 @@ export function createToDoSubtask(SubtaskToDo) {
     liToDoSubtask.appendChild(buttonToDoSubtask);
 
     return liToDoSubtask;
-}
+};
+
+export function appendSubtaskToToDoCard(toDoCard, subtaskToDo) {
+    const subtask = createToDoSubtask(subtaskToDo);
+    const subtaskContainer = toDoCard.querySelector('.to-do-subtask ul');
+    subtaskContainer.appendChild(subtask);
+};
+
+export const addNewTaskButton = document.getElementById('addNewTaskButton');
+export const addNewTaskModal = document.getElementById('addNewTaskModal');
