@@ -1,5 +1,6 @@
 import { settingsButton, settingsDialog } from "./settings";
 import { modalCallbackWrapper } from "..\/";
+import { addNewTaskButton, addNewTaskModal } from "./create-to-do-card";
 
 export function addClickEventListener(element, callback) {
     element.addEventListener('click', callback);
@@ -54,7 +55,12 @@ export function closeModalOnOutsideClick(dialogModal, e) {
         e.clientY > dialogModalDimension.bottom
     ) {
         dialogModal.close();
-        removeClickEventListener('click', modalCallbackWrapper);
+        removeClickEventListener(dialogModal, addNewTaskButtonClickHandler);
     };
 };
 
+
+export function addNewTaskButtonClickHandler(event) {
+    addNewTaskModal.showModal();
+    addClickEventListener(addNewTaskModal, modalCallbackWrapper);
+}
