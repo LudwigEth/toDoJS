@@ -331,9 +331,7 @@ main.wrapper-content {
 
 
 .modal {
-    margin: 0 auto;
-    position: fixed;
-    top: 10rem;
+    margin: auto auto 0 auto;
     width: 100%;
     border-radius: 0.5rem;
     border: none;
@@ -367,12 +365,12 @@ main.wrapper-content {
     height: 1.75rem;
 }
 
-#submit-task {
+#btn-submitToDo {
     margin-left: auto;
     background-color: #b8d8be;
 }
 
-#submit-task path {
+#btn-submitToDo path {
     stroke: #ffffff;
 }
 
