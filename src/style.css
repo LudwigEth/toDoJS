@@ -22,6 +22,10 @@ button:focus {
     -webkit-tap-highlight-color: transparent;
 }
 
+li::marker {
+    color: #ffd1dc;
+}
+
 /* wrappers */
 
 .wrapper-content {
