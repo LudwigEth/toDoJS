@@ -331,7 +331,9 @@ main.wrapper-content {
 
 
 .modal {
-    margin: auto auto 0 auto;
+    position: fixed;
+    top: 6rem;
+    margin: 0 auto;
     width: 100%;
     border-radius: 0.5rem;
     border: none;
