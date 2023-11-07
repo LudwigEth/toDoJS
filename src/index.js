@@ -6,7 +6,8 @@ import {
     settingsButtonClickHandler,
     documentOpenSettingsDialogClickHandler,
     closeModalOnOutsideClick,
-    addNewTaskButtonClickHandler
+    addNewTaskButtonClickHandler,
+    submitNewToDoForm
 } from './modules/event-handlers.js';
 import {
     createToDoCard,
@@ -15,8 +16,14 @@ import {
     addNewTaskButton,
     addNewTaskModal
 } from './modules/create-to-do-card';
+import {
+    toDoList,
+    categoryTags,
+    toDoID
+} from './modules/todos';
 
-
+settingsButton = document.getElementById('btn-settings');
+settingsDialog = document.getElementById('dialog-settings-tasks');
 addClickEventListener(settingsButton, settingsButtonClickHandler);
 
 addNewTaskButton.addEventListener('click', e => {
@@ -29,3 +36,7 @@ export function modalCallbackWrapper(e) {
 };
 
 addClickEventListener(addNewTaskButton, addNewTaskButtonClickHandler);
+
+const submitNewToDoFormButton = document.getElementById('btn-submitToDo');
+
+addClickEventListener(submitNewToDoFormButton, submitNewToDoForm);
