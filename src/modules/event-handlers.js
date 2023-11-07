@@ -65,3 +65,10 @@ export function addNewTaskButtonClickHandler(event) {
     addClickEventListener(addNewTaskModal, modalCallbackWrapper);
 }
 
+export function subtaskButtonClickHandler() {
+    if (buttonToDoSubtask.classList.contains('subtask-done')) {
+        buttonToDoSubtask.classList.remove('subtask-done');
+    } else {
+        buttonToDoSubtask.classList.add('subtask-done');
+    };
+};
