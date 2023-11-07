@@ -1,16 +1,17 @@
 import { createToDoCard, createToDoSubtask, appendSubtaskToToDoCard } from "./create-to-do-card";
 
 export const toDoList = [];
+export const categoryTags = [];
 export let toDoID = 0;
 
-export function addNewToDo(toDoDescription, toDoDate) {
+export function addNewToDo(toDoDescription, dueDate) {
     const newToDo = {
         id: toDoID,
         description: toDoDescription,
         creationDate: new Date(),
         subtasks: [],
-        categoryTags: [],
-        whenToDo: toDoDate,
+        tags: [],
+        dueDate,
     };
     toDoList.push(newToDo);
     toDoID++;

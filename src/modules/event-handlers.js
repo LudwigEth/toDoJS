@@ -64,3 +64,4 @@ export function addNewTaskButtonClickHandler(event) {
     addNewTaskModal.showModal();
     addClickEventListener(addNewTaskModal, modalCallbackWrapper);
 }
+
