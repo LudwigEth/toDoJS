@@ -363,6 +363,15 @@ main.wrapper-content {
     height: 1.75rem;
 }
 
+#submit-task {
+    margin-left: auto;
+    background-color: #b8d8be;
+}
+
+#submit-task path {
+    stroke: #ffffff;
+}
+
 svg > path {
     stroke: #ffd1dc;
 }
