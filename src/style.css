@@ -88,7 +88,7 @@ button:focus {
     background-color: #ffd1dc;
     border-radius: 1rem;
     padding: 0.33rem 0.66rem;
-    font-size: 0.8rem;
+    font-size: 0.75rem;
 }
 
 /* settings container */
@@ -287,6 +287,7 @@ main.wrapper-content {
 }
 
 .hamburger-lines {
+    background-color: #ffd1dc;
     border: 0.08rem solid #ffd1dc;
     border-radius: 0.15rem;
     width: 1rem;
@@ -329,15 +330,41 @@ main.wrapper-content {
     margin: 0 auto;
     position: fixed;
     top: 10rem;
-    height: 10rem;
     width: 100%;
     border-radius: 0.5rem;
     border: none;
-    padding: 1rem 1.2rem 0;
+    padding: 1rem 1.2rem;
 }
 
 .newToDoForm {
     width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.newToDoForm > div {
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    gap: 0.5rem;
+}
+
+.newToDoForm > div > button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 0.75rem;
+    padding: 0.33rem 0.66rem;
+    border-radius: 1rem;
+    background-color: #eaeaea;
+    color: #a8a8a8;
+    width: 4.5rem;
+    height: 1.75rem;
+}
+
+svg > path {
+    stroke: #ffd1dc;
 }
 
 .addNewTaskInput {
