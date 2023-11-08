@@ -1,3 +1,5 @@
+import { addClickEventListener, subtaskButtonClickHandler } from "./event-handlers";
+
 export function createToDoCard(taskID, taskDescription) {
 
 
@@ -22,7 +24,7 @@ export function createToDoCard(taskID, taskDescription) {
     divHamburgerDotTop.classList.add('hamburger-dots');
     divHamburgerDotMiddle.classList.add('hamburger-dots');
     divHamburgerDotBottom.classList.add('hamburger-dots');
-    divToDoSubtask.classList.add('to-do-subtask');
+    divToDoSubtask.classList.add('to-do-subtask', 'hidden');
 
     paraToDoTask.textContent = taskDescription;
 
@@ -53,6 +55,8 @@ export function createToDoSubtask(SubtaskToDo) {
     const buttonToDoSubtask = document.createElement('button');
 
     buttonToDoSubtask.textContent = SubtaskToDo;
+
+    addClickEventListener(buttonToDoSubtask, subtaskButtonClickHandler);
 
     liToDoSubtask.appendChild(buttonToDoSubtask);
 
