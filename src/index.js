@@ -1,5 +1,4 @@
 import './style.css';
-import { settingsButton, settingsDialog } from './modules/settings.js';
 import {
     addClickEventListener,
     removeClickEventListener,
@@ -19,11 +18,12 @@ import {
 import {
     toDoList,
     categoryTags,
-    toDoID
+    toDoID,
+    loadToDoListFromLocalStorage
 } from './modules/todos';
 
-settingsButton = document.getElementById('btn-settings');
-settingsDialog = document.getElementById('dialog-settings-tasks');
+export const settingsButton = document.getElementById('btn-settings');
+export const settingsDialog = document.getElementById('dialog-settings-tasks');
 addClickEventListener(settingsButton, settingsButtonClickHandler);
 
 addNewTaskButton.addEventListener('click', e => {
@@ -40,3 +40,5 @@ addClickEventListener(addNewTaskButton, addNewTaskButtonClickHandler);
 const submitNewToDoFormButton = document.getElementById('btn-submitToDo');
 
 addClickEventListener(submitNewToDoFormButton, submitNewToDoForm);
+
+loadToDoListFromLocalStorage();
