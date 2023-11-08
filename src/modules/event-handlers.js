@@ -1,6 +1,7 @@
-import { settingsButton, settingsDialog } from "./settings";
+import {settingsButton, settingsDialog} from "../index.js";
 import { modalCallbackWrapper } from "..\/";
 import { addNewTaskButton, addNewTaskModal } from "./create-to-do-card";
+import { addNewToDo, toDoID } from "./todos";
 
 export function addClickEventListener(element, callback) {
     element.addEventListener('click', callback);
@@ -71,4 +72,24 @@ export function subtaskButtonClickHandler() {
     } else {
         buttonToDoSubtask.classList.add('subtask-done');
     };
+};
+
+export function submitNewToDoForm() {
+    const toDoDescriptionInput = document.getElementById('newToDoDescription');
+    const toDoDescription = toDoDescriptionInput.value.trim();
+    if (!toDoDescription) {
+        addNewTaskModal.close();
+        return;
+    };
+    const dueDate = new Date();
+    addNewToDo(toDoDescription, dueDate, toDoID);
+    resetNewToDoFormInputs();
+    addNewTaskModal.close();
+};
+
+export function resetNewToDoFormInputs() {
+    const toDoDescription = document.getElementById('newToDoDescription');
+    const categoryButton = document.getElementById('btn-addCategoryTag');
+    toDoDescription.value = '';
+    categoryButton.textContent = 'category';
 };
