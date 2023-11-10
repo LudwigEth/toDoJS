@@ -219,7 +219,7 @@ main.wrapper-content {
 }
   
 .checkbox.checked .checkmark1 {
-      width: 0.5rem;
+      width: 0.55rem;
       transition: width 0.1s ease 0.2s;
 }
   
