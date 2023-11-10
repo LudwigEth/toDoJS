@@ -6,7 +6,8 @@ import {
     documentOpenSettingsDialogClickHandler,
     closeModalOnOutsideClick,
     addNewTaskButtonClickHandler,
-    submitNewToDoForm
+    submitNewToDoForm,
+    modalCallbackWrapper
 } from './modules/event-handlers.js';
 import {
     createToDoCard,
@@ -31,9 +32,6 @@ addNewTaskButton.addEventListener('click', e => {
     addClickEventListener(addNewTaskModal, modalCallbackWrapper);
 });
 
-export function modalCallbackWrapper(e) {
-    closeModalOnOutsideClick(addNewTaskModal, e);
-};
 
 addClickEventListener(addNewTaskButton, addNewTaskButtonClickHandler);
 
