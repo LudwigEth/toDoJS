@@ -182,7 +182,7 @@ main.wrapper-content {
     margin: auto;
     width: 1.2rem;
     height: 1.2rem;
-    border: 0.15rem solid #ffd1dc;
+    border: 0.1rem solid #ffd1dc;
     background-color: #fff;
     border-radius: 0.2rem;
     position: relative;
@@ -194,7 +194,7 @@ main.wrapper-content {
     width: 0;
     height: 0.2rem;
     background-color: #fff;
-    top: 40%;
+    top: 35%;
     left: 6%;
     transform: rotate(45deg);
     transform-origin: left;
@@ -206,7 +206,7 @@ main.wrapper-content {
     width: 0;
     height: 0.2rem;
     background-color: #fff;
-    top: 80%;
+    top: 75%;
     left: 33%;
     transform: rotate(-45deg);
     transform-origin: left;
