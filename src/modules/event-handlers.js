@@ -1,5 +1,4 @@
 import {settingsButton, settingsDialog} from "../index.js";
-import { modalCallbackWrapper } from "..\/";
 import { addNewTaskButton, addNewTaskModal } from "./create-to-do-card";
 import { addNewToDo, toDoID } from "./todos";
 
@@ -60,6 +59,9 @@ export function closeModalOnOutsideClick(dialogModal, e) {
     };
 };
 
+export function modalCallbackWrapper(e) {
+    closeModalOnOutsideClick(addNewTaskModal, e);
+};
 
 export function addNewTaskButtonClickHandler(event) {
     addNewTaskModal.showModal();
@@ -92,4 +94,12 @@ export function resetNewToDoFormInputs() {
     const categoryButton = document.getElementById('btn-addCategoryTag');
     toDoDescription.value = '';
     categoryButton.textContent = 'category';
+};
+
+export function toggleClassName(element, className) {
+    element.classList.toggle(className);
+};
+
+export function toggleCheckbox() {
+    toggleClassName(this, "checked");
 };
