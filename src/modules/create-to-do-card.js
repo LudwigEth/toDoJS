@@ -4,7 +4,7 @@ export function createToDoCard(taskID, taskDescription) {
 
 
     const divToDoCard = document.createElement('div');
-    const buttonToDoCheck = document.createElement('button');
+    const inputToDoCheck = document.createElement('input');
     const divToDoTaskContainer =  document.createElement('div');
     const paraToDoTask = document.createElement('p');
     const buttonToDoMenu = document.createElement('button');
@@ -15,9 +15,12 @@ export function createToDoCard(taskID, taskDescription) {
     const divToDoSubtask = document.createElement('div');
     const ulForSubtasks = document.createElement('ul');
 
+    inputToDoCheck.type = 'checkbox';
+
 
     divToDoCard.classList.add('to-do-card');
     divToDoTaskContainer.classList.add('to-do-task-container');
+    inputToDoCheck.classList.add('checkbox');
     paraToDoTask.classList.add('to-do-task');
     buttonToDoMenu.classList.add('to-do-menu');
     divHamburgerMenuDots.classList.add('hamburger-menu-dots');
@@ -42,7 +45,7 @@ export function createToDoCard(taskID, taskDescription) {
     divToDoTaskContainer.appendChild(paraToDoTask);
     divToDoTaskContainer.appendChild(divToDoSubtask);
 
-    divToDoCard.appendChild(buttonToDoCheck);
+    divToDoCard.appendChild(inputToDoCheck);
     divToDoCard.appendChild(divToDoTaskContainer);
     divToDoCard.appendChild(buttonToDoMenu);
 
