@@ -18,7 +18,8 @@ button {
 
 button,
 button:active,
-button:focus {
+button:focus,
+.checkbox {
     -webkit-tap-highlight-color: transparent;
 }
 
