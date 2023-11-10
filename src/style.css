@@ -220,12 +220,12 @@ main.wrapper-content {
   
 .checkbox.checked .checkmark1 {
       width: 0.5rem;
-      transition: width 0.15s ease 0.2s;
+      transition: width 0.1s ease 0.2s;
 }
   
 .checkbox.checked .checkmark2 {
       width: 0.9rem;
-      transition: width 0.15s ease 0.4s;
+      transition: width 0.1s ease 0.3s;
 }
 
 .to-do-card .to-do-menu {
