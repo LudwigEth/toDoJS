@@ -1,10 +1,12 @@
-import { addClickEventListener, subtaskButtonClickHandler } from "./event-handlers";
+import { addClickEventListener, subtaskButtonClickHandler, toggleCheckbox } from "./event-handlers";
 
 export function createToDoCard(taskID, taskDescription) {
 
 
     const divToDoCard = document.createElement('div');
-    const inputToDoCheck = document.createElement('input');
+    const divCheckbox = document.createElement('div');
+    const divCheckmark1 = document.createElement('div');
+    const divCheckmark2 = document.createElement('div');
     const divToDoTaskContainer =  document.createElement('div');
     const paraToDoTask = document.createElement('p');
     const buttonToDoMenu = document.createElement('button');
@@ -15,12 +17,16 @@ export function createToDoCard(taskID, taskDescription) {
     const divToDoSubtask = document.createElement('div');
     const ulForSubtasks = document.createElement('ul');
 
-    inputToDoCheck.type = 'checkbox';
+
+    divCheckbox.setAttribute('aria-checked', 'false');
+    divCheckbox.setAttribute('tabindex', 0);
 
 
     divToDoCard.classList.add('to-do-card');
     divToDoTaskContainer.classList.add('to-do-task-container');
-    inputToDoCheck.classList.add('checkbox');
+    divCheckbox.classList.add('checkbox');
+    divCheckmark1.classList.add('checkmark1');
+    divCheckmark2.classList.add('checkmark2');
     paraToDoTask.classList.add('to-do-task');
     buttonToDoMenu.classList.add('to-do-menu');
     divHamburgerMenuDots.classList.add('hamburger-menu-dots');
@@ -35,6 +41,11 @@ export function createToDoCard(taskID, taskDescription) {
 
     // still need to attach eventlisteners to the buttons
 
+    addClickEventListener(divCheckbox, toggleCheckbox);
+
+    divCheckbox.appendChild(divCheckmark1);
+    divCheckbox.appendChild(divCheckmark2);
+
     divHamburgerMenuDots.appendChild(divHamburgerDotTop);
     divHamburgerMenuDots.appendChild(divHamburgerDotMiddle);
     divHamburgerMenuDots.appendChild(divHamburgerDotBottom);
@@ -45,7 +56,7 @@ export function createToDoCard(taskID, taskDescription) {
     divToDoTaskContainer.appendChild(paraToDoTask);
     divToDoTaskContainer.appendChild(divToDoSubtask);
 
-    divToDoCard.appendChild(inputToDoCheck);
+    divToDoCard.appendChild(divCheckbox);
     divToDoCard.appendChild(divToDoTaskContainer);
     divToDoCard.appendChild(buttonToDoMenu);
 
