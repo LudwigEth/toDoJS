@@ -177,12 +177,54 @@ main.wrapper-content {
     padding: 1rem 0.5rem;
 }
 
-.to-do-card > button:nth-child(1) {
+.checkbox {
+    margin: auto;
+    width: 1.2rem;
+    height: 1.2rem;
+    border: 0.15rem solid #ffd1dc;
+    background-color: #fff;
     border-radius: 0.2rem;
-    min-height: 1.2rem;
-    min-width: 1.2rem;
-    border: 0.1rem solid #ffd1dc;
-    align-self: flex-start;
+    position: relative;
+    cursor: pointer;
+  }
+
+.checkmark1 {
+    position: absolute;
+    width: 0;
+    height: 0.2rem;
+    background-color: #fff;
+    top: 40%;
+    left: 6%;
+    transform: rotate(45deg);
+    transform-origin: left;
+    border-radius: 0.1rem 0 0.1rem 0.1rem;
+}
+
+.checkmark2 {
+    position: absolute;
+    width: 0;
+    height: 0.2rem;
+    background-color: #fff;
+    top: 80%;
+    left: 33%;
+    transform: rotate(-45deg);
+    transform-origin: left;
+    border-radius: 0 0.1rem 0.1rem 0;
+}
+
+.checkbox.checked {
+    background-color: #ffd1dc;
+    transition: 0.125s ease;
+}
+  
+.checkbox.checked .checkmark1 {
+      width: 0.5rem;
+      transition: width 0.15s ease 0.2s;
+}
+  
+.checkbox.checked .checkmark2 {
+      width: 0.9rem;
+      transition: width 0.15s ease 0.4s;
 }
 
 .to-do-card .to-do-menu {
@@ -205,7 +247,7 @@ main.wrapper-content {
 }
 
 .to-do-task {
-    font-weight: 600;
+    font-weight: 500;
     font-size: 1rem;
 }
 
