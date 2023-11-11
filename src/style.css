@@ -194,11 +194,11 @@ main.wrapper-content {
     width: 0;
     height: 0.2rem;
     background-color: #fff;
-    top: 35%;
-    left: 6%;
+    top: 40%;
+    left: 3%;
     transform: rotate(45deg);
     transform-origin: left;
-    border-radius: 0.1rem 0.1rem 0.1rem 0.1rem;
+    border-radius: 0.1rem 0 0.1rem 0.1rem;
 }
 
 .checkmark2 {
@@ -206,11 +206,11 @@ main.wrapper-content {
     width: 0;
     height: 0.2rem;
     background-color: #fff;
-    top: 75%;
-    left: 33%;
-    transform: rotate(-45deg);
+    top: 0.1rem;
+    left: calc(100% - 0.1rem);
+    transform: rotate(-90deg);
     transform-origin: left;
-    border-radius: 0.1rem 0.1rem 0.1rem 0.1rem;
+    border-radius: 0 0.1rem 0.1rem 0.1rem;
 }
 
 .checkbox.checked {
@@ -219,12 +219,12 @@ main.wrapper-content {
 }
   
 .checkbox.checked .checkmark1 {
-      width: 0.55rem;
+      width: 0.5rem;
       transition: width 0.1s ease 0.2s;
 }
   
 .checkbox.checked .checkmark2 {
-      width: 0.9rem;
+      width: 1rem;
       transition: width 0.1s ease 0.3s;
 }
 
