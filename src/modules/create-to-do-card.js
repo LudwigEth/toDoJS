@@ -43,8 +43,8 @@ export function createToDoCard(taskID, taskDescription) {
 
     addClickEventListener(divCheckbox, toggleCheckbox);
 
+    divCheckmark1.appendChild(divCheckmark2);
     divCheckbox.appendChild(divCheckmark1);
-    divCheckbox.appendChild(divCheckmark2);
 
     divHamburgerMenuDots.appendChild(divHamburgerDotTop);
     divHamburgerMenuDots.appendChild(divHamburgerDotMiddle);
