@@ -60,7 +60,6 @@ export function closeModalOnOutsideClick(dialogModal, e) {
             addCategoryDialog.close();
             e.stopPropagation();
             addClickEventListener(addNewTaskModal, modalCallbackWrapper);
-            console.log('category open ran');
         } else {
             removeClickEventListener(submitToDoFormButton, submitNewToDoForm);
             removeClickEventListener(submitToDoFormButton, submitEdit);
@@ -69,7 +68,6 @@ export function closeModalOnOutsideClick(dialogModal, e) {
             resetNewToDoFormInputs();
             removeClickEventListener(addNewTaskModal, modalCallbackWrapper);
             dialogModal.close();
-            console.log('close ran too');
         };
     };
 };
@@ -179,5 +177,4 @@ export function categoryButtonClickHandler() {
     addCategoryDialog.showModal();
     removeClickEventListener(addNewTaskModal, modalCallbackWrapper);
     addClickEventListener(addCategoryDialog, categoryModalCallbackWrapper);
-    console.log('worked2');
 };
