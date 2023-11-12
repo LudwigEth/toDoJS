@@ -1,24 +1,24 @@
 import { createToDoCard, createToDoSubtask, appendSubtaskToToDoCard } from "./create-to-do-card";
 
 export let toDoList = [];
-export let categoryTags = [];
+export let categories = [];
 export let toDoID = 0;
 export const toDoContainer = document.getElementById('toDoContainer');
 
-export function addNewToDo(toDoDescription, dueDate, toDoID) {
+export function addNewToDo(toDoDescription, dueDate) {
+    console.log(toDoID);
     const newToDo = {
         id: toDoID,
         description: toDoDescription,
         creationDate: new Date(),
         subtasks: [],
-        tags: [],
+        category: 'category',
         dueDate,
     };
     toDoList.push(newToDo);
-    toDoID++;
-
     const newToDoCard = createToDoCard(toDoID, toDoDescription);
-
+    toDoID++;
+    console.log(toDoID);
     toDoContainer.appendChild(newToDoCard);
     saveToDoListToLocalStorage();
 };
