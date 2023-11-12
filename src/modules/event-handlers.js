@@ -1,4 +1,4 @@
-import {settingsButton, settingsDialog, submitToDoFormButton} from "../index.js";
+import {addCategoryButton, addCategoryDialog, settingsButton, settingsDialog, submitToDoFormButton} from "../index.js";
 import { addNewTaskButton, addNewTaskModal } from "./create-to-do-card";
 import { addNewToDo, saveToDoListToLocalStorage, toDoID, toDoList } from "./todos";
 
@@ -54,23 +54,40 @@ export function closeModalOnOutsideClick(dialogModal, e) {
         e.clientY < dialogModalDimension.top ||
         e.clientY > dialogModalDimension.bottom
     ) {
-        removeClickEventListener(submitToDoFormButton, submitNewToDoForm);
-        removeClickEventListener(submitToDoFormButton, submitEdit);
-        resetNewToDoFormInputs();
-        dialogModal.close();
-        removeClickEventListener(addNewTaskModal, modalCallbackWrapper);
+        if (addCategoryDialog.open) {
+            removeClickEventListener(addCategoryDialog, categoryModalCallbackWrapper);
+            removeClickEventListener(addNewTaskModal, modalCallbackWrapper);
+            addCategoryDialog.close();
+            e.stopPropagation();
+            addClickEventListener(addNewTaskModal, modalCallbackWrapper);
+            console.log('category open ran');
+        } else {
+            removeClickEventListener(submitToDoFormButton, submitNewToDoForm);
+            removeClickEventListener(submitToDoFormButton, submitEdit);
+            removeClickEventListener(addCategoryButton, categoryButtonClickHandler);
+            removeClickEventListener(addCategoryDialog, categoryModalCallbackWrapper);
+            resetNewToDoFormInputs();
+            removeClickEventListener(addNewTaskModal, modalCallbackWrapper);
+            dialogModal.close();
+            console.log('close ran too');
+        };
     };
 };
 
 export function modalCallbackWrapper(e) {
-    closeModalOnOutsideClick(addNewTaskModal, e);
+        closeModalOnOutsideClick(addNewTaskModal, e);
 };
 
-export function addNewTaskButtonClickHandler(event) {
+export function categoryModalCallbackWrapper(e) {
+    closeModalOnOutsideClick(addCategoryDialog, e);
+};
+
+export function addNewTaskButtonClickHandler(e) {
     addNewTaskModal.showModal();
     addClickEventListener(submitToDoFormButton, submitNewToDoForm);
     addClickEventListener(addNewTaskModal, modalCallbackWrapper);
-}
+    addClickEventListener(addCategoryButton, categoryButtonClickHandler);
+};
 
 export function subtaskButtonClickHandler() {
     if (buttonToDoSubtask.classList.contains('subtask-done')) {
@@ -84,6 +101,8 @@ export function submitNewToDoForm() {
     const toDoDescriptionInput = document.getElementById('newToDoDescription');
     const toDoDescription = toDoDescriptionInput.value.trim();
     if (!toDoDescription) {
+        removeClickEventListener(submitToDoFormButton, submitNewToDoForm);
+        removeClickEventListener(addCategoryButton, categoryButtonClickHandler);
         addNewTaskModal.close();
         return;
     };
@@ -91,6 +110,7 @@ export function submitNewToDoForm() {
     addNewToDo(toDoDescription, dueDate);
     resetNewToDoFormInputs();
     removeClickEventListener(submitToDoFormButton, submitNewToDoForm);
+    removeClickEventListener(addCategoryButton, categoryButtonClickHandler);
     addNewTaskModal.close();
 };
 
@@ -125,6 +145,7 @@ export function editToDoCard(e) {
     addNewTaskModal.showModal();
     removeClickEventListener(submitToDoFormButton, submitEdit);
     removeClickEventListener(submitToDoFormButton, submitNewToDoForm);
+    addClickEventListener(addCategoryButton, categoryButtonClickHandler);
     addClickEventListener(submitToDoFormButton, submitEdit);
     addClickEventListener(addNewTaskModal, modalCallbackWrapper);
 };
@@ -138,6 +159,8 @@ export function submitEdit(e) {
     editedTask.textContent = toDoItem.description;
     removeClickEventListener(submitToDoFormButton, submitEdit);
     removeClickEventListener(addNewTaskModal, modalCallbackWrapper);
+    removeClickEventListener(addCategoryDialog, modalCallbackWrapper);
+    removeClickEventListener(addCategoryButton, categoryButtonClickHandler);
     saveToDoListToLocalStorage();
     resetNewToDoFormInputs();
     addNewTaskModal.close();
@@ -146,4 +169,15 @@ export function submitEdit(e) {
 export function getToDoItem(taskId) {
     taskId = parseInt(taskId);
     return toDoList.find(item => item.id === taskId);
+};
+
+export function categoryButtonClickHandler() {
+    const categoryButtonDimensions = addCategoryButton.getBoundingClientRect();
+    addCategoryDialog.style.position = 'absolute';
+    addCategoryDialog.style.left = `${categoryButtonDimensions.left}px`;
+    addCategoryDialog.style.top = `calc(${categoryButtonDimensions.bottom}px + 0.5rem)`;
+    addCategoryDialog.showModal();
+    removeClickEventListener(addNewTaskModal, modalCallbackWrapper);
+    addClickEventListener(addCategoryDialog, categoryModalCallbackWrapper);
+    console.log('worked2');
 };
