@@ -7,7 +7,8 @@ import {
     closeModalOnOutsideClick,
     addNewTaskButtonClickHandler,
     submitNewToDoForm,
-    modalCallbackWrapper
+    modalCallbackWrapper,
+    categoryButtonClickHandler
 } from './modules/event-handlers.js';
 import {
     createToDoCard,
@@ -26,6 +27,8 @@ import {
 export const settingsButton = document.getElementById('btn-settings');
 export const settingsDialog = document.getElementById('dialog-settings-tasks');
 export const submitToDoFormButton = document.getElementById('btn-submitToDo');
+export const addCategoryDialog = document.getElementById('dialog-categories');
+export const addCategoryButton = document.getElementById('btn-addCategoryTag');
 
 addClickEventListener(settingsButton, settingsButtonClickHandler);
 
