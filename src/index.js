@@ -36,6 +36,4 @@ addNewTaskButton.addEventListener('click', e => {
 
 addClickEventListener(addNewTaskButton, addNewTaskButtonClickHandler);
 
-
-
 loadToDoListFromLocalStorage();
