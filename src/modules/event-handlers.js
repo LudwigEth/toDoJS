@@ -1,6 +1,6 @@
-import {settingsButton, settingsDialog} from "../index.js";
+import {settingsButton, settingsDialog, submitToDoFormButton} from "../index.js";
 import { addNewTaskButton, addNewTaskModal } from "./create-to-do-card";
-import { addNewToDo, toDoID } from "./todos";
+import { addNewToDo, saveToDoListToLocalStorage, toDoID, toDoList } from "./todos";
 
 export function addClickEventListener(element, callback) {
     element.addEventListener('click', callback);
@@ -54,8 +54,11 @@ export function closeModalOnOutsideClick(dialogModal, e) {
         e.clientY < dialogModalDimension.top ||
         e.clientY > dialogModalDimension.bottom
     ) {
+        removeClickEventListener(submitToDoFormButton, submitNewToDoForm);
+        removeClickEventListener(submitToDoFormButton, submitEdit);
+        resetNewToDoFormInputs();
         dialogModal.close();
-        removeClickEventListener(dialogModal, addNewTaskButtonClickHandler);
+        removeClickEventListener(addNewTaskModal, modalCallbackWrapper);
     };
 };
 
@@ -65,6 +68,7 @@ export function modalCallbackWrapper(e) {
 
 export function addNewTaskButtonClickHandler(event) {
     addNewTaskModal.showModal();
+    addClickEventListener(submitToDoFormButton, submitNewToDoForm);
     addClickEventListener(addNewTaskModal, modalCallbackWrapper);
 }
 
@@ -84,8 +88,9 @@ export function submitNewToDoForm() {
         return;
     };
     const dueDate = new Date();
-    addNewToDo(toDoDescription, dueDate, toDoID);
+    addNewToDo(toDoDescription, dueDate);
     resetNewToDoFormInputs();
+    removeClickEventListener(submitToDoFormButton, submitNewToDoForm);
     addNewTaskModal.close();
 };
 
@@ -102,4 +107,43 @@ export function toggleClassName(element, className) {
 
 export function toggleCheckbox() {
     toggleClassName(this, "checked");
+};
+
+export function editToDoCard(e) {
+    const toDoDescription = e.target.closest('.to-do-card').querySelector('.to-do-task');
+    const currentToDoDescription = toDoDescription.textContent;
+    const editCurrentInput = document.getElementById('newToDoDescription');
+    editCurrentInput.value = currentToDoDescription;
+
+    const currentToDoCardId = e.target.closest('.to-do-card').dataset.taskId;
+    submitToDoFormButton.dataset.taskId = currentToDoCardId.toString();
+    const currentToDoCardCategory = getToDoItem(currentToDoCardId).category;
+    
+    const editCurrentCategoryButton = document.getElementById('btn-addCategoryTag');
+    editCurrentCategoryButton.textContent = currentToDoCardCategory;
+
+    addNewTaskModal.showModal();
+    removeClickEventListener(submitToDoFormButton, submitEdit);
+    removeClickEventListener(submitToDoFormButton, submitNewToDoForm);
+    addClickEventListener(submitToDoFormButton, submitEdit);
+    addClickEventListener(addNewTaskModal, modalCallbackWrapper);
+};
+
+export function submitEdit(e) {
+    const toDoItemId = parseInt(submitToDoFormButton.dataset.taskId);
+    const toDoItem = getToDoItem(toDoItemId);
+    toDoItem.description = document.getElementById('newToDoDescription').value;
+    toDoItem.category = document.getElementById('btn-addCategoryTag').textContent;
+    const editedTask = document.querySelector(`.to-do-card[data-task-id='${toDoItemId}'] .to-do-task`);
+    editedTask.textContent = toDoItem.description;
+    removeClickEventListener(submitToDoFormButton, submitEdit);
+    removeClickEventListener(addNewTaskModal, modalCallbackWrapper);
+    saveToDoListToLocalStorage();
+    resetNewToDoFormInputs();
+    addNewTaskModal.close();
+};
+
+export function getToDoItem(taskId) {
+    taskId = parseInt(taskId);
+    return toDoList.find(item => item.id === taskId);
 };
