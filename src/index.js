@@ -25,6 +25,8 @@ import {
 
 export const settingsButton = document.getElementById('btn-settings');
 export const settingsDialog = document.getElementById('dialog-settings-tasks');
+export const submitToDoFormButton = document.getElementById('btn-submitToDo');
+
 addClickEventListener(settingsButton, settingsButtonClickHandler);
 
 addNewTaskButton.addEventListener('click', e => {
@@ -32,11 +34,8 @@ addNewTaskButton.addEventListener('click', e => {
     addClickEventListener(addNewTaskModal, modalCallbackWrapper);
 });
 
-
 addClickEventListener(addNewTaskButton, addNewTaskButtonClickHandler);
 
-const submitNewToDoFormButton = document.getElementById('btn-submitToDo');
 
-addClickEventListener(submitNewToDoFormButton, submitNewToDoForm);
 
 loadToDoListFromLocalStorage();
