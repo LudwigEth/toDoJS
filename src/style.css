@@ -51,6 +51,10 @@ li::marker {
     gap: 1.2rem;
 }
 
+.newToDoFormButtonWrapper {
+    position: relative;
+}
+
 /* container */
 
 .container {
@@ -348,6 +352,17 @@ main.wrapper-content {
     box-shadow: 0 0.1rem 0.5rem 0.05rem #b8b8b888;
 }
 
+#dialog-categories {
+    position: absolute;
+    top: 6rem;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    text-wrap: nowrap;
+    background-color: #ffe9ee;
+    border: none;
+    box-shadow: 0 0.1rem 0.5rem 0.05rem #b8b8b888;
+}
+
 .dialog-fade-in[open] {
     animation: fade-in 168ms forwards;
 }
@@ -397,6 +412,11 @@ main.wrapper-content {
     color: #a8a8a8;
     width: 4.5rem;
     height: 1.75rem;
+}
+
+#btn-addCategoryTag {
+    background-color: #ffd1dc;
+    color: #000;
 }
 
 #btn-submitToDo {
