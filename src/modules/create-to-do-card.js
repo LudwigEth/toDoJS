@@ -1,6 +1,6 @@
-import { addClickEventListener, editToDoCard, subtaskButtonClickHandler, toggleCheckbox } from "./event-handlers";
+import { addClickEventListener, checkboxClickHandler, editToDoCard, subtaskButtonClickHandler, toggleCheckbox } from "./event-handlers";
 
-export function createToDoCard(toDoID, taskDescription) {
+export function createToDoCard(toDoID, taskDescription, status) {
 
 
     const divToDoCard = document.createElement('div');
@@ -17,7 +17,13 @@ export function createToDoCard(toDoID, taskDescription) {
     const divToDoSubtask = document.createElement('div');
     const ulForSubtasks = document.createElement('ul');
 
-
+    if (status === 'checked') {
+        divCheckbox.classList.add('checked');
+        divCheckbox.setAttribute('aria-checked', 'true');
+    } else {
+        divCheckbox.setAttribute('aria-checked', 'false');
+        divCheckbox.classList.remove('checked');
+    };
     divCheckbox.setAttribute('aria-checked', 'false');
     divCheckbox.setAttribute('tabindex', 0);
 
@@ -41,7 +47,7 @@ export function createToDoCard(toDoID, taskDescription) {
 
     // still need to attach eventlisteners to the buttons
 
-    addClickEventListener(divCheckbox, toggleCheckbox);
+    addClickEventListener(divCheckbox, checkboxClickHandler);
     addClickEventListener(buttonToDoMenu, editToDoCard);
 
     divCheckmark1.appendChild(divCheckmark2);
