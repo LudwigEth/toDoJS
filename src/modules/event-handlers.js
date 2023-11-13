@@ -123,8 +123,8 @@ export function toggleClassName(element, className) {
     element.classList.toggle(className);
 };
 
-export function toggleCheckbox() {
-    toggleClassName(this, "checked");
+export function toggleCheckbox(clickedCheckbox) {
+    toggleClassName(clickedCheckbox, "checked");
 };
 
 export function editToDoCard(e) {
@@ -177,4 +177,19 @@ export function categoryButtonClickHandler() {
     addCategoryDialog.showModal();
     removeClickEventListener(addNewTaskModal, modalCallbackWrapper);
     addClickEventListener(addCategoryDialog, categoryModalCallbackWrapper);
+};
+
+export function checkboxClickHandler(e) {
+    const clickedCheckbox = this;
+    toggleCheckbox(clickedCheckbox);
+    const currentToDoCardId = e.target.closest('.to-do-card').dataset.taskId;
+    const currentToDoItem = getToDoItem(currentToDoCardId);
+    currentToDoItem.status = currentToDoItem.status === 'checked' ? 'unchecked' : 'checked';
+
+    if (currentToDoItem.status === 'checked') {
+        clickedCheckbox.setAttribute('aria-checked', 'true');
+    } else {
+        clickedCheckbox.setAttribute('aria-checked', 'false');
+    }
+    saveToDoListToLocalStorage();
 };
