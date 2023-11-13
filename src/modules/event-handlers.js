@@ -63,7 +63,7 @@ export function closeModalOnOutsideClick(dialogModal, e) {
         } else {
             removeClickEventListener(submitToDoFormButton, submitNewToDoForm);
             removeClickEventListener(submitToDoFormButton, submitEdit);
-            removeClickEventListener(addCategoryButton, categoryButtonClickHandler);
+            removeClickEventListener(addCategoryButton, addCategoryButtonClickHandler);
             removeClickEventListener(addCategoryDialog, categoryModalCallbackWrapper);
             resetNewToDoFormInputs();
             removeClickEventListener(addNewTaskModal, modalCallbackWrapper);
@@ -82,12 +82,14 @@ export function categoryModalCallbackWrapper(e) {
 
 export function addNewTaskButtonClickHandler(e) {
     addNewTaskModal.showModal();
+    document.body.classList.add('no-scroll');
     addClickEventListener(submitToDoFormButton, submitNewToDoForm);
     addClickEventListener(addNewTaskModal, modalCallbackWrapper);
-    addClickEventListener(addCategoryButton, categoryButtonClickHandler);
+    addClickEventListener(addCategoryButton, addCategoryButtonClickHandler);
 };
 
 export function subtaskButtonClickHandler() {
+    document.body.classList.add('no-scroll');
     if (buttonToDoSubtask.classList.contains('subtask-done')) {
         buttonToDoSubtask.classList.remove('subtask-done');
     } else {
@@ -100,7 +102,7 @@ export function submitNewToDoForm() {
     const toDoDescription = toDoDescriptionInput.value.trim();
     if (!toDoDescription) {
         removeClickEventListener(submitToDoFormButton, submitNewToDoForm);
-        removeClickEventListener(addCategoryButton, categoryButtonClickHandler);
+        removeClickEventListener(addCategoryButton, addCategoryButtonClickHandler);
         addNewTaskModal.close();
         return;
     };
@@ -108,11 +110,12 @@ export function submitNewToDoForm() {
     addNewToDo(toDoDescription, dueDate);
     resetNewToDoFormInputs();
     removeClickEventListener(submitToDoFormButton, submitNewToDoForm);
-    removeClickEventListener(addCategoryButton, categoryButtonClickHandler);
+    removeClickEventListener(addCategoryButton, addCategoryButtonClickHandler);
     addNewTaskModal.close();
 };
 
 export function resetNewToDoFormInputs() {
+    document.body.classList.remove('no-scroll');
     const toDoDescription = document.getElementById('newToDoDescription');
     const categoryButton = document.getElementById('btn-addCategoryTag');
     toDoDescription.value = '';
@@ -128,6 +131,7 @@ export function toggleCheckbox(clickedCheckbox) {
 };
 
 export function editToDoCard(e) {
+    document.body.classList.add('no-scroll');
     const toDoDescription = e.target.closest('.to-do-card').querySelector('.to-do-task');
     const currentToDoDescription = toDoDescription.textContent;
     const editCurrentInput = document.getElementById('newToDoDescription');
@@ -143,7 +147,7 @@ export function editToDoCard(e) {
     addNewTaskModal.showModal();
     removeClickEventListener(submitToDoFormButton, submitEdit);
     removeClickEventListener(submitToDoFormButton, submitNewToDoForm);
-    addClickEventListener(addCategoryButton, categoryButtonClickHandler);
+    addClickEventListener(addCategoryButton, addCategoryButtonClickHandler);
     addClickEventListener(submitToDoFormButton, submitEdit);
     addClickEventListener(addNewTaskModal, modalCallbackWrapper);
 };
@@ -158,7 +162,7 @@ export function submitEdit(e) {
     removeClickEventListener(submitToDoFormButton, submitEdit);
     removeClickEventListener(addNewTaskModal, modalCallbackWrapper);
     removeClickEventListener(addCategoryDialog, modalCallbackWrapper);
-    removeClickEventListener(addCategoryButton, categoryButtonClickHandler);
+    removeClickEventListener(addCategoryButton, addCategoryButtonClickHandler);
     saveToDoListToLocalStorage();
     resetNewToDoFormInputs();
     addNewTaskModal.close();
@@ -169,7 +173,8 @@ export function getToDoItem(taskId) {
     return toDoList.find(item => item.id === taskId);
 };
 
-export function categoryButtonClickHandler() {
+export function addCategoryButtonClickHandler() {
+    document.body.classList.add('no-scroll');
     const categoryButtonDimensions = addCategoryButton.getBoundingClientRect();
     addCategoryDialog.style.position = 'absolute';
     addCategoryDialog.style.left = `${categoryButtonDimensions.left}px`;
