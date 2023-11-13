@@ -13,6 +13,7 @@ export function addNewToDo(toDoDescription, dueDate) {
         creationDate: new Date(),
         subtasks: [],
         category: 'category',
+        status: 'unchecked',
         dueDate,
     };
     toDoList.push(newToDo);
@@ -35,7 +36,7 @@ export function loadToDoListFromLocalStorage() {
 
         toDoContainer.innerHTML = '';
         toDoList.forEach(toDo => {
-            const newToDoCard = createToDoCard(toDo.id, toDo.description);
+            const newToDoCard = createToDoCard(toDo.id, toDo.description, toDo.status);
             toDo.subtasks.forEach(subtask => {
                 appendSubtaskToToDoCard(newToDoCard, subtask);
             });
