@@ -27,6 +27,9 @@ li::marker {
     color: #ffd1dc;
 }
 
+.no-scroll {
+    overflow: hidden;
+}
 /* wrappers */
 
 .wrapper-content {
@@ -51,6 +54,22 @@ li::marker {
     gap: 1.2rem;
 }
 
+.wrapper-modal-categories {
+    display: flex;
+    flex-direction: column;
+    width: 5rem;
+    max-height: 8rem;
+    gap: 1rem;
+    justify-content: start;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    word-break: break-all;
+}
+
+.wrapper-modal-categories::-webkit-scrollbar {
+    display: none;
+}
+
 .newToDoFormButtonWrapper {
     position: relative;
 }
@@ -64,6 +83,7 @@ li::marker {
 
 .container,
 .container-scroll-h,
+.scroll-item-container,
 .container-settings,
 .main,
 .navbar,
@@ -73,12 +93,15 @@ li::marker {
     width: 100%;
 }
 
+.scroll-item-container {
+    gap: 1rem;
+}
+
 /* scrollable container */
 
 .container-scroll-h {
     justify-content: flex-start;
     flex: auto;
-    gap: 1rem;
     overflow-x: auto;
     scrollbar-width: none;
     -ms-overflow-style: none;
@@ -100,6 +123,71 @@ li::marker {
     font-size: 0.75rem;
 }
 
+.addNewCategoryContainer {
+    position: relative;
+    min-width: 100%;
+    padding-right: 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    z-index: 9999;
+}
+
+.addNewCategoryContainer button:last-child {
+    background-color: #b8d8be;
+}
+
+.addNewCategoryContainer button:active {
+    scale: 0.96;
+    transition: 0.3s ease-in-out;
+}
+
+.addNewCategoryContainer path {
+    stroke: #fff;
+}
+
+.grower {
+    background-color: inherit;
+    min-width: 0;
+    transition: 0.2s ease-in-out;
+}
+
+.grow {
+    min-width: 100%;
+    transition: 0.3s ease-in-out;
+}
+
+.addNewCategoryInput {
+    width: 100%;
+    background-color: #eaeaea;
+    border: none;
+    caret-color: #ffd1dc;
+    height: 2rem;
+    border-radius: 1rem;
+    padding: 0 1rem;
+}
+.delete-button {
+    max-width: fit-content;
+    background-color: #ffd1dc !important;
+}
+
+.delete-button-l1,
+.delete-button-l2 {
+    height: 0.1rem;
+    width: 1rem;
+    background-color: #fff;
+    border-radius: 0.05rem;
+}
+
+.delete-button-l1 {
+    transform: rotate(45deg);
+}
+
+.delete-button-l2 {
+    transform: rotate(90deg);
+}
+
+
 /* settings container */
 
 .container-settings {
@@ -110,10 +198,7 @@ li::marker {
     box-shadow: -0.5rem 0 0.5rem -0.2rem #f5f5f580;
     border-left: 0.1rem solid #b8b8b880;
     border-radius: 0.1rem;
-}
-
-.button-settings:active {
-    background-color: #ffd1dc80;
+    margin-left: auto;
 }
 
 .button-settings,
@@ -146,6 +231,12 @@ li::marker {
     gap: 0.168rem;
     border-radius: 50%;
     pointer-events: none;
+    transition: 0.2s ease-in-out;
+}
+
+.spread {
+    gap: 0.42rem;
+    transition: 0.2s ease-in-out;
 }
 
 .hamburger-dots {
@@ -263,7 +354,7 @@ main.wrapper-content {
 }
 
 .hidden {
-    display: none;
+    display: none !important;
 }
 
 .subtask-done {
@@ -357,23 +448,27 @@ main.wrapper-content {
     top: 6rem;
     padding: 1rem;
     border-radius: 0.5rem;
-    text-wrap: nowrap;
     background-color: #ffe9ee;
     border: none;
     box-shadow: 0 0.1rem 0.5rem 0.05rem #b8b8b888;
 }
 
+#dialog-categories::-webkit-scrollbar {
+    display: none;
+}
+
 .dialog-fade-in[open] {
-    animation: fade-in 168ms forwards;
+    animation: fade-in 200ms forwards;
 }
 
 .dialog-fade-out {
     display: block;
-    animation: fade-out 168ms forwards;
+    animation: fade-out 200ms forwards;
 }
 
 .dialog-btn {
     text-align: start;
+    word-break: break-all;
 }
 
 
@@ -401,7 +496,8 @@ main.wrapper-content {
     gap: 0.5rem;
 }
 
-.newToDoForm > div > button {
+.newToDoForm > div > button,
+.addNewCategoryContainer button {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -440,7 +536,8 @@ svg > path {
     background-color: #eaeaea;
 }
 
-.addNewTaskInput:focus {
+.addNewTaskInput:focus,
+.addNewCategoryInput:focus {
     outline: none;
 }
 

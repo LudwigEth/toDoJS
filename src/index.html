@@ -8,12 +8,27 @@
 <body>
     <div id="wrapper-content" class="wrapper-content">
         <div id="tag-bar" class="container">
-            <div class="container-scroll-h">
-                <div class="scroll-item"><button>Show All</button></div>
+            <div id="categoryScrollContainer" class="container-scroll-h">
+                <div id="grower" class="grower"></div>
+                <div class="addNewCategoryContainer hidden">
+                    <input id="addNewCategoryInput" class="addNewCategoryInput" type="text" placeholder=" Add new category here">
+                    <button type="button" id="cancelNewCategoryButton" class="delete-button">
+                        <div class="delete-button-l1">
+                            <div class="delete-button-l2"></div>
+                        </div>
+                    </button>
+                    <button id="submitNewCategoryButton" type="button">
+                        <svg height="1rem" viewBox="0 0 26 26" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M 8 3 L 20 3 A 4 4 0 0 1 24 7 L 24 19 A 4 4 0 0 1 20 23 L 8 23 A 4 4 0 0 1 4 19 L 4 7 A 4 4 0 0 1 8 3 Z" style="fill:none;stroke-width:1.5;"></path>
+                            <path d="M 8 13 L 12 17 L 20 9" style="fill:none;stroke-width:1.5;stroke-linecap:round;"></path>
+                        </svg>
+                    </button>
+                </div>
+                <div id="scrollItemContainer" class="scroll-item-container"></div>
             </div>
             <div class="container-settings">
                 <button id="btn-settings" class="button-settings">
-                    <div class="hamburger-menu-dots">
+                    <div id="menuDots" class="hamburger-menu-dots">
                         <div class="hamburger-dots"></div>
                         <div class="hamburger-dots"></div>
                         <div class="hamburger-dots"></div>
@@ -21,8 +36,8 @@
                 </button>
                 <dialog id="dialog-settings-tasks" class="dialog-fade-in">
                     <div class="wrapper-dialog">
-                        <button class="dialog-btn">Remove Category</button>
-                        <button class="dialog-btn">Add Category</button>
+                        <button id="removeCategory" class="dialog-btn" type="button">Remove Category</button>
+                        <button id="addCategory" class="dialog-btn" type="button">Add Category</button>
                     </div>
                 </dialog>
             </div>
@@ -44,7 +59,19 @@
                 <div class="newToDoFormButtonWrapper">
                     <button type="button" id="btn-addCategoryTag">category</button>
                     <dialog id="dialog-categories">
-                        <div class="wrapper-dialog">
+                        <div class="wrapper-modal-categories">
+                            <button type="button" class="dialog-btn">work</button>
+                            <button type="button" class="dialog-btn">study</button>
+                            <button type="button" class="dialog-btn">work</button>
+                            <button type="button" class="dialog-btn">study</button>
+                            <button type="button" class="dialog-btn">woradasdladjakdakldk</button>
+                            <button type="button" class="dialog-btn">study</button>
+                            <button type="button" class="dialog-btn">work</button>
+                            <button type="button" class="dialog-btn">study</button>
+                            <button type="button" class="dialog-btn">work</button>
+                            <button type="button" class="dialog-btn">study</button>
+                            <button type="button" class="dialog-btn">work</button>
+                            <button type="button" class="dialog-btn">study</button>
                             <button type="button" class="dialog-btn">work</button>
                             <button type="button" class="dialog-btn">study</button>
                         </div>

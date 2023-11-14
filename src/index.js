@@ -1,26 +1,16 @@
 import './style.css';
 import {
     addClickEventListener,
-    removeClickEventListener,
     settingsButtonClickHandler,
-    documentOpenSettingsDialogClickHandler,
-    closeModalOnOutsideClick,
     addNewTaskButtonClickHandler,
-    submitNewToDoForm,
     modalCallbackWrapper,
-    categoryButtonClickHandler
+    addNewCategoryButtonClickHandler
 } from './modules/event-handlers.js';
 import {
-    createToDoCard,
-    createToDoSubtask,
-    appendSubtaskToToDoCard,
     addNewTaskButton,
     addNewTaskModal
 } from './modules/create-to-do-card';
 import {
-    toDoList,
-    categoryTags,
-    toDoID,
     loadToDoListFromLocalStorage
 } from './modules/todos';
 
@@ -38,5 +28,9 @@ addNewTaskButton.addEventListener('click', e => {
 });
 
 addClickEventListener(addNewTaskButton, addNewTaskButtonClickHandler);
+
+const addNewCategorybtn = document.getElementById('addCategory');
+
+addClickEventListener(addNewCategorybtn, addNewCategoryButtonClickHandler);
 
 loadToDoListFromLocalStorage();
