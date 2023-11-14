@@ -1,6 +1,7 @@
 import {addCategoryButton, addCategoryDialog, settingsButton, settingsDialog, submitToDoFormButton} from "../index.js";
+import { createScrollItem } from "./create-dom-elements.js";
 import { addNewTaskButton, addNewTaskModal } from "./create-to-do-card";
-import { addNewToDo, saveToDoListToLocalStorage, toDoID, toDoList } from "./todos";
+import { addNewToDo, categories, saveToDoListToLocalStorage, toDoID, toDoList } from "./todos";
 
 export function addClickEventListener(element, callback) {
     element.addEventListener('click', callback);
@@ -171,6 +172,18 @@ export function submitEdit(e) {
 export function getToDoItem(taskId) {
     taskId = parseInt(taskId);
     return toDoList.find(item => item.id === taskId);
+};
+
+// export function addNewCategoryButtonClickHandler() {
+
+// }
+
+export function populateCategoriesContainer() {
+    const categoryScrollContainer = document.getElementById('categoryScrollContainer');
+    categories.forEach(category => {
+        const categoryItem = createScrollItem(category);
+        categoryScrollContainer.appendChild(categoryItem);
+    });
 };
 
 export function addCategoryButtonClickHandler() {
