@@ -23,6 +23,8 @@ export function dialogFadeOutAnimation(dialogElement) {
 };
 
 export function settingsButtonClickHandler(event) {
+    const hamburgerMenuDots = document.getElementById('menuDots');
+    toggleClassName(hamburgerMenuDots, 'spread');
     if (isDialogOpen(settingsDialog)) {
         dialogFadeOutAnimation(settingsDialog);
         settingsDialog.close();
@@ -37,6 +39,8 @@ export function settingsButtonClickHandler(event) {
 
 export function outsideDialogClickHandler(event, dialogElement, openDialogButton) {
     if (event.target !== dialogElement && event.target !== openDialogButton) {
+        const hamburgerMenuDots = document.getElementById('menuDots');
+        toggleClassName(hamburgerMenuDots, 'spread');
         dialogFadeOutAnimation(dialogElement);
         dialogElement.close();
         removeClickEventListener(document, documentOpenSettingsDialogClickHandler);
@@ -174,12 +178,65 @@ export function getToDoItem(taskId) {
     return toDoList.find(item => item.id === taskId);
 };
 
-// export function addNewCategoryButtonClickHandler() {
+export function addNewCategoryButtonClickHandler() {
+    toggleTagBar();
+};
 
-// }
+export function resetNewCategoryInput() {
+    const newCategoryInput = document.getElementById('addNewCategoryInput');
+    newCategoryInput.value = '';
+};
+
+export function cancelNewCategoryButtonClickHandler() {
+    resetNewCategoryInput();
+    toggleTagBar();
+};
+
+export function confirmNewCategoryButtonClickHandler() {
+    const newCategoryInput = document.getElementById('addNewCategoryInput');
+    const newCategory = newCategoryInput.value.trim();
+    if (newCategory === '' || categories.includes(newCategory)) {
+        resetNewCategoryInput();
+        toggleTagBar();
+    } else {
+    categories.push(newCategory);
+    document.getElementById('scrollItemContainer').appendChild(createScrollItem(categories[categories.length -1]));
+    resetNewCategoryInput();
+    toggleTagBar();
+    saveToDoListToLocalStorage();
+    };
+};
+
+export function toggleTagBar() {
+    const submitNewCategoryButton = document.getElementById('submitNewCategoryButton');
+    const cancelNewCategoryButton = document.getElementById('cancelNewCategoryButton');
+    const categoryContainer = document.querySelector('.addNewCategoryContainer');
+    const scrollItemContainer = document.getElementById('scrollItemContainer');
+    const growElement = document.getElementById('grower');
+    growElement.classList.add('grow');
+    console.log(toDoList);
+
+    if (categoryContainer.classList.contains('hidden')) {
+        setTimeout(() => {
+            categoryContainer.classList.remove('hidden');
+            scrollItemContainer.classList.add('hidden');
+            growElement.classList.remove('grow');
+        }, 330);
+        addClickEventListener(submitNewCategoryButton, confirmNewCategoryButtonClickHandler);
+        addClickEventListener(cancelNewCategoryButton, cancelNewCategoryButtonClickHandler);
+    } else {
+        setTimeout(() => {
+            categoryContainer.classList.add('hidden');
+            scrollItemContainer.classList.remove('hidden');
+            growElement.classList.remove('grow');
+        }, 330);
+        removeClickEventListener(submitNewCategoryButton, confirmNewCategoryButtonClickHandler);
+        removeClickEventListener(cancelNewCategoryButton, cancelNewCategoryButtonClickHandler);
+    };
+};
 
 export function populateCategoriesContainer() {
-    const categoryScrollContainer = document.getElementById('categoryScrollContainer');
+    const categoryScrollContainer = document.getElementById('scrollItemContainer');
     categories.forEach(category => {
         const categoryItem = createScrollItem(category);
         categoryScrollContainer.appendChild(categoryItem);
@@ -208,6 +265,10 @@ export function checkboxClickHandler(e) {
         clickedCheckbox.setAttribute('aria-checked', 'true');
     } else {
         clickedCheckbox.setAttribute('aria-checked', 'false');
-    }
+    };
     saveToDoListToLocalStorage();
 };
+
+// export function categoryButtonClickHandler() {
+
+// }
