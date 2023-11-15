@@ -6,14 +6,14 @@ export let categories = ['Show All'];
 export let toDoID = 0;
 export const toDoContainer = document.getElementById('toDoContainer');
 
-export function addNewToDo(toDoDescription, dueDate) {
+export function addNewToDo(toDoDescription, dueDate, category) {
     console.log(toDoID);
     const newToDo = {
         id: toDoID,
         description: toDoDescription,
         creationDate: new Date(),
         subtasks: [],
-        category: categories[0],
+        category: category,
         status: 'unchecked',
         dueDate,
     };

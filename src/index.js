@@ -4,7 +4,8 @@ import {
     settingsButtonClickHandler,
     addNewTaskButtonClickHandler,
     modalCallbackWrapper,
-    addNewCategoryButtonClickHandler
+    addNewCategoryButtonClickHandler,
+    addSubtaskButtonClickHandler
 } from './modules/event-handlers.js';
 import {
     addNewTaskButton,
@@ -19,6 +20,7 @@ export const settingsDialog = document.getElementById('dialog-settings-tasks');
 export const submitToDoFormButton = document.getElementById('btn-submitToDo');
 export const addCategoryDialog = document.getElementById('dialog-categories');
 export const addCategoryButton = document.getElementById('btn-addCategoryTag');
+export const addSubtaskButton = document.getElementById('btn-addSubtask');
 
 addClickEventListener(settingsButton, settingsButtonClickHandler);
 

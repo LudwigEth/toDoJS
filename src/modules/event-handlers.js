@@ -1,5 +1,5 @@
-import {addCategoryButton, addCategoryDialog, settingsButton, settingsDialog, submitToDoFormButton} from "../index.js";
-import { createCategoryButton, createScrollItem } from "./create-dom-elements.js";
+import {addCategoryButton, addCategoryDialog, addSubtaskButton, settingsButton, settingsDialog, submitToDoFormButton} from "../index.js";
+import { createCategoryButton, createNewSubtaskItemContainer, createScrollItem } from "./create-dom-elements.js";
 import { addNewTaskButton, addNewTaskModal } from "./create-to-do-card";
 import { addNewToDo, categories, saveToDoListToLocalStorage, toDoID, toDoList } from "./todos";
 
@@ -68,6 +68,7 @@ export function closeModalOnOutsideClick(dialogModal, e) {
             removeClickEventListener(addCategoryDialog, categoryModalCallbackWrapper);
             resetNewToDoFormInputs();
             removeClickEventListener(addNewTaskModal, modalCallbackWrapper);
+            removeClickEventListener(addSubtaskButton, addSubtaskButtonClickHandler);
             dialogModal.close();
         };
     };
@@ -79,13 +80,16 @@ export function modalCallbackWrapper(e) {
 
 export function categoryModalCallbackWrapper(e) {
     closeModalOnOutsideClick(addCategoryDialog, e);
-    addCategoryButton.textContent = e.target.textContent;
+    if(addCategoryDialog.contains(e.target)) {
+        addCategoryButton.textContent = e.target.textContent;
+    };
     categoryModalCloseEvents(e);
 };
 
 export function categoryModalCloseEvents(e) {
     removeClickEventListener(addCategoryDialog, categoryModalCallbackWrapper);
     removeClickEventListener(addNewTaskModal, modalCallbackWrapper);
+    removeClickEventListener(addSubtaskButton, addSubtaskButtonClickHandler);
     addCategoryDialog.close();
     e.stopPropagation();
     addClickEventListener(addNewTaskModal, modalCallbackWrapper);
@@ -97,6 +101,7 @@ export function addNewTaskButtonClickHandler(e) {
     addClickEventListener(submitToDoFormButton, submitNewToDoForm);
     addClickEventListener(addNewTaskModal, modalCallbackWrapper);
     addClickEventListener(addCategoryButton, addCategoryButtonClickHandler);
+    addClickEventListener(addSubtaskButton, addSubtaskButtonClickHandler);
 };
 
 export function subtaskButtonClickHandler() {
@@ -132,6 +137,16 @@ export function resetNewToDoFormInputs() {
     const categoryButton = document.getElementById('btn-addCategoryTag');
     toDoDescription.value = '';
     categoryButton.textContent = 'category';
+    const newSubtasksContainer = document.getElementById('newSubtasksContainer');
+    const subtaskItems = newSubtasksContainer.getElementsByClassName('newSubtaskItem');
+    Array.from(subtaskItems).forEach(item => {
+        const deleteButton = item.children[1];
+        removeClickEventListener(deleteButton, removeNewSubtaskButtonClickHandler);
+        newSubtasksContainer.removeChild(item);
+    });
+    const moreSubtasksButtonContainer = document.querySelector('div.moreSubtasksButtonContainer');
+    moreSubtasksButtonContainer.classList.add('hidden');
+    removeClickEventListener(moreSubtasksButtonContainer, addNewSubtaskButtonClickHandler);
 };
 
 export function toggleClassName(element, className) {
@@ -160,6 +175,7 @@ export function editToDoCard(e) {
     addNewTaskModal.showModal();
     removeClickEventListener(submitToDoFormButton, submitEdit);
     removeClickEventListener(submitToDoFormButton, submitNewToDoForm);
+    addClickEventListener(addSubtaskButton, addSubtaskButtonClickHandler);
     addClickEventListener(addCategoryButton, addCategoryButtonClickHandler);
     addClickEventListener(submitToDoFormButton, submitEdit);
     addClickEventListener(addNewTaskModal, modalCallbackWrapper);
@@ -265,7 +281,7 @@ export function populateCategoriesModal() {
     };
 };
 
-export function addCategoryButtonClickHandler() {
+export function addCategoryButtonClickHandler(e) {
     document.body.classList.add('no-scroll');
     const categoryButtonDimensions = addCategoryButton.getBoundingClientRect();
     addCategoryDialog.style.position = 'absolute';
@@ -290,4 +306,32 @@ export function checkboxClickHandler(e) {
         clickedCheckbox.setAttribute('aria-checked', 'false');
     };
     saveToDoListToLocalStorage();
+};
+
+export function addNewSubtaskButtonClickHandler() {
+    createSubtaskItemElement();
+};
+
+export function createSubtaskItemElement() {
+    const newSubtasksContainer = document.getElementById('newSubtasksContainer');
+    const newSubtaskItemContainer = createNewSubtaskItemContainer();
+    newSubtasksContainer.appendChild(newSubtaskItemContainer);
+};
+
+export function removeNewSubtaskButtonClickHandler(e) {
+    const newSubtasksContainer = document.getElementById('newSubtasksContainer');
+    const moreSubtasksButtonContainer = document.querySelector('div.moreSubtasksButtonContainer');
+    const button = e.currentTarget;
+    e.target.closest('.newSubtaskItem').remove();
+    if (newSubtasksContainer.innerHTML === '') {
+        moreSubtasksButtonContainer.classList.add('hidden');
+    };
+    removeClickEventListener(button, removeNewSubtaskButtonClickHandler);
+};
+
+export function addSubtaskButtonClickHandler() {
+    const moreSubtasksButtonContainer = document.querySelector('div.moreSubtasksButtonContainer');
+    moreSubtasksButtonContainer.classList.remove('hidden');
+    createSubtaskItemElement();
+    addClickEventListener(moreSubtasksButtonContainer, addNewSubtaskButtonClickHandler);
 };

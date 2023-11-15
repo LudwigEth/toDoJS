@@ -24,7 +24,6 @@ export function createToDoCard(toDoID, taskDescription, status) {
         divCheckbox.setAttribute('aria-checked', 'false');
         divCheckbox.classList.remove('checked');
     };
-    divCheckbox.setAttribute('aria-checked', 'false');
     divCheckbox.setAttribute('tabindex', 0);
 
 

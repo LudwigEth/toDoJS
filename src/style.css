@@ -27,6 +27,10 @@ li::marker {
     color: #ffd1dc;
 }
 
+input {
+    caret-color: #ffd1dc;
+}
+
 .no-scroll {
     overflow: hidden;
 }
@@ -161,12 +165,14 @@ li::marker {
     width: 100%;
     background-color: #eaeaea;
     border: none;
-    caret-color: #ffd1dc;
     height: 2rem;
     border-radius: 1rem;
     padding: 0 1rem;
 }
 .delete-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     max-width: fit-content;
     background-color: #ffd1dc !important;
 }
@@ -534,6 +540,61 @@ svg > path {
     border-radius: 0.5rem;
     border: none;
     background-color: #eaeaea;
+}
+
+.newSubtasksContainer,
+.newSubtasksWrapper {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 0.5rem;
+}
+
+.newSubtaskItem {
+    display: flex;
+    width: 100%;
+}
+
+.newSubtaskItem input {
+    border-radius: 0.5rem 0 0 0.5rem;
+}
+
+.newSubtaskItem button {
+    min-width: 3rem;
+    border-radius: 0.5rem;
+    border-radius: 0 0.5rem 0.5rem 0;
+}
+
+.moreSubtasksButtonContainer {
+    justify-content: center !important;
+    padding: 0 0 0.5rem;
+}
+
+.moreSubtasksButtonContainer > button.moreSubtasksButton {
+    display: flex;
+    padding: 1rem;
+    background-color: inherit;
+}
+
+.moreSubtasksButton {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.2rem;
+}
+
+
+
+.moreSubtasksButton > div > div,
+.moreSubtasksButton > div > div > div {
+    height: 0.1rem;
+    width: 0.5rem;
+    border-radius: 0.05rem;
+    background-color: #ffd1dc;
+}
+
+.moreSubtasksButton > div > div > div {
+    transform: rotate(90deg);
 }
 
 .addNewTaskInput:focus,
