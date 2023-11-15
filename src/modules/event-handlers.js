@@ -60,11 +60,7 @@ export function closeModalOnOutsideClick(dialogModal, e) {
         e.clientY > dialogModalDimension.bottom
     ) {
         if (addCategoryDialog.open) {
-            removeClickEventListener(addCategoryDialog, categoryModalCallbackWrapper);
-            removeClickEventListener(addNewTaskModal, modalCallbackWrapper);
-            addCategoryDialog.close();
-            e.stopPropagation();
-            addClickEventListener(addNewTaskModal, modalCallbackWrapper);
+            categoryModalCloseEvents(e);
         } else {
             removeClickEventListener(submitToDoFormButton, submitNewToDoForm);
             removeClickEventListener(submitToDoFormButton, submitEdit);
@@ -83,6 +79,16 @@ export function modalCallbackWrapper(e) {
 
 export function categoryModalCallbackWrapper(e) {
     closeModalOnOutsideClick(addCategoryDialog, e);
+    addCategoryButton.textContent = e.target.textContent;
+    categoryModalCloseEvents(e);
+};
+
+export function categoryModalCloseEvents(e) {
+    removeClickEventListener(addCategoryDialog, categoryModalCallbackWrapper);
+    removeClickEventListener(addNewTaskModal, modalCallbackWrapper);
+    addCategoryDialog.close();
+    e.stopPropagation();
+    addClickEventListener(addNewTaskModal, modalCallbackWrapper);
 };
 
 export function addNewTaskButtonClickHandler(e) {
@@ -112,7 +118,8 @@ export function submitNewToDoForm() {
         return;
     };
     const dueDate = new Date();
-    addNewToDo(toDoDescription, dueDate);
+    const category = addCategoryButton.textContent;
+    addNewToDo(toDoDescription, dueDate, category);
     resetNewToDoFormInputs();
     removeClickEventListener(submitToDoFormButton, submitNewToDoForm);
     removeClickEventListener(addCategoryButton, addCategoryButtonClickHandler);
@@ -144,10 +151,11 @@ export function editToDoCard(e) {
 
     const currentToDoCardId = e.target.closest('.to-do-card').dataset.taskId;
     submitToDoFormButton.dataset.taskId = currentToDoCardId.toString();
-    const currentToDoCardCategory = getToDoItem(currentToDoCardId).category;
-    
-    const editCurrentCategoryButton = document.getElementById('btn-addCategoryTag');
-    editCurrentCategoryButton.textContent = currentToDoCardCategory;
+    let currentToDoCardCategory = getToDoItem(currentToDoCardId).category;
+    if (getToDoItem(currentToDoCardId).category === categories[0]) {
+        currentToDoCardCategory = 'category';
+    };
+    addCategoryButton.textContent = currentToDoCardCategory;
 
     addNewTaskModal.showModal();
     removeClickEventListener(submitToDoFormButton, submitEdit);
@@ -161,7 +169,11 @@ export function submitEdit(e) {
     const toDoItemId = parseInt(submitToDoFormButton.dataset.taskId);
     const toDoItem = getToDoItem(toDoItemId);
     toDoItem.description = document.getElementById('newToDoDescription').value;
-    toDoItem.category = document.getElementById('btn-addCategoryTag').textContent;
+    if (addCategoryButton.textContent === 'category') {
+        toDoItem.category = 'Show All';
+    } else {
+        toDoItem.category = addCategoryButton.textContent;
+    };
     const editedTask = document.querySelector(`.to-do-card[data-task-id='${toDoItemId}'] .to-do-task`);
     editedTask.textContent = toDoItem.description;
     removeClickEventListener(submitToDoFormButton, submitEdit);
@@ -279,7 +291,3 @@ export function checkboxClickHandler(e) {
     };
     saveToDoListToLocalStorage();
 };
-
-// export function categoryButtonClickHandler() {
-
-// }
