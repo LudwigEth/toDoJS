@@ -1,5 +1,5 @@
 import {addCategoryButton, addCategoryDialog, settingsButton, settingsDialog, submitToDoFormButton} from "../index.js";
-import { createScrollItem } from "./create-dom-elements.js";
+import { createCategoryButton, createScrollItem } from "./create-dom-elements.js";
 import { addNewTaskButton, addNewTaskModal } from "./create-to-do-card";
 import { addNewToDo, categories, saveToDoListToLocalStorage, toDoID, toDoList } from "./todos";
 
@@ -243,12 +243,23 @@ export function populateCategoriesContainer() {
     });
 };
 
+export function populateCategoriesModal() {
+    const categoriesModal = document.getElementById('categoriesModal');
+    while (categoriesModal.firstChild) {
+        categoriesModal.removeChild(categoriesModal.firstChild);
+    };
+    for (let i = 1; i < categories.length; i++) {
+        categoriesModal.appendChild(createCategoryButton(categories[i]));
+    };
+};
+
 export function addCategoryButtonClickHandler() {
     document.body.classList.add('no-scroll');
     const categoryButtonDimensions = addCategoryButton.getBoundingClientRect();
     addCategoryDialog.style.position = 'absolute';
     addCategoryDialog.style.left = `${categoryButtonDimensions.left}px`;
     addCategoryDialog.style.top = `calc(${categoryButtonDimensions.bottom}px + 0.5rem)`;
+    populateCategoriesModal();
     addCategoryDialog.showModal();
     removeClickEventListener(addNewTaskModal, modalCallbackWrapper);
     addClickEventListener(addCategoryDialog, categoryModalCallbackWrapper);
