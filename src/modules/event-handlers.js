@@ -80,18 +80,24 @@ export function modalCallbackWrapper(e) {
 
 export function categoryModalCallbackWrapper(e) {
     closeModalOnOutsideClick(addCategoryDialog, e);
-    if(addCategoryDialog.contains(e.target)) {
-        addCategoryButton.textContent = e.target.textContent;
+    if (getTextContentFromChildElement(addCategoryDialog, 'BUTTON', e)) {
+        addCategoryButton.textContent = getTextContentFromChildElement(addCategoryDialog, 'BUTTON', e);
     };
     categoryModalCloseEvents(e);
 };
 
+export function getTextContentFromChildElement(parentElement, childElementInCaps, e) {
+    if (e.target.tagName === childElementInCaps && parentElement.contains(e.target)) {
+        return e.target.textContent;
+    };
+};
+
 export function categoryModalCloseEvents(e) {
+    e.stopPropagation();
     removeClickEventListener(addCategoryDialog, categoryModalCallbackWrapper);
     removeClickEventListener(addNewTaskModal, modalCallbackWrapper);
     removeClickEventListener(addSubtaskButton, addSubtaskButtonClickHandler);
     addCategoryDialog.close();
-    e.stopPropagation();
     addClickEventListener(addNewTaskModal, modalCallbackWrapper);
 };
 
@@ -116,6 +122,7 @@ export function subtaskButtonClickHandler() {
 export function submitNewToDoForm() {
     const toDoDescriptionInput = document.getElementById('newToDoDescription');
     const toDoDescription = toDoDescriptionInput.value.trim();
+    let category = 'Show All';
     if (!toDoDescription) {
         removeClickEventListener(submitToDoFormButton, submitNewToDoForm);
         removeClickEventListener(addCategoryButton, addCategoryButtonClickHandler);
@@ -123,12 +130,18 @@ export function submitNewToDoForm() {
         return;
     };
     const dueDate = new Date();
-    const category = addCategoryButton.textContent;
+    if (addCategoryButton.textContent === 'category' || categories.includes(!addCategoryButton.textContent)) {
+        category = 'Show All';
+    };
+    if (categories.includes(addCategoryButton.textContent)) {
+        category = addCategoryButton.textContent;
+    };
     addNewToDo(toDoDescription, dueDate, category);
     resetNewToDoFormInputs();
     removeClickEventListener(submitToDoFormButton, submitNewToDoForm);
     removeClickEventListener(addCategoryButton, addCategoryButtonClickHandler);
     addNewTaskModal.close();
+    console.log(toDoList, categories);
 };
 
 export function resetNewToDoFormInputs() {
@@ -166,11 +179,12 @@ export function editToDoCard(e) {
 
     const currentToDoCardId = e.target.closest('.to-do-card').dataset.taskId;
     submitToDoFormButton.dataset.taskId = currentToDoCardId.toString();
-    let currentToDoCardCategory = getToDoItem(currentToDoCardId).category;
-    if (getToDoItem(currentToDoCardId).category === categories[0]) {
-        currentToDoCardCategory = 'category';
+    const currentToDoCard = getToDoItem(currentToDoCardId);
+    if (currentToDoCard.category === categories[0]) {
+        addCategoryButton.textContent = 'category';
+    } else {
+        addCategoryButton.textContent = currentToDoCard.category;
     };
-    addCategoryButton.textContent = currentToDoCardCategory;
 
     addNewTaskModal.showModal();
     removeClickEventListener(submitToDoFormButton, submitEdit);
@@ -187,7 +201,8 @@ export function submitEdit(e) {
     toDoItem.description = document.getElementById('newToDoDescription').value;
     if (addCategoryButton.textContent === 'category') {
         toDoItem.category = 'Show All';
-    } else {
+    };
+    if (categories.includes(addCategoryButton.textContent)) {
         toDoItem.category = addCategoryButton.textContent;
     };
     const editedTask = document.querySelector(`.to-do-card[data-task-id='${toDoItemId}'] .to-do-task`);
@@ -242,7 +257,6 @@ export function toggleTagBar() {
     const scrollItemContainer = document.getElementById('scrollItemContainer');
     const growElement = document.getElementById('grower');
     growElement.classList.add('grow');
-    console.log(toDoList);
 
     if (categoryContainer.classList.contains('hidden')) {
         setTimeout(() => {
