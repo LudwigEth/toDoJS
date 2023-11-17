@@ -1,7 +1,7 @@
 import {addCategoryButton, addCategoryDialog, addSubtaskButton, settingsButton, settingsDialog, submitToDoFormButton} from "../index.js";
 import { createCategoryButton, createNewSubtaskItemContainer, createScrollItem } from "./create-dom-elements.js";
 import { addNewTaskButton, addNewTaskModal } from "./create-to-do-card";
-import { addNewToDo, categories, saveToDoListToLocalStorage, toDoID, toDoList } from "./todos";
+import { addNewToDo, categories, saveToDoListToLocalStorage, toDoContainer, toDoID, toDoList } from "./todos";
 
 export function addClickEventListener(element, callback) {
     element.addEventListener('click', callback);
@@ -248,6 +248,35 @@ export function confirmNewCategoryButtonClickHandler() {
     toggleTagBar();
     saveToDoListToLocalStorage();
     };
+};
+
+// export function removeCategoryButtonClickHandler() {
+
+// }
+
+export function filterToDoItemsByCategory(e) {
+    if (e.target.tagName === 'BUTTON' ) {
+        const categoryToFilterBy = e.target.textContent;
+        e.stopPropagation();
+        hideAllToDoItemsFromToDoContainerWithoutThisCategory(categoryToFilterBy);
+    }
+};
+
+export function hideAllToDoItemsFromToDoContainerWithoutThisCategory(categoryTag) {
+    const toDoCards = toDoContainer.getElementsByClassName('to-do-card');
+    Array.from(toDoCards).forEach(card => {
+        const currentCardCategory = toDoList[parseInt(card.dataset.taskId)].category;
+        if (categoryTag === categories[0]) {
+            card.classList.remove('hidden');
+            return;
+        }
+        if (currentCardCategory !== categoryTag) {
+            card.classList.add('hidden');
+        };
+        if (currentCardCategory === categoryTag) {
+            card.classList.remove('hidden');
+        };
+    });
 };
 
 export function toggleTagBar() {
