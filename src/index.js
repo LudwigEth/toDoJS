@@ -5,7 +5,8 @@ import {
     addNewTaskButtonClickHandler,
     modalCallbackWrapper,
     addNewCategoryButtonClickHandler,
-    addSubtaskButtonClickHandler
+    addSubtaskButtonClickHandler,
+    filterToDoItemsByCategory
 } from './modules/event-handlers.js';
 import {
     addNewTaskButton,
@@ -21,6 +22,7 @@ export const submitToDoFormButton = document.getElementById('btn-submitToDo');
 export const addCategoryDialog = document.getElementById('dialog-categories');
 export const addCategoryButton = document.getElementById('btn-addCategoryTag');
 export const addSubtaskButton = document.getElementById('btn-addSubtask');
+export const categoriesContainer = document.getElementById('scrollItemContainer');
 
 addClickEventListener(settingsButton, settingsButtonClickHandler);
 
@@ -34,5 +36,6 @@ addClickEventListener(addNewTaskButton, addNewTaskButtonClickHandler);
 const addNewCategorybtn = document.getElementById('addCategory');
 
 addClickEventListener(addNewCategorybtn, addNewCategoryButtonClickHandler);
+addClickEventListener(categoriesContainer, filterToDoItemsByCategory);
 
 loadToDoListFromLocalStorage();

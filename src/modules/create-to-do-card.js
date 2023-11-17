@@ -43,9 +43,7 @@ export function createToDoCard(toDoID, taskDescription, status) {
     paraToDoTask.textContent = taskDescription;
 
     divToDoCard.dataset.taskId = toDoID;
-
-    // still need to attach eventlisteners to the buttons
-
+    
     addClickEventListener(divCheckbox, checkboxClickHandler);
     addClickEventListener(buttonToDoMenu, editToDoCard);
 

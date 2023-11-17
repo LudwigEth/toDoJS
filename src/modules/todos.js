@@ -7,7 +7,6 @@ export let toDoID = 0;
 export const toDoContainer = document.getElementById('toDoContainer');
 
 export function addNewToDo(toDoDescription, dueDate, category) {
-    console.log(toDoID);
     const newToDo = {
         id: toDoID,
         description: toDoDescription,

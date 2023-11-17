@@ -11,6 +11,14 @@ export function removeClickEventListener(element, callback) {
     element.removeEventListener('click', callback);
 };
 
+export function addKeydownEventListener(element, callback) {
+    element.addEventListener('keydown', callback);
+};
+
+export function removeKeydownEventListener(element, callback) {
+    element.removeEventListener('keydown', callback);
+};
+
 export function isDialogOpen(dialogElement) {
     return getComputedStyle(dialogElement).display !== 'none';
 };
@@ -51,6 +59,13 @@ export function documentOpenSettingsDialogClickHandler(event) {
     outsideDialogClickHandler(event, settingsDialog, settingsButton);
 };
 
+document.getElementById('newToDoForm').addEventListener('keydown', e => {
+    if (e.key === 'Enter') {
+        e.preventDefault();
+        console.log('form')
+    };
+});
+
 export function closeModalOnOutsideClick(dialogModal, e) {
     const dialogModalDimension = dialogModal.getBoundingClientRect();
     if (
@@ -65,6 +80,7 @@ export function closeModalOnOutsideClick(dialogModal, e) {
             removeClickEventListener(submitToDoFormButton, submitNewToDoForm);
             removeClickEventListener(submitToDoFormButton, submitEdit);
             removeClickEventListener(addCategoryButton, addCategoryButtonClickHandler);
+            removeKeydownEventListener(addNewTaskModal, handleEnterKeyPressInToDoForm);
             removeClickEventListener(addCategoryDialog, categoryModalCallbackWrapper);
             resetNewToDoFormInputs();
             removeClickEventListener(addNewTaskModal, modalCallbackWrapper);
@@ -108,6 +124,31 @@ export function addNewTaskButtonClickHandler(e) {
     addClickEventListener(addNewTaskModal, modalCallbackWrapper);
     addClickEventListener(addCategoryButton, addCategoryButtonClickHandler);
     addClickEventListener(addSubtaskButton, addSubtaskButtonClickHandler);
+    addKeydownEventListener(addNewTaskModal, handleEnterKeyPressInToDoForm);
+};
+
+export function handleEnterKeyPressInToDoForm(e) {
+    const toDoInput = document.getElementById('newToDoDescription');
+    const submitInputButton = document.getElementById('btn-submitToDo');
+    const newSubtasksContainer = document.getElementById('newSubtasksContainer');
+    const subtaskButtonContainer = document.querySelector('.moreSubtasksButtonContainer');
+    const addSubtaskButton = document.getElementById('btn-addSubtask');
+    if (e.key === 'Enter') {
+        if (document.activeElement === toDoInput && subtaskButtonContainer.classList.contains('hidden')) {
+            submitInputButton.click();
+            e.stopPropagation();
+            console.log('first');
+            return;
+        };
+        if (document.activeElement !== toDoInput && !subtaskButtonContainer.classList.contains('hidden')) {
+            addSubtaskButton.click();
+            e.stopPropagation();
+            console.log('second');
+            return;
+        };
+        document.activeElement.click();
+        console.log('activeElem')
+    };
 };
 
 export function subtaskButtonClickHandler() {
@@ -140,6 +181,7 @@ export function submitNewToDoForm() {
     resetNewToDoFormInputs();
     removeClickEventListener(submitToDoFormButton, submitNewToDoForm);
     removeClickEventListener(addCategoryButton, addCategoryButtonClickHandler);
+    removeKeydownEventListener(addNewTaskModal, handleEnterKeyPressInToDoForm);
     addNewTaskModal.close();
     console.log(toDoList, categories);
 };
@@ -193,6 +235,7 @@ export function editToDoCard(e) {
     addClickEventListener(addCategoryButton, addCategoryButtonClickHandler);
     addClickEventListener(submitToDoFormButton, submitEdit);
     addClickEventListener(addNewTaskModal, modalCallbackWrapper);
+    addKeydownEventListener(addNewTaskModal, handleEnterKeyPressInToDoForm);
 };
 
 export function submitEdit(e) {
@@ -211,6 +254,7 @@ export function submitEdit(e) {
     removeClickEventListener(addNewTaskModal, modalCallbackWrapper);
     removeClickEventListener(addCategoryDialog, modalCallbackWrapper);
     removeClickEventListener(addCategoryButton, addCategoryButtonClickHandler);
+    removeKeydownEventListener(addNewTaskModal, handleEnterKeyPressInToDoForm);
     saveToDoListToLocalStorage();
     resetNewToDoFormInputs();
     addNewTaskModal.close();
@@ -222,7 +266,25 @@ export function getToDoItem(taskId) {
 };
 
 export function addNewCategoryButtonClickHandler() {
+    const input = document.getElementById('addNewCategoryInput');
+    const inputContainer = document.querySelector('.addNewCategoryContainer');
+    if (!inputContainer.classList.contains('hidden')) {
+        input.focus();
+        return;
+    };
     toggleTagBar();
+    setTimeout(() => {
+        input.focus();
+    }, 400);
+    addKeydownEventListener(input, submitCategoryOnEnterKeydown);
+};
+
+export function submitCategoryOnEnterKeydown(e) {
+    const input = document.getElementById('addNewCategoryInput');
+    const submitCategoryButton = document.getElementById('submitNewCategoryButton');
+    if (e.key === 'Enter' && document.activeElement === input) {
+        submitCategoryButton.click();
+    };
 };
 
 export function resetNewCategoryInput() {
@@ -284,6 +346,7 @@ export function toggleTagBar() {
     const cancelNewCategoryButton = document.getElementById('cancelNewCategoryButton');
     const categoryContainer = document.querySelector('.addNewCategoryContainer');
     const scrollItemContainer = document.getElementById('scrollItemContainer');
+    const input = document.getElementById('addNewCategoryInput');
     const growElement = document.getElementById('grower');
     growElement.classList.add('grow');
 
@@ -295,6 +358,7 @@ export function toggleTagBar() {
         }, 330);
         addClickEventListener(submitNewCategoryButton, confirmNewCategoryButtonClickHandler);
         addClickEventListener(cancelNewCategoryButton, cancelNewCategoryButtonClickHandler);
+        addKeydownEventListener(input, submitCategoryOnEnterKeydown);
     } else {
         setTimeout(() => {
             categoryContainer.classList.add('hidden');
@@ -303,6 +367,7 @@ export function toggleTagBar() {
         }, 330);
         removeClickEventListener(submitNewCategoryButton, confirmNewCategoryButtonClickHandler);
         removeClickEventListener(cancelNewCategoryButton, cancelNewCategoryButtonClickHandler);
+        removeKeydownEventListener(input, submitCategoryOnEnterKeydown);
     };
 };
 
@@ -359,6 +424,7 @@ export function createSubtaskItemElement() {
     const newSubtasksContainer = document.getElementById('newSubtasksContainer');
     const newSubtaskItemContainer = createNewSubtaskItemContainer();
     newSubtasksContainer.appendChild(newSubtaskItemContainer);
+    newSubtasksContainer.lastElementChild.firstElementChild.focus();
 };
 
 export function removeNewSubtaskButtonClickHandler(e) {
@@ -373,8 +439,8 @@ export function removeNewSubtaskButtonClickHandler(e) {
 };
 
 export function addSubtaskButtonClickHandler() {
-    const moreSubtasksButtonContainer = document.querySelector('div.moreSubtasksButtonContainer');
+    const moreSubtasksButtonContainer = document.querySelector('.moreSubtasksButtonContainer');
     moreSubtasksButtonContainer.classList.remove('hidden');
-    createSubtaskItemElement();
     addClickEventListener(moreSubtasksButtonContainer, addNewSubtaskButtonClickHandler);
+    createSubtaskItemElement();
 };

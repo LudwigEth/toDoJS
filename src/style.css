@@ -76,6 +76,8 @@ input {
 
 .newToDoFormButtonWrapper {
     position: relative;
+    display: flex;
+    flex-wrap: wrap;
 }
 
 /* container */
@@ -519,6 +521,7 @@ main.wrapper-content {
 #btn-addCategoryTag {
     background-color: #ffd1dc;
     color: #000;
+    min-width: fit-content;
 }
 
 #btn-submitToDo {
@@ -617,5 +620,16 @@ svg > path {
     }
     100% {
         opacity: 0;
+    }
+}
+
+@media only screen and (max-width: 299px) {
+    div.newToDoFormButtonWrapper {
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    #btn-submitToDo {
+        margin: auto;
     }
 }
