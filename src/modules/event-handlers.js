@@ -80,7 +80,6 @@ export function closeModalOnOutsideClick(dialogModal, e) {
             removeClickEventListener(submitToDoFormButton, submitNewToDoForm);
             removeClickEventListener(submitToDoFormButton, submitEdit);
             removeClickEventListener(addCategoryButton, addCategoryButtonClickHandler);
-            removeKeydownEventListener(addNewTaskModal, handleEnterKeyPressInToDoForm);
             removeClickEventListener(addCategoryDialog, categoryModalCallbackWrapper);
             resetNewToDoFormInputs();
             removeClickEventListener(addNewTaskModal, modalCallbackWrapper);
@@ -92,6 +91,7 @@ export function closeModalOnOutsideClick(dialogModal, e) {
 
 export function modalCallbackWrapper(e) {
         closeModalOnOutsideClick(addNewTaskModal, e);
+        handleEnterKeyPressInToDoForm();
 };
 
 export function categoryModalCallbackWrapper(e) {
