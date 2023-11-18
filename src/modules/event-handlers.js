@@ -84,6 +84,7 @@ export function closeModalOnOutsideClick(dialogModal, e) {
             resetNewToDoFormInputs();
             removeClickEventListener(addNewTaskModal, modalCallbackWrapper);
             removeClickEventListener(addSubtaskButton, addSubtaskButtonClickHandler);
+            removeKeydownEventListener(addNewTaskModal, handleEnterKeyPressInToDoForm);
             dialogModal.close();
         };
     };
@@ -91,7 +92,6 @@ export function closeModalOnOutsideClick(dialogModal, e) {
 
 export function modalCallbackWrapper(e) {
         closeModalOnOutsideClick(addNewTaskModal, e);
-        handleEnterKeyPressInToDoForm();
 };
 
 export function categoryModalCallbackWrapper(e) {
@@ -181,6 +181,7 @@ export function submitNewToDoForm() {
     resetNewToDoFormInputs();
     removeClickEventListener(submitToDoFormButton, submitNewToDoForm);
     removeClickEventListener(addCategoryButton, addCategoryButtonClickHandler);
+    removeKeydownEventListener(addNewTaskModal, handleEnterKeyPressInToDoForm);
     removeKeydownEventListener(addNewTaskModal, handleEnterKeyPressInToDoForm);
     addNewTaskModal.close();
     console.log(toDoList, categories);
