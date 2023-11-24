@@ -479,6 +479,9 @@ main.wrapper-content {
     word-break: break-all;
 }
 
+#addNewTaskModal {
+    max-height: 80vh;
+}
 
 .modal {
     position: fixed;
