@@ -72,12 +72,17 @@ export function createToDoCard(id, description, status) {
  * @param {string} description - String of the ToDo task. 
  * @returns {Element} - Returns a list item that represents a subtask with a description.
  */
-export function createSubtask(description) {
+export function createSubtask(description, id, status) {
     const subtask = document.createElement('li');
     const buttonToDoSubtask = document.createElement('button');
 
     buttonToDoSubtask.textContent = description;
     buttonToDoSubtask.addEventListener('click', toDoCardSubtaskEvents);
+    buttonToDoSubtask.dataset.id = id;
+    buttonToDoSubtask.dataset.status = status;
+    if (status === 'done') {
+        buttonToDoSubtask.classList.add('subtask-done');
+    };
 
     subtask.appendChild(buttonToDoSubtask);
 
@@ -107,7 +112,7 @@ export function createScrollItem(category) {
     return scrollItem;
 };
 
-export function createSubtaskItemContainer(subtask) {
+export function createSubtaskItemContainer(subtask, id) {
     const SubtaskItemContainer = document.createElement('div');
     const input = document.createElement('input');
     const deleteButton = document.createElement('button');
@@ -119,9 +124,10 @@ export function createSubtaskItemContainer(subtask) {
     input.placeholder = 'Add new subtask here';
     input.autocomplete = 'off';
     input.name = 'newSubtaskInput';
-    input.value = subtask;
     input.classList.add('newSubtaskInput');
+    input.dataset.id = id;
 
+    subtask ? input.value = subtask : input.value = '';
 
     SubtaskItemContainer.classList.add('newSubtaskItem');
     input.classList.add('addNewTaskInput', 'addNewSubtaskInput');

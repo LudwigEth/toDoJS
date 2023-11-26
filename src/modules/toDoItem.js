@@ -3,25 +3,24 @@ import { populateCategoriesContainer } from "./tagBar";
 import { toDoContainer } from "./toDoContainer";
 
 export let toDoList = [];
-export let categories = ['Show All'];
+export let categories = ['All'];
 export let toDoID = 0;
 
-export function addNewToDo(toDoDescription, dueDate, categoryTag, subtaskDescriptions) {
+export function addNewToDo(toDoDescription, dueDate, categoryTag, SubtaskArrayOfObjects) {
     const newToDo = {
         id: toDoID,
         toDoDescription,
         dueDate,
         category: categoryTag,
         creationDate: new Date(),
-        subtasks: subtaskDescriptions,
+        subtasks: SubtaskArrayOfObjects,
         status: 'unchecked',
     };
     toDoList.push(newToDo);
     const newToDoCard = createToDoCard(toDoID, toDoDescription, newToDo.status);
     if (newToDo.subtasks.length > 0) {
-        newToDoCard.querySelector('.to-do-subtask').classList.remove('hidden');
-        subtaskDescriptions.forEach(subtask => {
-            appendSubtaskToToDoCard(newToDoCard, subtask);
+        newToDo.subtasks.forEach(subtask => {
+            appendSubtaskToToDoCard(newToDoCard, subtask.description, subtask.id, subtask.status);
         });
     };
     toDoID++;
@@ -34,6 +33,15 @@ export function saveToDoListToLocalStorage() {
     localStorage.setItem('categories', JSON.stringify(categories));
 };
 
+export function addNewSubtaskObject(description, id) {
+    const subtaskObject = {
+        description,
+        id,
+        status: 'open',
+    };
+    return subtaskObject;
+};
+
 export function loadToDoListFromLocalStorage() {
     const storedToDoList = localStorage.getItem('toDoList');
     const storedCategories = localStorage.getItem('categories');
@@ -44,9 +52,11 @@ export function loadToDoListFromLocalStorage() {
         toDoContainer.toDoContainer.innerHTML = '';
         toDoList.forEach(toDo => {
             const newToDoCard = createToDoCard(toDo.id, toDo.toDoDescription, toDo.status);
-            toDo.subtasks.forEach(subtask => {
-                appendSubtaskToToDoCard(newToDoCard, subtask);
-            });
+            if (toDo.subtasks.length > 0) {
+                toDo.subtasks.forEach(subtask => {
+                    appendSubtaskToToDoCard(newToDoCard, subtask.description, subtask.id, subtask.status);
+                });
+            };
 
             toDoContainer.toDoContainer.appendChild(newToDoCard);
         });
@@ -58,8 +68,10 @@ export function loadToDoListFromLocalStorage() {
 };
 
 
-export function appendSubtaskToToDoCard(toDoCard, subtaskDescription) {
-    const subtask = createSubtask(subtaskDescription);
-    const subtaskContainer = toDoCard.querySelector('.to-do-subtask ul');
-    subtaskContainer.appendChild(subtask);
+export function appendSubtaskToToDoCard(toDoCard, description, id, status) {
+    const subtask = createSubtask(description, id, status);
+    const subtaskContainer = toDoCard.querySelector('.to-do-subtask');
+    const subtaskList = toDoCard.querySelector('.to-do-subtask ul');
+    subtaskList.appendChild(subtask);
+    subtaskContainer.classList.remove('hidden');
 };

@@ -1,6 +1,8 @@
 import { createCategoryButton, createSubtaskItemContainer } from "./createElements";
 import { closeModalOnOutsideClick, getChildTextContent } from "./eventHandlers";
-import { addNewToDo, categories, toDoList } from "./toDoItem";
+import { tagBar } from "./tagBar";
+import { removeExistingSubtask } from "./toDoContainer";
+import { addNewSubtaskObject, addNewToDo, categories, toDoList } from "./toDoItem";
 
 export const taskModal = {
     get addNewTaskButton() { return document.getElementById('addNewTaskButton'); },
@@ -66,19 +68,19 @@ export function resetTaskModal() {
 
 export function removeSubtaskContainer(e) {
     const button = e.currentTarget;
-    e.target.closest('.newSubtaskItem').remove();
+
     if (taskModal.subtasksContainer.innerHTML === '') {
         taskModal.moreSubtasksButtonContainer.classList.add('hidden');
     };
     button.removeEventListener('click', removeSubtaskContainer);
+    e.target.closest('.newSubtaskItem').remove();
     console.log('removesubevents');
 };
 
 export function submitNewToDo() {
     const toDoDescription = taskModal.mainTask.value.trim();
     const dueDate = new Date();
-    let category = 'Show All';
-    let subtasks = [];
+    let category = 'All';
 
     if (!toDoDescription) {
         removeTaskModalEvents();
@@ -89,26 +91,33 @@ export function submitNewToDo() {
     
     if (taskModal.categoryButton.textContent === 'category' ||
         !categories.includes(taskModal.categoryButton.textContent)) {
-            category = 'Show All';
+            category = 'All';
     } else {
         category = taskModal.categoryButton.textContent;
     };
 
-    if(taskModal.subtasksContainer.innerHTML !== '') {
-        const subtaskItemsArray = taskModal.subtasksContainer.querySelectorAll('.newSubtaskItem');
-        Array.from(subtaskItemsArray).forEach(item => {
-            if (item.firstElementChild.value.trim() !== '') {
-                subtasks.push(item.firstElementChild.value.trim());
-            };
-        });
-    };
-
-    addNewToDo(toDoDescription, dueDate, category, subtasks);
+    addNewToDo(toDoDescription, dueDate, category, createSubtasksArray());
     resetTaskModal();
     removeTaskModalEvents();
     taskModal.dialog.close();
     console.log('subtminewtodoevents');
     console.log(toDoList);
+};
+
+export function createSubtasksArray() {
+    const subtaskItemsArray = taskModal.subtasksContainer.querySelectorAll('.newSubtaskItem');
+    let subtasks = [];
+    let subtaskId = 0;
+    if (taskModal.subtasksContainer.innerHTML !== '') {
+        Array.from(subtaskItemsArray).forEach(item => {
+            if (item.firstElementChild.value.trim() !== '') {
+                const newSubtasksObject = addNewSubtaskObject(item.firstElementChild.value.trim(), subtaskId);
+                subtasks.push(newSubtasksObject);
+                subtaskId++;
+            };
+        });
+    };
+    return subtasks;
 };
 
 export function subtaskButtonEvents() {
@@ -166,12 +175,16 @@ export function populateCategoriesDialog() {
     while (taskModal.categoriesWrapper.firstChild) {
         taskModal.categoriesWrapper.removeChild(taskModal.categoriesWrapper.firstChild);
     };
-    for (let i = 1; i < categories.length; i++) {
+    for (let i = 0; i < categories.length; i++) {
         taskModal.categoriesWrapper.appendChild(createCategoryButton(categories[i]));
     };
 };
 
 export function keyDownEventsTaskModal(e) {
+    if (e.key === 'Escape') {
+        removeTaskModalEvents();
+        resetTaskModal();
+    };
     if (e.key === 'Enter') {
         e.preventDefault();
         e.stopPropagation();
@@ -181,7 +194,8 @@ export function keyDownEventsTaskModal(e) {
             console.log('submitted');
         };
         if (document.activeElement.classList.contains('newSubtaskInput')) {
-            if (document.activeElement === taskModal.subtasksContainer.lastElementChild.firstElementChild) {
+            if (document.activeElement === taskModal.subtasksContainer.lastElementChild.firstElementChild &&
+                taskModal.subtasksContainer.lastElementChild.firstElementChild.value !== '') {
                 taskModal.moreSubtasksButton.click();
             } else {
                 taskModal.subtasksContainer.lastElementChild.firstElementChild.focus();

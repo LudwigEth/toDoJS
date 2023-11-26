@@ -1,5 +1,6 @@
 import { createScrollItem } from "./createElements";
 import { toggleClassName, dialogFadeOutAnimation } from "./eventHandlers";
+import { addTaskModalEvents, taskModal } from "./taskModal";
 import { toDoContainer } from "./toDoContainer";
 import { categories, saveToDoListToLocalStorage, toDoList } from "./toDoItem";
 
@@ -84,6 +85,10 @@ export function confirmNewCategory() {
         resetNewCategoryInput();
         toggleTagBar();
         saveToDoListToLocalStorage();
+    };
+    if (taskModal.dialog.dataset.tags === 'none') {
+        taskModal.dialog.showModal();
+        addTaskModalEvents();
     };
 };
 
