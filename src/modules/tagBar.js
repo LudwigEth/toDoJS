@@ -30,8 +30,7 @@ export function settingsButtonClickHandler(e) {
         tagBar.settingsDialog.close();
         e.stopPropagation();
         document.removeEventListener('click', closeSettingsDialogOnOutsideClick);
-    };
-    if (!tagBar.settingsDialog.open) {
+    } else {
         tagBar.settingsDialog.show();
         document.addEventListener('click', closeSettingsDialogOnOutsideClick);
     };
