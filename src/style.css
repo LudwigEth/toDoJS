@@ -562,7 +562,12 @@ main.wrapper-content {
     padding: 1rem 1.2rem;
 }
 
+#dialog-remove-todo {
+    width: fit-content;
+}
+
 .dialog-wrapper {
+    font-size: 0.9rem;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -672,6 +677,11 @@ svg>path {
     flex-direction: column;
     width: 100%;
     gap: 0.5rem;
+}
+
+.newSubtasksContainer {
+    max-height: 30vh;
+    overflow: auto;
 }
 
 .newSubtaskItem {

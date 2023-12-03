@@ -139,7 +139,14 @@ export function createSubtaskItemContainer(subtask, id) {
 
     subtask ? input.value = subtask : input.value = '';
 
-    SubtaskItemContainer.classList.add('newSubtaskItem', 'fade-in');
+    if (subtask) {
+        input.value = subtask;
+    } else {
+        input.value = '';
+        SubtaskItemContainer.classList.add('fade-in');
+    };
+
+    SubtaskItemContainer.classList.add('newSubtaskItem');
     input.classList.add('addNewTaskInput', 'addNewSubtaskInput');
     deleteButton.classList.add('delete-button');
     deleteSymbolLine1.classList.add('delete-button-l1');
