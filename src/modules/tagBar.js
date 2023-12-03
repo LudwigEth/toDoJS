@@ -1,7 +1,7 @@
-import { createScrollItem } from "./createElements";
+import { createScrollItem, createScrollItemDeleteSymbol } from "./createElements";
 import { toggleClassName, dialogFadeOutAnimation } from "./eventHandlers";
-import { addTaskModalEvents, taskModal } from "./taskModal";
-import { toDoContainer } from "./toDoContainer";
+import { addTaskModalEvents, newTaskButtonEventListeners, taskModal } from "./taskModal";
+import { mainContent } from "./toDoContainer";
 import { categories, saveToDoListToLocalStorage, toDoList } from "./toDoItem";
 
 export const tagBar = {
@@ -22,8 +22,15 @@ export const tagBar = {
 tagBar.settingsButton.addEventListener('click', settingsButtonClickHandler);
 tagBar.addCategoryButton.addEventListener('click', tagBarAddCategoryEvents);
 tagBar.existingCategoryContainer.addEventListener('click', filterToDoItemsByCategory);
+tagBar.removeCategoryButton.addEventListener('click', removeCategoryButtonEvents);
+tagBar.editCategoryButton.addEventListener('click', editCategoryButtonEvents);
+
+let activeCategoryFilter = '';
 
 export function settingsButtonClickHandler(e) {
+    if (mainContent.main.classList.contains('blur')) {
+        return;
+    };
     toggleClassName(tagBar.menuDots, 'spread');
     if (tagBar.settingsDialog.open) {
         dialogFadeOutAnimation(tagBar.settingsDialog);
@@ -49,6 +56,9 @@ export function populateCategoriesContainer() {
     categories.forEach(category => {
         const categoryItem = createScrollItem(category);
         tagBar.existingCategoryContainer.appendChild(categoryItem);
+        if (category === 'All') {
+            categoryItem.firstElementChild.classList.add('active-tag');
+        };
     });
 };
 
@@ -57,12 +67,105 @@ export function tagBarAddCategoryEvents() {
         tagBar.input.focus();
         return;
     };
-    toggleTagBar();
+    toggleTagBar(confirmNewCategory, cancelNewCategory);
     setTimeout(() => {
         tagBar.input.focus();
     }, 400);
     tagBar.input.addEventListener('keydown', confirmNewCategoryOnKeyDown);
 };
+
+export function removeCategoryButtonEvents() {
+    const scrollItemsArray = tagBar.existingCategoryContainer.querySelectorAll('.scroll-item');
+    if (Array.from(scrollItemsArray).length > 1) {
+        Array.from(scrollItemsArray).slice(1).forEach(item => {
+            item.firstElementChild.lastElementChild.classList.toggle('hidden');
+        });
+    } else {
+        return;
+    };
+    
+    tagBar.existingCategoryContainer.addEventListener('click', tagBarRemoveCategoryOnClick);
+    initTagBarSettingsEvents(cancelRemoveCategoryEvents);
+};
+
+export function initTagBarSettingsEvents(callback) {
+    hightlightActiveFilter(tagBar.existingCategoryContainer.firstElementChild.firstElementChild);
+    hideToDoExcept(tagBar.existingCategoryContainer.firstElementChild.firstElementChild.textContent);
+    tagBar.existingCategoryContainer.removeEventListener('click', filterToDoItemsByCategory);
+    tagBar.input.addEventListener('keydown', confirmNewCategoryOnKeyDown);
+    taskModal.addNewTaskButton.removeEventListener('click', newTaskButtonEventListeners);
+    taskModal.addNewTaskButton.addEventListener('click', callback);
+    taskModal.addNewTaskButton.classList.toggle('upAndRotate');
+    mainContent.main.classList.toggle('blur');
+};
+
+export function undoTagBarSettingsEvents(callback) {
+    taskModal.addNewTaskButton.classList.toggle('downAndRotate');
+    mainContent.main.classList.toggle('blur');
+    tagBar.input.removeEventListener('keydown', confirmNewCategoryOnKeyDown);
+    taskModal.addNewTaskButton.removeEventListener('click', callback);
+    taskModal.addNewTaskButton.addEventListener('click', newTaskButtonEventListeners);
+    tagBar.existingCategoryContainer.addEventListener('click', filterToDoItemsByCategory);
+    setTimeout(() => {
+        taskModal.addNewTaskButton.classList.remove('upAndRotate', 'downAndRotate');
+    }, 666);
+};
+
+export function cancelRemoveCategoryEvents() {
+    const scrollItemsArray = tagBar.existingCategoryContainer.querySelectorAll('.scroll-item');
+    if (Array.from(scrollItemsArray).length > 1) {
+        Array.from(scrollItemsArray).slice(1).forEach(item => {
+        item.firstElementChild.lastElementChild.classList.toggle('hidden');
+        });
+    };
+    tagBar.existingCategoryContainer.removeEventListener('click', tagBarRemoveCategoryOnClick);
+    undoTagBarSettingsEvents(cancelRemoveCategoryEvents);
+};
+
+export function cancelEditCategoryEvents() {
+    tagBar.existingCategoryContainer.removeEventListener('click', tagBarEditCategoryOnClick);
+    undoTagBarSettingsEvents(cancelEditCategoryEvents);
+};
+
+export function tagBarRemoveCategoryOnClick(e) {
+    if (tagBar.existingCategoryContainer.contains(e.target)) {
+        const itemToRemove = e.target.closest('.scroll-item');
+        const categoryToRemove = itemToRemove.firstElementChild.firstElementChild.textContent;
+        let index = categories.indexOf(categoryToRemove);
+        if (index > 0) {
+            categories.splice(index, 1);
+        };
+        itemToRemove.remove();
+        toDoList.forEach(todo => {
+            if (todo.category === categoryToRemove) {
+                todo.category = 'All';
+            };
+        });
+        if (categories.length === 1) {
+            taskModal.addNewTaskButton.click();
+        };
+        saveToDoListToLocalStorage();
+    };
+};
+
+export function tagBarEditCategoryOnClick(e) {
+    if (tagBar.existingCategoryContainer.contains(e.target)) {
+        const itemToEdit = e.target.closest('.scroll-item');
+        const categoryToEdit = itemToEdit.firstElementChild.firstElementChild.textContent;
+        let index = categories.indexOf(categoryToEdit);
+        if (index === 0) return;
+        tagBar.input.value = categoryToEdit;
+        tagBar.submitButton.dataset.edit = categoryToEdit;
+        toggleTagBar(confirmEditCategory, cancelEditCategory);
+    };
+};
+
+export function editCategoryButtonEvents() {
+    if (categories.length === 1) return;
+    initTagBarSettingsEvents(cancelEditCategoryEvents);
+    tagBar.existingCategoryContainer.addEventListener('click', tagBarEditCategoryOnClick);
+};
+
 
 export function resetNewCategoryInput() {
     tagBar.input.value = '';
@@ -70,25 +173,50 @@ export function resetNewCategoryInput() {
 
 export function cancelNewCategory() {
     resetNewCategoryInput();
-    toggleTagBar();
+    toggleTagBar(confirmNewCategory, cancelNewCategory);
 };
 
 export function confirmNewCategory() {
     const inputValue = tagBar.input.value.trim();
     if (inputValue === '' || categories.includes(inputValue)) {
         resetNewCategoryInput();
-        toggleTagBar();
+        toggleTagBar(confirmNewCategory, cancelNewCategory);
     } else {
         categories.push(inputValue);
         document.getElementById('scrollItemContainer').appendChild(createScrollItem(categories[categories.length -1]));
         resetNewCategoryInput();
-        toggleTagBar();
+        toggleTagBar(confirmNewCategory, cancelNewCategory);
         saveToDoListToLocalStorage();
     };
-    if (taskModal.dialog.dataset.tags === 'none') {
-        taskModal.dialog.showModal();
-        addTaskModalEvents();
+};
+
+export function cancelEditCategory() {
+    resetNewCategoryInput();
+    toggleTagBar(confirmEditCategory, cancelEditCategory);
+};
+
+export function confirmEditCategory() {
+    const scrollItemsArray = Array.from(tagBar.existingCategoryContainer.querySelectorAll('.scroll-item'));
+    toDoList.forEach(todo => {
+        if (todo.category === tagBar.submitButton.dataset.edit) {
+            todo.category = tagBar.input.value.trim();
+        };
+    });
+    for (let i = 1; i <= categories.length - 1; i++) {
+        if (categories[i] === tagBar.submitButton.dataset.edit) {
+            categories[i] = tagBar.input.value.trim();
+        };
     };
+    scrollItemsArray.forEach(scrollItem => {
+        if (scrollItem.firstElementChild.firstElementChild.textContent === tagBar.submitButton.dataset.edit) {
+            scrollItem.firstElementChild.firstElementChild.textContent = tagBar.input.value;
+        };
+    });
+    console.log(tagBar.input.value.trim(), tagBar.submitButton.dataset.edit);
+    console.log(categories);
+    saveToDoListToLocalStorage();
+    resetNewCategoryInput();
+    toggleTagBar(confirmEditCategory, cancelEditCategory);
 };
 
 export function confirmNewCategoryOnKeyDown(e) {
@@ -98,17 +226,26 @@ export function confirmNewCategoryOnKeyDown(e) {
 };
 
 export function filterToDoItemsByCategory(e) {
-    if (e.target.tagName === 'BUTTON') {
-        const categoryToFilterBy = e.target.textContent;
-        e.stopPropagation();
-        hideToDoExcept(categoryToFilterBy);
+    if(tagBar.existingCategoryContainer.contains(e.target) && e.target !== tagBar.existingCategoryContainer) {
+        const filterButton = e.target.closest('.scroll-item').firstElementChild;
+        hightlightActiveFilter(filterButton);
+        hideToDoExcept(filterButton.firstElementChild.textContent);
     };
 };
 
+export function hightlightActiveFilter(newFilter) {
+    if (activeCategoryFilter === '') {
+        activeCategoryFilter = tagBar.existingCategoryContainer.firstElementChild.firstElementChild;
+    };
+    activeCategoryFilter.classList.toggle('active-tag');
+    newFilter.classList.toggle('active-tag');
+    activeCategoryFilter = newFilter;
+};
+
 export function hideToDoExcept(categoryToFilterBy) {
-    const toDoCards = toDoContainer.toDoContainer.getElementsByClassName('to-do-card');
+    const toDoCards = mainContent.toDoContainer.getElementsByClassName('to-do-card');
     Array.from(toDoCards).forEach(card => {
-        const currentCardCategory = toDoList[parseInt(card.dataset.taskId)].category;
+        const currentCardCategory = toDoList.find(todo => todo.id === parseInt(card.dataset.taskId)).category;
         if (categoryToFilterBy === categories[0]) {
             card.classList.remove('hidden');
             return;
@@ -121,7 +258,7 @@ export function hideToDoExcept(categoryToFilterBy) {
     });
 };
 
-export function toggleTagBar() {
+export function toggleTagBar(submitEvent, cancelEvent) {
     toggleClassName(tagBar.grower, 'grow');
     if (tagBar.newCategoryContainer.classList.contains('hidden')) {
         setTimeout(() => {
@@ -129,17 +266,20 @@ export function toggleTagBar() {
             toggleClassName(tagBar.existingCategoryContainer, 'hidden');
             toggleClassName(tagBar.grower, 'grow');
         }, 330);
-        tagBar.submitButton.addEventListener('click', confirmNewCategory);
-        tagBar.cancelButton.addEventListener('click', cancelNewCategory);
+        tagBar.submitButton.addEventListener('click', submitEvent);
+        tagBar.cancelButton.addEventListener('click', cancelEvent);
         tagBar.input.addEventListener('keydown', confirmNewCategoryOnKeyDown);
+        setTimeout(() => {
+            tagBar.input.focus();
+        }, 500);
     } else {
         setTimeout(() => {
             toggleClassName(tagBar.newCategoryContainer, 'hidden');
             toggleClassName(tagBar.existingCategoryContainer, 'hidden');
             toggleClassName(tagBar.grower, 'grow');
         }, 330);
-        tagBar.submitButton.removeEventListener('click', confirmNewCategory);
-        tagBar.cancelButton.removeEventListener('click', cancelNewCategory);
+        tagBar.submitButton.removeEventListener('click', submitEvent);
+        tagBar.cancelButton.removeEventListener('click', cancelEvent);
         tagBar.input.removeEventListener('keydown', confirmNewCategoryOnKeyDown);
     };
 };

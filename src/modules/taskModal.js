@@ -1,8 +1,8 @@
-import { createCategoryButton, createSubtaskItemContainer } from "./createElements";
+import { createCategoryButton, createScrollItem, createSubtaskItemContainer } from "./createElements";
 import { closeModalOnOutsideClick, getChildTextContent } from "./eventHandlers";
-import { tagBar } from "./tagBar";
-import { removeExistingSubtask } from "./toDoContainer";
-import { addNewSubtaskObject, addNewToDo, categories, toDoList } from "./toDoItem";
+import { confirmNewCategory, initTagBarSettingsEvents, resetNewCategoryInput, tagBar, toggleTagBar, undoTagBarSettingsEvents } from "./tagBar";
+import { deleteToDoButtonEvents, removeExistingSubtask } from "./toDoContainer";
+import { addNewSubtaskObject, addNewToDo, categories, saveToDoListToLocalStorage, toDoList } from "./toDoItem";
 
 export const taskModal = {
     get addNewTaskButton() { return document.getElementById('addNewTaskButton'); },
@@ -18,12 +18,20 @@ export const taskModal = {
     get submitButton() { return document.getElementById('btn-submitToDo'); },
     get categoriesDialog() { return document.getElementById('dialog-categories'); },
     get categoriesWrapper() { return document.getElementById('categoriesModal'); },
-    get subtaskItems() {return document.getElementsByClassName('newSubtaskItem'); },
+    get subtaskItems() { return document.getElementsByClassName('newSubtaskItem'); },
+    get deleteButton() { return document.getElementById('btn-removeToDo'); },
+    get deleteDialog() { return document.getElementById('dialog-remove-todo'); },
+    get taskToDelete() { return document.getElementById('taskToDelete'); },
+    get confirmRemoval() { return document.getElementById('btn-confirm-removal'); },
+    get declineRemoval() { return document.getElementById('btn-decline-removal'); },
 };
 
 taskModal.addNewTaskButton.addEventListener('click', newTaskButtonEventListeners);
 
+
 export function newTaskButtonEventListeners(e) {
+    e.stopPropagation();
+    taskModal.deleteButton.classList.add('hidden');
     taskModal.dialog.showModal();
     addTaskModalEvents();
     taskModal.mainTask.focus();
@@ -49,6 +57,7 @@ export function removeTaskModalEvents() {
     taskModal.subtaskButton.removeEventListener('click', subtaskButtonEvents);
     taskModal.moreSubtasksButton.removeEventListener('click', addNewSubtaskItem);
     taskModal.categoriesDialog.removeEventListener('click', categoryDialogEvents);
+    taskModal.deleteButton.removeEventListener('click', deleteToDoButtonEvents);
     console.log('removetaskmodalevents');
 };
 
@@ -161,6 +170,15 @@ export function categoryDialogEvents(e) {
         return;
     };
     if (getChildTextContent(taskModal.categoriesDialog, 'BUTTON', e)) {
+        if (getChildTextContent(taskModal.categoriesDialog, 'BUTTON', e) === 'Add Category') {
+            taskModal.categoriesDialog.removeEventListener('click', categoryDialogEvents);
+            taskModal.categoriesDialog.removeEventListener('keydown', keyDownEventsCategoriesDialog);
+            taskModal.categoriesDialog.close();
+            taskModal.dialog.removeEventListener('click', closeModalOnOutsideClick);
+            taskModal.dialog.close();
+            initTagBarSettingsEvents(backToTaskModal);
+            toggleTagBar(confirmAddCategory, cancelAddCategory);
+        };
         taskModal.categoryButton.textContent = getChildTextContent(taskModal.categoriesDialog, 'BUTTON', e);
         taskModal.categoriesDialog.close();
         taskModal.categoriesDialog.removeEventListener('click', categoryDialogEvents);
@@ -171,12 +189,46 @@ export function categoryDialogEvents(e) {
     console.log('categorydialogevents2');
 };
 
+export function confirmAddCategory() {
+    const inputValue = tagBar.input.value.trim();
+    if (inputValue === '' || categories.includes(inputValue)) {
+        resetNewCategoryInput();
+        backToTaskModal();
+    } else {
+        categories.push(inputValue);
+        document.getElementById('scrollItemContainer').appendChild(createScrollItem(categories[categories.length -1]));
+        resetNewCategoryInput();
+        saveToDoListToLocalStorage();
+        backToTaskModal();
+    };
+};
+
+export function cancelAddCategory() {
+    backToTaskModal();
+};
+
+export function backToTaskModal() {
+    resetNewCategoryInput();
+    toggleTagBar(confirmAddCategory, cancelAddCategory);
+    undoTagBarSettingsEvents(backToTaskModal);
+    if (categories.length > 1) {
+        taskModal.categoryButton.textContent = categories[1];
+    };
+    setTimeout(() => {
+        taskModal.dialog.showModal();
+        taskModal.dialog.addEventListener('click', closeModalOnOutsideClick);
+    }, 666);
+};
+
 export function populateCategoriesDialog() {
     while (taskModal.categoriesWrapper.firstChild) {
         taskModal.categoriesWrapper.removeChild(taskModal.categoriesWrapper.firstChild);
     };
-    for (let i = 0; i < categories.length; i++) {
+    for (let i = 1; i < categories.length; i++) {
         taskModal.categoriesWrapper.appendChild(createCategoryButton(categories[i]));
+    };
+    if (taskModal.categoriesWrapper.innerHTML === '') {
+        taskModal.categoriesWrapper.appendChild(createCategoryButton('Add Category'))
     };
 };
 

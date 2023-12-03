@@ -3,7 +3,8 @@ import { toggleClassName } from "./eventHandlers";
 import { addNewSubtaskItem, addTaskModalEvents, createSubtasksArray, removeTaskModalEvents, resetTaskModal, submitNewToDo, taskModal } from "./taskModal";
 import { appendSubtaskToToDoCard, categories, saveToDoListToLocalStorage, toDoList } from "./toDoItem";
 
-export const toDoContainer = {
+export const mainContent = {
+    main: document.getElementById('main'),
     toDoContainer: document.getElementById('toDoContainer'),
 };
 
@@ -21,7 +22,7 @@ export function editToDoCard(e) {
     document.body.classList.add('no-scroll');
     const currentCardId = e.target.closest('.to-do-card').dataset.taskId;
     const currentToDoDescription = e.target.closest('.to-do-card').querySelector('.to-do-task').textContent;
-    const currentToDoSubtasks = toDoList[currentCardId].subtasks;
+    const currentToDoSubtasks = getToDoItem(currentCardId).subtasks;
     taskModal.mainTask.value = currentToDoDescription;
     taskModal.submitButton.dataset.taskId = currentCardId.toString();
     if (getToDoItem(currentCardId).category === categories[0]) {
@@ -37,8 +38,12 @@ export function editToDoCard(e) {
     };
     taskModal.dialog.showModal();
     addTaskModalEvents();
+    if (taskModal.deleteButton.classList.contains('hidden')) {
+        taskModal.deleteButton.classList.remove('hidden');
+    };
     taskModal.submitButton.removeEventListener('click', submitNewToDo);
     taskModal.submitButton.addEventListener('click', submitEdit);
+    taskModal.deleteButton.addEventListener('click', deleteToDoButtonEvents);
 };
 
 export function removeExistingSubtask(e) {
@@ -89,6 +94,48 @@ export function submitEdit(e) {
     taskModal.submitButton.removeEventListener('click', submitEdit);
 };
 
+export function deleteToDoButtonEvents() {
+    removeTaskModalEvents();
+    taskModal.confirmRemoval.addEventListener('click', confirmToDoRemoval);
+    taskModal.declineRemoval.addEventListener('click', declineToDoRemoval);
+    taskModal.taskToDelete.textContent = taskModal.mainTask.value.trim();
+    taskModal.deleteDialog.showModal();
+};
+
+export function confirmToDoRemoval(e) {
+    const taskToRemoveId = taskModal.submitButton.dataset.taskId;
+    const cardToRemove = mainContent.toDoContainer.querySelector(`.to-do-card[data-task-id='${taskToRemoveId}']`);
+    cardToRemove.firstElementChild.removeEventListener('click', checkBoxClickEvents);
+    const subtasksArray = Array.from(cardToRemove.querySelectorAll('ul > li'));
+    if (subtasksArray.length > 0) {
+        subtasksArray.forEach(subtask => {
+            subtask.firstElementChild.removeEventListener('click', toDoCardSubtaskEvents);
+        });
+    };
+    cardToRemove.lastElementChild.removeEventListener('click', editToDoCard);
+    const indexOfToDoToRemove = toDoList.findIndex(todo => todo.id === parseInt(taskToRemoveId));
+    if (indexOfToDoToRemove !== -1) {
+        toDoList.splice(indexOfToDoToRemove, 1);
+    };
+    cardToRemove.remove();
+    saveToDoListToLocalStorage();
+    closeDeleteDialogEvents(e);
+    taskModal.dialog.close();
+};
+
+export function declineToDoRemoval(e) {
+    closeDeleteDialogEvents(e);
+    e.stopPropagation();
+    addTaskModalEvents();
+};
+
+export function closeDeleteDialogEvents(e) {
+    taskModal.confirmRemoval.removeEventListener('click', confirmToDoRemoval);
+    taskModal.declineRemoval.removeEventListener('click', declineToDoRemoval);
+    taskModal.deleteDialog.close();
+};
+
+
 export function checkBoxClickEvents(e) {
     const clickedCheckbox = this;
     toggleClassName(clickedCheckbox, 'checked');
@@ -120,6 +167,10 @@ export function toDoCardSubtaskEvents(e) {
     const subtasksNodeList = currentToDoCard.querySelectorAll('.to-do-subtask button');
     if (Array.from(subtasksNodeList).every(subtask => subtask.dataset.status === 'done')) {
         if (!currentToDoCard.firstElementChild.classList.contains('checked')) {
+            currentToDoCard.firstElementChild.click();
+        };
+    } else {
+        if (currentToDoCard.firstElementChild.classList.contains('checked')) {
             currentToDoCard.firstElementChild.click();
         };
     };

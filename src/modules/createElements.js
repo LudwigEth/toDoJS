@@ -105,9 +105,18 @@ export function createCategoryButton(category) {
 export function createScrollItem(category) {
     const scrollItem = document.createElement('div');
     const button = document.createElement('button');
+    const span = document.createElement('span');
+    const deleteSymbolLine1 = document.createElement('div');
+    const deleteSymbolLine2 = document.createElement('div');
+
     button.type = 'button';
-    button.textContent = category;
+    span.textContent = category;
     scrollItem.classList.add('scroll-item');
+    deleteSymbolLine1.classList.add('delete-button-l1', 'hidden');
+    deleteSymbolLine2.classList.add('delete-button-l2');
+    deleteSymbolLine1.appendChild(deleteSymbolLine2);
+    button.appendChild(span);
+    button.appendChild(deleteSymbolLine1);
     scrollItem.appendChild(button);
     return scrollItem;
 };
