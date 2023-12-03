@@ -636,7 +636,7 @@ main.wrapper-content {
 }
 
 #btn-removeToDo {
-    background-color: palevioletred;
+    background-color: #ff000080;
 }
 
 #btn-addCategoryTag {
