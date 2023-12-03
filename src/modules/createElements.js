@@ -26,7 +26,7 @@ export function createToDoCard(id, description, status) {
     divCheckbox.setAttribute('tabindex', 0);
 
 
-    divToDoCard.classList.add('to-do-card');
+    divToDoCard.classList.add('to-do-card', 'fade-in');
     divToDoTaskContainer.classList.add('to-do-task-container');
     divCheckbox.classList.add('checkbox');
     divCheckmark1.classList.add('checkmark1');
@@ -84,6 +84,7 @@ export function createSubtask(description, id, status) {
         buttonToDoSubtask.classList.add('subtask-done');
     };
 
+    subtask.classList.add('fade-in');
     subtask.appendChild(buttonToDoSubtask);
 
     return subtask;
@@ -138,7 +139,7 @@ export function createSubtaskItemContainer(subtask, id) {
 
     subtask ? input.value = subtask : input.value = '';
 
-    SubtaskItemContainer.classList.add('newSubtaskItem');
+    SubtaskItemContainer.classList.add('newSubtaskItem', 'fade-in');
     input.classList.add('addNewTaskInput', 'addNewSubtaskInput');
     deleteButton.classList.add('delete-button');
     deleteSymbolLine1.classList.add('delete-button-l1');

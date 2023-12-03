@@ -124,12 +124,18 @@ export function confirmToDoRemoval(e) {
 };
 
 export function declineToDoRemoval(e) {
-    closeDeleteDialogEvents(e);
     e.stopPropagation();
-    addTaskModalEvents();
+    closeDeleteDialogEvents(e);
 };
 
 export function closeDeleteDialogEvents(e) {
+    addTaskModalEvents();
+    if (taskModal.deleteButton.classList.contains('hidden')) {
+        taskModal.deleteButton.classList.remove('hidden');
+    };
+    taskModal.submitButton.removeEventListener('click', submitNewToDo);
+    taskModal.submitButton.addEventListener('click', submitEdit);
+    taskModal.deleteButton.addEventListener('click', deleteToDoButtonEvents);
     taskModal.confirmRemoval.removeEventListener('click', confirmToDoRemoval);
     taskModal.declineRemoval.removeEventListener('click', declineToDoRemoval);
     taskModal.deleteDialog.close();

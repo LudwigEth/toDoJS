@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
 * {
     box-sizing: border-box;
     margin: 0;
@@ -8,6 +10,7 @@ body {
     display: flex;
     flex-direction: column;
     height: 100vh;
+    font-family: 'Roboto', sans-serif;
 }
 
 button {
@@ -139,6 +142,7 @@ input {
 
 .active-tag {
     background-color: #b8d8be !important;
+    transition: 0.1s ease-in-out;
 }
 
 .scroll-item button {
@@ -151,6 +155,7 @@ input {
     border-radius: 1rem;
     padding: 0.33rem 0.66rem;
     font-size: 0.75rem;
+    transition: 0.1s ease-in-out;
 }
 
 .scroll-item button div {
@@ -165,7 +170,6 @@ input {
     display: flex;
     align-items: center;
     gap: 0.5rem;
-    z-index: 9999;
 }
 
 .addNewCategoryContainer button:last-child {
@@ -295,6 +299,7 @@ main.wrapper-content {
     gap: 0.5rem;
     overflow: scroll;
     max-height: calc(100vh - 6rem);
+    scroll-behavior: smooth;
 }
 
 .to-do-container,
@@ -511,6 +516,7 @@ main.wrapper-content {
     background-color: #ffe9ee;
     border: none;
     box-shadow: 0 0.1rem 0.5rem 0.05rem #b8b8b888;
+    z-index: 1;
 }
 
 #dialog-categories {
@@ -718,6 +724,14 @@ svg>path {
 .addNewTaskInput:focus,
 .addNewCategoryInput:focus {
     outline: none;
+}
+
+.fade-in {
+    animation: fade-in 0.2s ease-in-out forwards ;
+}
+
+.fade-out {
+    animation: fade-out 0.2s ease-in-out forwards;
 }
 
 @keyframes fade-in {

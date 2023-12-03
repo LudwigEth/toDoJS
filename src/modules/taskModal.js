@@ -30,7 +30,6 @@ taskModal.addNewTaskButton.addEventListener('click', newTaskButtonEventListeners
 
 
 export function newTaskButtonEventListeners(e) {
-    e.stopPropagation();
     taskModal.deleteButton.classList.add('hidden');
     taskModal.dialog.showModal();
     addTaskModalEvents();
@@ -148,6 +147,7 @@ export function categoryButtonEvents(e) {
     taskModal.categoriesDialog.style.top = `calc(${buttonDimension.bottom}px + 0.5rem)`;
     populateCategoriesDialog();
     removeTaskModalEvents();
+    taskModal.categoriesDialog.classList.add('fade-in');
     taskModal.categoriesDialog.showModal();
     taskModal.categoriesDialog.addEventListener('click', categoryDialogEvents);
     taskModal.categoriesDialog.addEventListener('keydown', keyDownEventsCategoriesDialog);
