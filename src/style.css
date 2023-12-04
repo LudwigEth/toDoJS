@@ -490,21 +490,37 @@ main.wrapper-content {
 
 /* navbar side menu */
 
-.navbar-menu {
-    position: absolute;
+.navbar-menu-dialog {
     display: flex;
     flex-direction: column;
-    top: 0;
-    left: 0;
-    width: 12rem;
-    height: 100vh;
-    background-color: #d7d7d7;
+    position: absolute;
+    left: -10rem;
+    width: 10rem;
+    min-height: 100vh;
+    background-color: #fff;
+    border: none;
+}
+
+.navbar-menu-header {
+    width: 100%;
+    height: 4rem;
+    display: flex;
+    justify-content: flex-start;
+    padding: 1rem;
+}
+
+.navbar-menu-header h2 {
+    font-size: 1.2rem;
+    color: #ffd1dc;
+}
+
+.entry-left {
     animation: entry-left 0.5s forwards;
 }
 
 @keyframes entry-left {
     0% {
-        left: -12rem;
+        left: -10rem;
     }
 
     100% {

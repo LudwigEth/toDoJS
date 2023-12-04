@@ -5,7 +5,7 @@ import { deleteToDoButtonEvents, removeExistingSubtask } from "./toDoContainer";
 import { addNewSubtaskObject, addNewToDo, categories, saveToDoListToLocalStorage, toDoList } from "./toDoItem";
 
 export const taskModal = {
-    get addNewTaskButton() { return document.getElementById('addNewTaskButton'); },
+    get floatingButton() { return document.getElementById('addNewTaskButton'); },
     get dialog() { return document.getElementById('addNewTaskModal'); },
     get form() { return document.getElementById('newToDoForm'); },
     get mainTask() { return document.getElementById('newToDoDescription'); },
@@ -26,8 +26,7 @@ export const taskModal = {
     get declineRemoval() { return document.getElementById('btn-decline-removal'); },
 };
 
-taskModal.addNewTaskButton.addEventListener('click', newTaskButtonEventListeners);
-
+taskModal.floatingButton.addEventListener('click', newTaskButtonEventListeners);
 
 export function newTaskButtonEventListeners(e) {
     taskModal.deleteButton.classList.add('hidden');

@@ -93,21 +93,21 @@ export function initTagBarSettingsEvents(callback) {
     hideToDoExcept(tagBar.existingCategoryContainer.firstElementChild.firstElementChild.textContent);
     tagBar.existingCategoryContainer.removeEventListener('click', filterToDoItemsByCategory);
     tagBar.input.addEventListener('keydown', confirmNewCategoryOnKeyDown);
-    taskModal.addNewTaskButton.removeEventListener('click', newTaskButtonEventListeners);
-    taskModal.addNewTaskButton.addEventListener('click', callback);
-    taskModal.addNewTaskButton.classList.toggle('upAndRotate');
+    taskModal.floatingButton.removeEventListener('click', newTaskButtonEventListeners);
+    taskModal.floatingButton.addEventListener('click', callback);
+    taskModal.floatingButton.classList.toggle('upAndRotate');
     mainContent.main.classList.toggle('blur');
 };
 
 export function undoTagBarSettingsEvents(callback) {
-    taskModal.addNewTaskButton.classList.toggle('downAndRotate');
+    taskModal.floatingButton.classList.toggle('downAndRotate');
     mainContent.main.classList.toggle('blur');
     tagBar.input.removeEventListener('keydown', confirmNewCategoryOnKeyDown);
-    taskModal.addNewTaskButton.removeEventListener('click', callback);
-    taskModal.addNewTaskButton.addEventListener('click', newTaskButtonEventListeners);
+    taskModal.floatingButton.removeEventListener('click', callback);
+    taskModal.floatingButton.addEventListener('click', newTaskButtonEventListeners);
     tagBar.existingCategoryContainer.addEventListener('click', filterToDoItemsByCategory);
     setTimeout(() => {
-        taskModal.addNewTaskButton.classList.remove('upAndRotate', 'downAndRotate');
+        taskModal.floatingButton.classList.remove('upAndRotate', 'downAndRotate');
     }, 666);
 };
 
@@ -142,7 +142,7 @@ export function tagBarRemoveCategoryOnClick(e) {
             };
         });
         if (categories.length === 1) {
-            taskModal.addNewTaskButton.click();
+            taskModal.floatingButton.click();
         };
         saveToDoListToLocalStorage();
     };
