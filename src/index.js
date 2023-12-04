@@ -12,7 +12,7 @@ window.addEventListener('load', () => {
     if (loadingScreen) {
         setTimeout(() => {
             loadingScreen.style.display = 'none';
-        }, 2000);
+        }, 1500);
     }
 });
 

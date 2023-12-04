@@ -511,6 +511,10 @@ main.wrapper-content {
 
 .navbar-menu-header h2 {
     font-size: 1.2rem;
+    color: #b8d8b8;
+}
+
+.navbar-menu-header h2 span {
     color: #ffd1dc;
 }
 
@@ -684,8 +688,8 @@ main.wrapper-content {
     stroke: #ffffff;
 }
 
-svg>path:not(.checkmark) {
-    stroke: #ffd1dc;
+.path-color {
+
 }
 
 .addNewTaskInput {
