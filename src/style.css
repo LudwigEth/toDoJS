@@ -318,6 +318,9 @@ main.wrapper-content {
 }
 
 .checkbox {
+    display: flex;
+    align-items: center;
+    justify-items: center;
     margin: auto;
     min-width: 1.2rem;
     min-height: 1.2rem;
@@ -328,43 +331,24 @@ main.wrapper-content {
     cursor: pointer;
 }
 
-.checkmark1 {
-    position: absolute;
-    width: 0;
-    height: 0.2rem;
-    background-color: #fff;
-    top: 40%;
-    left: 3%;
-    transform: rotate(45deg);
-    transform-origin: left;
-    border-radius: 0.1rem 0 0.1rem 0.1rem;
-}
-
-.checkmark2 {
-    position: absolute;
-    width: 0;
-    height: 0.2rem;
-    background-color: #fff;
-    top: 0.1rem;
-    left: calc(100% - 0.1rem);
-    transform: rotate(-90deg);
-    transform-origin: left;
-    border-radius: 0 0.1rem 0.1rem 0.1rem;
-}
+@keyframes draw {
+    from {
+        stroke-dasharray: 0, 100;
+    }
+    to {
+        stroke-dasharray: 100, 0;
+    }
+  }
+  
+  .checkbox.checked .checkmark {
+    stroke-dasharray: 0, 100;
+    stroke: white;
+    animation: draw 0.42s ease-in-out forwards;
+  }
 
 .checkbox.checked {
     background-color: #ffd1dc;
     transition: 0.125s ease;
-}
-
-.checkbox.checked .checkmark1 {
-    width: 0.5rem;
-    transition: width 0.1s ease 0.2s;
-}
-
-.checkbox.checked .checkmark2 {
-    width: 1rem;
-    transition: width 0.1s ease 0.3s;
 }
 
 .to-do-card .to-do-menu {
@@ -444,6 +428,7 @@ main.wrapper-content {
     border-radius: 50%;
     box-shadow: 0 0 0.2rem 0.02rem #b8b8b888;
     transition: 0.2s ease-in-out;
+    outline: none;
 }
 
 .button-fixed-tagBar-mode {
@@ -501,6 +486,30 @@ main.wrapper-content {
 
 .hamburger-lines:nth-child(2) {
     width: 0.95rem;
+}
+
+/* navbar side menu */
+
+.navbar-menu {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    top: 0;
+    left: 0;
+    width: 12rem;
+    height: 100vh;
+    background-color: #d7d7d7;
+    animation: entry-left 0.5s forwards;
+}
+
+@keyframes entry-left {
+    0% {
+        left: -12rem;
+    }
+
+    100% {
+        left: 0;
+    }
 }
 
 /* modals */
@@ -659,7 +668,7 @@ main.wrapper-content {
     stroke: #ffffff;
 }
 
-svg>path {
+svg>path:not(.checkmark) {
     stroke: #ffd1dc;
 }
 

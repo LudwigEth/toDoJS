@@ -11,4 +11,5 @@ export function navbarToDoEvents() {
     hightlightActiveFilter(tagBar.existingCategoryContainer.firstElementChild.firstElementChild);
     hideToDoExcept(tagBar.existingCategoryContainer.firstElementChild.firstElementChild.textContent);
     mainContent.toDoContainer.scrollTop = 0;
+    tagBar.cancelButton.click();
 };

@@ -4,8 +4,6 @@ import { checkBoxClickEvents, editToDoCard, toDoCardSubtaskEvents } from "./toDo
 export function createToDoCard(id, description, status) {
     const divToDoCard = document.createElement('div');
     const divCheckbox = document.createElement('div');
-    const divCheckmark1 = document.createElement('div');
-    const divCheckmark2 = document.createElement('div');
     const divToDoTaskContainer =  document.createElement('div');
     const paraToDoTask = document.createElement('p');
     const buttonToDoMenu = document.createElement('button');
@@ -15,6 +13,19 @@ export function createToDoCard(id, description, status) {
     const divHamburgerDotBottom = document.createElement('div');
     const divToDoSubtask = document.createElement('div');
     const ulForSubtasks = document.createElement('ul');
+
+    const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+    svg.setAttribute("height", "1rem");
+    svg.setAttribute("viewBox", "0 0 50 50");
+    const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
+    path.setAttribute("class", "checkmark");
+    path.setAttribute("d", "M7 28 l12 12 l25 -25");
+    path.setAttribute("stroke", "no-fill");
+    path.setAttribute("stroke-width", "6");
+    path.setAttribute("fill", "none");
+    path.setAttribute("stroke-linecap", "round");
+    path.setAttribute("stroke-linejoin", "round");
+    svg.appendChild(path);
 
     if (status === 'checked') {
         divCheckbox.classList.add('checked');
@@ -29,8 +40,6 @@ export function createToDoCard(id, description, status) {
     divToDoCard.classList.add('to-do-card', 'fade-in');
     divToDoTaskContainer.classList.add('to-do-task-container');
     divCheckbox.classList.add('checkbox');
-    divCheckmark1.classList.add('checkmark1');
-    divCheckmark2.classList.add('checkmark2');
     paraToDoTask.classList.add('to-do-task');
     buttonToDoMenu.classList.add('to-do-menu');
     divHamburgerMenuDots.classList.add('hamburger-menu-dots');
@@ -46,8 +55,7 @@ export function createToDoCard(id, description, status) {
     divCheckbox.addEventListener('click', checkBoxClickEvents)
     buttonToDoMenu.addEventListener('click', editToDoCard);
 
-    divCheckmark1.appendChild(divCheckmark2);
-    divCheckbox.appendChild(divCheckmark1);
+    divCheckbox.appendChild(svg);
 
     divHamburgerMenuDots.appendChild(divHamburgerDotTop);
     divHamburgerMenuDots.appendChild(divHamburgerDotMiddle);
