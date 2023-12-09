@@ -5,6 +5,7 @@ import { mainContent } from "./toDoContainer";
 import { categories, saveToDoListToLocalStorage, toDoList } from "./toDoItem";
 
 export const tagBar = {
+    container: document.getElementById('tag-bar'),
     grower: document.getElementById('grower'),
     newCategoryContainer: document.querySelector('.addNewCategoryContainer'),
     input: document.getElementById('addNewCategoryInput'),
@@ -128,7 +129,7 @@ export function cancelEditCategoryEvents() {
 };
 
 export function tagBarRemoveCategoryOnClick(e) {
-    if (tagBar.existingCategoryContainer.contains(e.target)) {
+    if (tagBar.existingCategoryContainer.contains(e.target) && e.target !== tagBar.existingCategoryContainer) {
         const itemToRemove = e.target.closest('.scroll-item');
         const categoryToRemove = itemToRemove.firstElementChild.firstElementChild.textContent;
         let index = categories.indexOf(categoryToRemove);
@@ -149,7 +150,7 @@ export function tagBarRemoveCategoryOnClick(e) {
 };
 
 export function tagBarEditCategoryOnClick(e) {
-    if (tagBar.existingCategoryContainer.contains(e.target)) {
+    if (tagBar.existingCategoryContainer.contains(e.target) && e.target !== tagBar.existingCategoryContainer) {
         const itemToEdit = e.target.closest('.scroll-item');
         const categoryToEdit = itemToEdit.firstElementChild.firstElementChild.textContent;
         let index = categories.indexOf(categoryToEdit);

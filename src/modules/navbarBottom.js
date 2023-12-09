@@ -1,3 +1,4 @@
+import { closeModalOnOutsideClick } from "./eventHandlers";
 import { hideToDoExcept, hightlightActiveFilter, tagBar } from "./tagBar";
 import { newTaskButtonEventListeners, taskModal } from "./taskModal";
 import { mainContent } from "./toDoContainer";
@@ -18,7 +19,7 @@ export function navbarToDoEvents() {
     tagBar.cancelButton.click();
 };
 
-export function navbarMenuEvents() {
+export function navbarMenuEvents(e) {
     navbar.sideMenu.showModal();
-    navbar.sideMenu.classList.toggle('entry-left');
+    navbar.sideMenu.classList.toggle('side-menu-open');
 };

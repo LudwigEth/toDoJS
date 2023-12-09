@@ -31,8 +31,8 @@ export function closeModalOnOutsideClick(e) {
         e.clientY > modalDimension.bottom
     ) {
         modal.close();
-        resetTaskModal();
         if (modal === taskModal.dialog) {
+            resetTaskModal();
             removeTaskModalEvents();
         };
     };
