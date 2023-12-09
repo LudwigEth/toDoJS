@@ -1,5 +1,17 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
 
+:root {
+    --primary-color: #ffd1dc;
+    --secondary-color: #b8d8be;
+    --background-color-primary: #fafafa;
+    --background-color-secondary: #eaeaea;
+    --box-and-settings-gray: #b8b8b8;
+    --text-color-gray: #a8a8a8;
+    --primary-text-color: #000000;
+    --secondary-text-color: #ffffff;
+    --checkbox-color: #ffffff;
+}
+
 * {
     box-sizing: border-box;
     margin: 0;
@@ -12,6 +24,7 @@ body {
     height: 100vh;
     font-family: 'Roboto', sans-serif;
     letter-spacing: -0.025rem;
+    background-color: var(--background-color-primary);
 }
 
 button {
@@ -27,27 +40,44 @@ button:focus,
     -webkit-tap-highlight-color: transparent;
 }
 
+li button {
+    color: var(--primary-text-color);
+}
+
 li::marker {
-    color: #ffd1dc;
+    color: var(--primary-color);
+    font-size: 0.9rem;
 }
 
 input {
-    caret-color: #ffd1dc;
+    caret-color: var(--primary-color);
 }
 
 .no-scroll {
     overflow: hidden;
 }
 
+
+/* colors */
+
+.primary-color {
+
+}
+
+.secondary-color {
+
+}
+
 /* wrappers */
 
 .wrapper-content {
+    position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;
     flex: auto;
     width: 100%;
-    background-color: #fafafa;
+    background-color: var(--background-color-primary);
     transition: blur 0.42s ease-in-out;
 }
 
@@ -91,22 +121,23 @@ input {
     flex-wrap: wrap;
 }
 
-/* container */
-
-/* #tag-bar {
-    position: fixed;
-} */
-
 .main {
+    padding-top: 3.8rem;
     transition: 0.42s ease-in-out;
 }
 
-.container {
-    padding-top: 1.2rem;
-    padding-bottom: 1rem;
+.tag-bar-container {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    padding-top: 1rem;
+    padding-bottom: 0.8rem;
+    z-index: 2;
+    background-color: var(--background-color-primary);
+    box-shadow: 0 0.15rem 0.2rem var(--background-color-primary);
 }
 
-.container,
+.tag-bar-container,
 .container-scroll-h,
 .scroll-item-container,
 .container-settings,
@@ -142,7 +173,7 @@ input {
 }
 
 .active-tag {
-    background-color: #b8d8be !important;
+    background-color: var(--secondary-color) !important;
     transition: 0.1s ease-in-out;
 }
 
@@ -151,8 +182,8 @@ input {
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    gap: 0.2rem;
-    background-color: #ffd1dc;
+    gap: 0.1rem;
+    background-color: var(--primary-color);
     border-radius: 1rem;
     padding: 0.33rem 0.66rem;
     font-size: 0.75rem;
@@ -160,8 +191,8 @@ input {
 }
 
 .scroll-item button div {
-    background-color: palevioletred;
     width: 0.69rem;
+    background-color: #ff000080;
 }
 
 .addNewCategoryContainer {
@@ -174,7 +205,7 @@ input {
 }
 
 .addNewCategoryContainer button:last-child {
-    background-color: #b8d8be;
+    background-color: var(--secondary-color);
 }
 
 .addNewCategoryContainer button:active {
@@ -183,7 +214,7 @@ input {
 }
 
 .addNewCategoryContainer path {
-    stroke: #fff;
+    stroke: #000;
 }
 
 .grower {
@@ -199,26 +230,27 @@ input {
 
 .addNewCategoryInput {
     width: 100%;
-    background-color: #eaeaea;
+    background-color: var(--background-color-secondary);
     border: none;
     height: 2rem;
     border-radius: 1rem;
     padding: 0 1rem;
 }
 
+
 .delete-button {
     display: flex;
     justify-content: center;
     align-items: center;
     max-width: fit-content;
-    background-color: #ffd1dc !important;
+    background-color: var(--primary-color) !important;
 }
 
 .delete-button-l1,
 .delete-button-l2 {
     height: 0.1rem;
     width: 1rem;
-    background-color: #fff;
+    background-color: var(--secondary-text-color);
     border-radius: 0.05rem;
 }
 
@@ -230,7 +262,6 @@ input {
     transform: rotate(90deg);
 }
 
-
 /* settings container */
 
 .container-settings {
@@ -238,8 +269,8 @@ input {
     position: relative;
     display: flex;
     max-width: 2.2rem;
-    box-shadow: -0.5rem 0 0.5rem -0.2rem #fafafa80;
-    border-left: 0.1rem solid #b8b8b880;
+    box-shadow: -0.5rem 0 0.5rem -0.2rem var(--background-color-primary);
+    border-left: 0.1rem solid var(--box-and-settings-gray);
     border-radius: 0.1rem;
     margin-left: auto;
 }
@@ -260,7 +291,7 @@ input {
 .button-menu:active,
 .button-todo:active,
 .button-calendar:active {
-    background-color: #ffd1dc80;
+    background-color: var(--primary-color);
     padding: 2rem;
 }
 
@@ -270,7 +301,7 @@ input {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: 0.168rem;
+    gap: 0.2rem;
     border-radius: 50%;
     pointer-events: none;
     transition: 0.2s ease-in-out;
@@ -282,7 +313,7 @@ input {
 }
 
 .hamburger-dots {
-    border: 0.15rem solid #b8b8b8;
+    border: 0.125rem solid var(--box-and-settings-gray);
     border-radius: 50%;
 }
 
@@ -303,6 +334,10 @@ main.wrapper-content {
     scroll-behavior: smooth;
 }
 
+.to-do-container:first-child {
+    padding-top: 0.5rem;
+}
+
 .to-do-container,
 .to-do-card {
     width: 100%;
@@ -313,7 +348,8 @@ main.wrapper-content {
     align-items: center;
     justify-content: start;
     gap: 0.5rem;
-    background-color: #eaeaea;
+    background-color: var(--background-color-secondary);
+    color: var(--primary-text-color);
     border-radius: 0.5rem;
     padding: 1rem 0.5rem;
 }
@@ -325,8 +361,8 @@ main.wrapper-content {
     margin: auto;
     min-width: 1.2rem;
     min-height: 1.2rem;
-    border: 0.1rem solid #ffd1dc;
-    background-color: #fff;
+    border: 0.0625rem solid var(--primary-color);
+    background-color: var(--checkbox-color);
     border-radius: 0.2rem;
     position: relative;
     cursor: pointer;
@@ -343,12 +379,12 @@ main.wrapper-content {
   
   .checkbox.checked .checkmark {
     stroke-dasharray: 0, 100;
-    stroke: white;
+    stroke: var(--secondary-text-color);
     animation: draw 0.42s ease-in-out forwards;
   }
 
 .checkbox.checked {
-    background-color: #ffd1dc;
+    background-color: var(--primary-color);
     transition: 0.125s ease;
 }
 
@@ -362,7 +398,7 @@ main.wrapper-content {
 }
 
 .to-do-menu .hamburger-dots {
-    border-color: #ffd1dc;
+    border-color: var(--primary-color);
 }
 
 .to-do-task-container {
@@ -395,20 +431,21 @@ main.wrapper-content {
     top: 45%;
     width: 100%;
     height: 0.1rem;
-    background: #b8d8be;
+    background: var(--secondary-color);
     transform: scaleX(0);
     transform-origin: left;
     transition: transform 0.2s ease-in-out;
 }
 
 .subtask-done {
-    color: #00000088;
-    transition: 0.2s ease-in-out;
+    opacity: 0.9;
+    transition: 0.1s ease-in-out;
 }
 
 
 .hidden {
     display: none !important;
+    opacity: 0;
 }
 
 .to-do-subtask button.subtask-done::after {
@@ -425,12 +462,14 @@ main.wrapper-content {
     right: 1.3rem;
     height: 3rem;
     width: 3rem;
-    background-color: #ffd1dc;
+    background-color: var(--primary-color);
     border-radius: 50%;
-    box-shadow: 0 0 0.2rem 0.02rem #b8b8b888;
+    box-shadow: 0 0 0.2rem 0.02rem var(--box-and-settings-gray);
     transition: 0.2s ease-in-out;
     outline: none;
+    z-index: 2;
 }
+
 
 .button-fixed-tagBar-mode {
     transform: rotate(45deg);
@@ -450,7 +489,7 @@ main.wrapper-content {
 .line-h,
 .line-v {
     position: absolute;
-    border: 0.1rem solid white;
+    border: 0.09rem solid var(--secondary-text-color);
     border-radius: 0.1rem;
     width: 1.2rem;
 }
@@ -464,8 +503,8 @@ main.wrapper-content {
 .navbar {
     position: fixed;
     bottom: 0;
-    background-color: #fafafc;
-    box-shadow: 0 0 0.05rem 0.02rem #b8b8b888;
+    background-color: var(--background-color-primary);
+    box-shadow: 0 0 0.05rem 0.02rem var(--box-and-settings-gray);
     height: 3rem;
     padding: 1rem;
     overflow: hidden;
@@ -479,8 +518,7 @@ main.wrapper-content {
 }
 
 .hamburger-lines {
-    background-color: #ffd1dc;
-    border: 0.08rem solid #ffd1dc;
+    border: 0.08rem solid var(--primary-color);
     border-radius: 0.15rem;
     width: 1rem;
 }
@@ -494,43 +532,187 @@ main.wrapper-content {
 .navbar-menu-dialog {
     display: flex;
     flex-direction: column;
-    position: absolute;
-    left: -10rem;
-    width: 10rem;
+    justify-content: flex-start;
+    position: fixed;
+    padding-top: 3.5rem;
+    padding-bottom: 2rem;
+    left: -14rem;
+    width: 14rem;
     min-height: 100vh;
-    background-color: #fff;
+    background-color: var(--background-color-primary);
     border: none;
+    transition: 0.1s ease-in-out;
+}
+
+.navbar-menu-dialog hr {
+    width: 10rem;
+    border: 0.05rem solid var(--box-and-settings-gray);
+    border-radius: 0.05rem;
+    align-self: center;
 }
 
 .navbar-menu-header {
+    position: absolute;
+    top: 1rem;
     width: 100%;
     height: 4rem;
     display: flex;
-    justify-content: flex-start;
-    padding: 1rem;
+    flex-direction: column;
 }
 
 .navbar-menu-header h2 {
     font-size: 1.2rem;
-    color: #b8d8b8;
+    color: var(--secondary-color);
+    padding-bottom: 1rem;
+    padding-left: 2rem;
+    padding-right: 1rem;
 }
 
 .navbar-menu-header h2 span {
-    color: #ffd1dc;
+    color: var(--primary-color);
 }
 
-.entry-left {
-    animation: entry-left 0.5s forwards;
+.navbar-menu-items {
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 3rem;
+    gap: 1rem;
 }
 
-@keyframes entry-left {
-    0% {
-        left: -10rem;
-    }
+.navbar-menu-items > div:first-of-type {
+    margin-top: 1rem;
+}
 
-    100% {
-        left: 0;
-    }
+.primary-pink {
+    background-color: #ffd1dc;
+}
+
+.primary-green {
+    background-color: #b8d8b8;
+}
+
+.primary-blue {
+    background-color: lightblue;
+}
+
+.primary-purple {
+    background-color: #e0d6ff;
+}
+
+.secondary-pink {
+    background-color: #fea6ba;
+}
+
+.secondary-green {
+    background-color: #94d294;
+}
+
+.secondary-blue {
+    background-color: #68c0dd;
+}
+
+.secondary-purple {
+    background-color: #9f81f9;
+}
+
+.color-palette {
+    display: flex;
+    justify-content: space-between;
+    padding-top: 0.25rem;
+}
+
+.color-choice {
+    position: relative;
+    width: 1rem;
+    height: 1rem;
+    border-radius: 0.5rem;
+}
+
+.color-chosen::after {
+    content: '';
+    position: absolute;
+    top: 1.2rem;
+    left: 0;
+    width: 1rem;
+    height: 0.1rem;
+    border-radius: 0.1rem;
+    background-color: var(--primary-text-color);
+}
+
+.color-transition, .color-transition * {
+    transition: 0s !important;
+}
+
+.dropdown {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    transition: 0.2s ease-in-out;
+}
+
+.dropdown > div,
+.dropdown > section {
+    padding: 0 2rem;
+}
+
+.dropdown > section > * {
+    padding-left: 0.5rem;
+}
+
+.dropdown > section {
+    display: flex;
+    position: relative;
+    gap: 0.5rem;
+    flex-direction: column;
+    color: var(--primary-text-color);
+    overflow: hidden;
+    height: 0;
+    transition: 0.1s ease-in-out;
+}
+
+#language-selection.section-open {
+    height: 3.3rem;
+}
+
+#color-theme.section-open {
+    height: 6rem;
+}
+
+.dropdown > :first-child {
+    width: 100%;
+    height: 2rem;
+    display: flex;
+    justify-content: space-between;
+    color: var(--primary-text-color);
+}
+
+.dropdown svg {
+    fill: var(--box-and-settings-gray);
+}
+
+.darkmode-container {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    opacity: 0.8;
+    height: 3rem;
+    padding-left: 2rem;
+}
+
+
+
+.svg-moon {
+    height: 1.5rem;
+}
+
+.svg-moon-path {
+    fill: var(--primary-text-color);
+}
+
+.side-menu-open {
+    transition: 0.1s ease-in-out;
+    left: 0;
 }
 
 /* modals */
@@ -543,9 +725,9 @@ main.wrapper-content {
     padding: 1rem;
     border-radius: 0.5rem;
     text-wrap: nowrap;
-    background-color: #ffe9ee;
+    background-color: var(--primary-color);
     border: none;
-    box-shadow: 0 0.1rem 0.5rem 0.05rem #b8b8b888;
+    box-shadow: 0 0.05rem 0.1rem 0.05rem var(--box-and-settings-gray);
     z-index: 1;
 }
 
@@ -554,9 +736,9 @@ main.wrapper-content {
     top: 6rem;
     padding: 1rem;
     border-radius: 0.5rem;
-    background-color: #ffe9ee;
+    background-color: var(--primary-color);
     border: none;
-    box-shadow: 0 0.1rem 0.5rem 0.05rem #b8b8b888;
+    box-shadow: 0 0.05rem 0.1rem 0.05rem var(--box-and-settings-gray);
 }
 
 #dialog-categories::-webkit-scrollbar,
@@ -590,6 +772,7 @@ main.wrapper-content {
     border-radius: 0.5rem;
     border: none;
     padding: 1rem 1.2rem;
+    background-color: var(--background-color-primary);
 }
 
 #dialog-remove-todo {
@@ -603,6 +786,7 @@ main.wrapper-content {
     align-items: center;
     justify-content: center;
     gap: 1rem;
+    color: var(--primary-text-color);
 }
 
 .dialog-wrapper p {
@@ -621,19 +805,20 @@ main.wrapper-content {
 }
 
 .dialog-wrapper span {
-    background-color: #ffd1dc;
+    background-color: var(--primary-color);
     padding: 0.5rem 1rem;
     border-radius: 1rem;
+    color: #000;
 }
 
 .dialog-wrapper button:nth-child(1) {
     background-color: #ff000080;
-    color: white;
+    color: #000;
 }
 
 .dialog-wrapper button:nth-child(2) {
-    background-color: #b8d8be;
-    color: white;
+    background-color: var(--secondary-color);
+    color: #000;
 }
 
 .newToDoForm {
@@ -660,8 +845,8 @@ main.wrapper-content {
     font-size: 0.75rem;
     padding: 0.33rem 0.66rem;
     border-radius: 1rem;
-    background-color: #eaeaea;
-    color: #a8a8a8;
+    background-color: var(--background-color-secondary);
+    color: var(--text-color-gray);
     width: 4.5rem;
     height: 1.75rem;
 }
@@ -675,18 +860,18 @@ main.wrapper-content {
 }
 
 #btn-addCategoryTag {
-    background-color: #ffd1dc;
+    background-color: var(--primary-color);
     color: #000;
     min-width: fit-content;
 }
 
 #btn-submitToDo {
     margin-left: auto;
-    background-color: #b8d8be;
+    background-color: var(--secondary-color);
 }
 
 #btn-submitToDo path {
-    stroke: #ffffff;
+    stroke: #000;
 }
 
 .path-color {
@@ -698,7 +883,8 @@ main.wrapper-content {
     padding: 1rem 0.8rem;
     border-radius: 0.5rem;
     border: none;
-    background-color: #eaeaea;
+    background-color: var(--background-color-secondary);
+    color: var(--primary-text-color);
 }
 
 .newSubtasksContainer,
@@ -721,6 +907,7 @@ main.wrapper-content {
 
 .newSubtaskItem input {
     border-radius: 0.5rem 0 0 0.5rem;
+    color: var(--primary-text-color);
 }
 
 .newSubtaskItem button {
@@ -738,6 +925,7 @@ main.wrapper-content {
     display: flex;
     padding: 1rem;
     background-color: inherit;
+    color: var(--primary-text-color);
 }
 
 .moreSubtasksButton {
@@ -754,7 +942,7 @@ main.wrapper-content {
     height: 0.1rem;
     width: 0.5rem;
     border-radius: 0.05rem;
-    background-color: #ffd1dc;
+    background-color: var(--primary-color);
 }
 
 .moreSubtasksButton>div>div>div {
@@ -773,6 +961,7 @@ main.wrapper-content {
 .fade-out {
     animation: fade-out 0.2s ease-in-out forwards;
 }
+
 
 @keyframes fade-in {
     0% {
