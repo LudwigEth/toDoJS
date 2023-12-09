@@ -231,6 +231,7 @@ input {
 .addNewCategoryInput {
     width: 100%;
     background-color: var(--background-color-secondary);
+    color: var(--primary-text-color);
     border: none;
     height: 2rem;
     border-radius: 1rem;
