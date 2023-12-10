@@ -1,6 +1,6 @@
 
 import { navbar, navbarMenuEvents, navbarToDoEvents } from './modules/navbarBottom';
-import { closeSideMenuOnOutsideClick, collapseColor, collapseLanguage, setUserColorTheme, sideMenu, toggleCollapse, toggleDarkMode, userColorTheme } from './modules/sideMenu';
+import { closeSideMenuOnOutsideClick, collapseColor, collapseLanguage, darkmode, lightmode, setUserColorTheme, sideMenu, toggleCollapse, toggleDarkMode, userColorTheme } from './modules/sideMenu';
 import { loadToDoListFromLocalStorage } from './modules/toDoItem';
 import './style.css';
 
@@ -31,6 +31,24 @@ export function getUserConfigFromLocalStorage() {
         return;
     };
 };
+
+const darkModeMediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+
+function handleDarkModeChange(e) {
+    if (e.matches) {
+        darkmode();
+        userConfig.darkMode = true;
+    } else {
+        lightmode();
+        userConfig.darkMode = false;
+    };
+    saveUserConfigToLocalStorage();
+};
+
+darkModeMediaQuery.addEventListener('change', handleDarkModeChange);
+
+handleDarkModeChange(darkModeMediaQuery);
+
 
 window.addEventListener('load', () => {
     const loadingScreen = document.getElementById('loadingScreen');
