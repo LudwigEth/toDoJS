@@ -542,7 +542,7 @@ main.wrapper-content {
     min-height: 100dvh;
     background-color: var(--background-color-primary);
     border: none;
-    transition: 0.1s ease-in-out;
+    transition: left 0.1s ease-in-out;
 }
 
 .navbar-menu-dialog hr {
