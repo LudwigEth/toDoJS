@@ -1,7 +1,7 @@
 import { createCategoryButton, createScrollItem, createSubtaskItemContainer } from "./createElements";
 import { closeModalOnOutsideClick, getChildTextContent } from "./eventHandlers";
 import { confirmNewCategory, initTagBarSettingsEvents, resetNewCategoryInput, tagBar, toggleTagBar, undoTagBarSettingsEvents } from "./tagBar";
-import { deleteToDoButtonEvents, removeExistingSubtask } from "./toDoContainer";
+import { deleteToDoButtonEvents, removeExistingSubtask, submitEdit } from "./toDoContainer";
 import { addNewSubtaskObject, addNewToDo, categories, saveToDoListToLocalStorage, toDoList } from "./toDoItem";
 
 export const taskModal = {
@@ -51,6 +51,8 @@ export function removeTaskModalEvents() {
     taskModal.dialog.removeEventListener('click', closeModalOnOutsideClick);
     taskModal.dialog.removeEventListener('keydown', keyDownEventsTaskModal);
     taskModal.submitButton.removeEventListener('click', submitNewToDo);
+    taskModal.submitButton.removeEventListener('click', submitEdit);
+    taskModal.deleteButton.removeEventListener('click', deleteToDoButtonEvents);
     taskModal.categoryButton.removeEventListener('click', categoryButtonEvents);
     taskModal.subtaskButton.removeEventListener('click', subtaskButtonEvents);
     taskModal.moreSubtasksButton.removeEventListener('click', addNewSubtaskItem);

@@ -4,15 +4,9 @@ import { closeSideMenuOnOutsideClick, collapseColor, collapseLanguage, darkmode,
 import { loadToDoListFromLocalStorage } from './modules/toDoItem';
 import './style.css';
 
-// document.getElementById('navbar').addEventListener('click', e => {
-//     console.log('test');
-// });
-
 export const userConfig = {
     primaryColor: 'rgb(255, 209, 220',
-    // primaryColorDomElem: sideMenu.primaryColorChoice.querySelector('.primary-pink'),
     secondaryColor: 'rgb(184, 216, 184',
-    // secondaryColorDomElem: sideMenu.secondaryColorChoice.querySelector('.primary-green'),
     darkMode: false,
 };
 
@@ -32,7 +26,7 @@ export function getUserConfigFromLocalStorage() {
     };
 };
 
-const darkModeMediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+export const darkModeMediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
 
 function handleDarkModeChange(e) {
     if (e.matches) {
@@ -42,7 +36,6 @@ function handleDarkModeChange(e) {
         lightmode();
         userConfig.darkMode = false;
     };
-    saveUserConfigToLocalStorage();
 };
 
 darkModeMediaQuery.addEventListener('change', handleDarkModeChange);
