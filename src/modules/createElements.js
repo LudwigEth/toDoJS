@@ -19,7 +19,7 @@ export function createToDoCard(id, description, status) {
     svg.setAttribute("viewBox", "0 0 50 50");
     const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
     path.setAttribute("class", "checkmark");
-    path.setAttribute("d", "M7 28 l12 12 l25 -25");
+    path.setAttribute("d", "M9 28 l12 12 l25 -25");
     path.setAttribute("stroke", "no-fill");
     path.setAttribute("stroke-width", "6");
     path.setAttribute("fill", "none");
