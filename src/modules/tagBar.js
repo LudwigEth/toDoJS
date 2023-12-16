@@ -14,6 +14,8 @@ export const tagBar = {
     existingCategoryContainer: document.getElementById('scrollItemContainer'),
     settingsButton: document.getElementById('btn-settings'),
     menuDots: document.getElementById('menuDots'),
+    dueDateFilter: document.getElementById('due-date-filter'),
+    dueDateScrollContainer: document.getElementById('dueDateScrollContainer'),
     get settingsDialog() { return document.getElementById('dialog-settings-tasks'); },
     get removeCategoryButton() { return document.getElementById('removeCategory'); },
     get addCategoryButton() { return document.getElementById('addCategory'); },

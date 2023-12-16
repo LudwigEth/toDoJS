@@ -1,4 +1,4 @@
-import { darkModeMediaQuery, saveUserConfigToLocalStorage, userConfig } from "..";
+import { darkModeMediaQuery, handleDarkModeChange, saveUserConfigToLocalStorage, userConfig } from "..";
 import { tagBar } from "./tagBar";
 
 export const sideMenu = {
@@ -51,20 +51,14 @@ const black = '#000000';
 export function setUserColorTheme(primaryColor = '#ffd1dc', secondaryColor = '#b8d8be') {
     document.documentElement.style.setProperty('--primary-color', primaryColor);
     document.documentElement.style.setProperty('--secondary-color', secondaryColor);
-    if (userConfig.darkMode === true) {
-        darkmode();
-        saveUserConfigToLocalStorage();
-    };
 };
 
 export function toggleDarkMode(e) {
     document.documentElement.classList.add('color-transition');
-    if (userConfig.darkMode === false) {
-        darkmode();
-        userConfig.darkMode = true;
-    } else if (userConfig.darkMode === true) {
+    if (sideMenu.darkmodeButton.classList.contains('darkmode-on')) {
         lightmode();
-        userConfig.darkMode = false;
+    } else {
+        darkmode();
     };
     saveUserConfigToLocalStorage();
     setTimeout(() => {
@@ -73,6 +67,8 @@ export function toggleDarkMode(e) {
 };
 
 export function darkmode() {
+    sideMenu.darkmodeButton.classList.remove('darkmode-off');
+    sideMenu.darkmodeButton.classList.add('darkmode-on');
     document.documentElement.style.setProperty('--primary-text-color', white);
     document.documentElement.style.setProperty('--secondary-text-color', black);
     document.documentElement.style.setProperty('--background-color-primary', '#222528');
@@ -81,6 +77,8 @@ export function darkmode() {
 };
 
 export function lightmode() {
+    sideMenu.darkmodeButton.classList.remove('darkmode-on');
+    sideMenu.darkmodeButton.classList.add('darkmode-off');
     document.documentElement.style.setProperty('--primary-text-color', black);
     document.documentElement.style.setProperty('--secondary-text-color', white);
     document.documentElement.style.setProperty('--background-color-primary', '#fafafa');

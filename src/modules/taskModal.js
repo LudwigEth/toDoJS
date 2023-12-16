@@ -1,7 +1,7 @@
 import { createCategoryButton, createScrollItem, createSubtaskItemContainer } from "./createElements";
 import { closeModalOnOutsideClick, getChildTextContent } from "./eventHandlers";
 import { confirmNewCategory, initTagBarSettingsEvents, resetNewCategoryInput, tagBar, toggleTagBar, undoTagBarSettingsEvents } from "./tagBar";
-import { deleteToDoButtonEvents, removeExistingSubtask, submitEdit } from "./toDoContainer";
+import { deleteToDoButtonEvents, mainContent, removeExistingSubtask, submitEdit } from "./toDoContainer";
 import { addNewSubtaskObject, addNewToDo, categories, saveToDoListToLocalStorage, toDoList } from "./toDoItem";
 
 export const taskModal = {
@@ -38,6 +38,7 @@ export function newTaskButtonEventListeners(e) {
 
 export function addTaskModalEvents() {
     document.body.classList.add('no-scroll');
+    mainContent.main.classList.add('blur');
     taskModal.dialog.addEventListener('click', closeModalOnOutsideClick);
     taskModal.dialog.addEventListener('keydown', keyDownEventsTaskModal);
     taskModal.submitButton.addEventListener('click', submitNewToDo);
@@ -63,6 +64,7 @@ export function removeTaskModalEvents() {
 
 export function resetTaskModal() {
     document.body.classList.remove('no-scroll');
+    mainContent.main.classList.remove('blur');
     taskModal.mainTask.value = '';
     taskModal.categoryButton.textContent = 'category';
     Array.from(taskModal.subtaskItems).forEach(item => {

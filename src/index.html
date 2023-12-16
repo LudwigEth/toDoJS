@@ -16,39 +16,55 @@
     </div>
     <div id="wrapper-content" class="wrapper-content">
         <div id="tag-bar" class="tag-bar-container">
-            <div id="categoryScrollContainer" class="container-scroll-h">
-                <div id="grower" class="grower"></div>
-                <div class="addNewCategoryContainer hidden">
-                    <input id="addNewCategoryInput" class="addNewCategoryInput" type="text" placeholder=" Add new category here" spellcheck="false">
-                    <button type="button" id="cancelNewCategoryButton" class="delete-button">
-                        <div class="delete-button-l1">
-                            <div class="delete-button-l2"></div>
+            <div>
+                <div id="categoryScrollContainer" class="container-scroll-h">
+                    <div id="grower" class="grower"></div>
+                    <div class="addNewCategoryContainer hidden">
+                        <input id="addNewCategoryInput" class="addNewCategoryInput" type="text" placeholder=" Add new category here" spellcheck="false">
+                        <button type="button" id="cancelNewCategoryButton" class="delete-button">
+                            <div class="delete-button-l1">
+                                <div class="delete-button-l2"></div>
+                            </div>
+                        </button>
+                        <button id="submitNewCategoryButton" type="button">
+                            <svg height="1rem" viewBox="0 0 26 26" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M 8 3 L 20 3 A 4 4 0 0 1 24 7 L 24 19 A 4 4 0 0 1 20 23 L 8 23 A 4 4 0 0 1 4 19 L 4 7 A 4 4 0 0 1 8 3 Z" style="fill:none;stroke-width:1.5;"></path>
+                                <path d="M 8 13 L 12 17 L 20 9" style="fill:none;stroke-width:1.5;stroke-linecap:round;"></path>
+                            </svg>
+                        </button>
+                    </div>
+                    <div id="scrollItemContainer" class="scroll-item-container"></div>
+                </div>
+                <div class="container-settings">
+                    <button id="btn-settings" class="button-settings">
+                        <div id="menuDots" class="hamburger-menu-dots">
+                            <div class="hamburger-dots"></div>
+                            <div class="hamburger-dots"></div>
+                            <div class="hamburger-dots"></div>
                         </div>
                     </button>
-                    <button id="submitNewCategoryButton" type="button">
-                        <svg height="1rem" viewBox="0 0 26 26" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M 8 3 L 20 3 A 4 4 0 0 1 24 7 L 24 19 A 4 4 0 0 1 20 23 L 8 23 A 4 4 0 0 1 4 19 L 4 7 A 4 4 0 0 1 8 3 Z" style="fill:none;stroke-width:1.5;"></path>
-                            <path d="M 8 13 L 12 17 L 20 9" style="fill:none;stroke-width:1.5;stroke-linecap:round;"></path>
-                        </svg>
-                    </button>
+                    <dialog id="dialog-settings-tasks" class="dialog-fade-in">
+                        <div class="wrapper-dialog">
+                            <button id="removeCategory" class="dialog-btn" type="button">Remove Category</button>
+                            <button id="addCategory" class="dialog-btn" type="button">Add Category</button>
+                            <button id="editCategory" class="dialog-btn" type="button">Edit Category</button>
+                        </div>
+                    </dialog>
                 </div>
-                <div id="scrollItemContainer" class="scroll-item-container"></div>
             </div>
-            <div class="container-settings">
-                <button id="btn-settings" class="button-settings">
-                    <div id="menuDots" class="hamburger-menu-dots">
-                        <div class="hamburger-dots"></div>
-                        <div class="hamburger-dots"></div>
-                        <div class="hamburger-dots"></div>
-                    </div>
-                </button>
-                <dialog id="dialog-settings-tasks" class="dialog-fade-in">
-                    <div class="wrapper-dialog">
-                        <button id="removeCategory" class="dialog-btn" type="button">Remove Category</button>
-                        <button id="addCategory" class="dialog-btn" type="button">Add Category</button>
-                        <button id="editCategory" class="dialog-btn" type="button">Edit Category</button>
-                    </div>
-                </dialog>
+            <div class="due-date-filter">
+                <span>
+                    <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"  height="0.6rem" style="transform: rotate(-180deg);" viewBox="0 0 451.846 451.847" xml:space="preserve"><g stroke-width="0"></g><g stroke-linecap="round" stroke-linejoin="round"></g><path d="M345.441,248.292L151.154,442.573c-12.359,12.365-32.397,12.365-44.75,0c-12.354-12.354-12.354-32.391,0-44.744 L278.318,225.92L106.409,54.017c-12.354-12.359-12.354-32.394,0-44.748c12.354-12.359,32.391-12.359,44.75,0l194.287,194.284 c6.177,6.18,9.262,14.271,9.262,22.366C354.708,234.018,351.617,242.115,345.441,248.292z"></path></svg>
+                </span>
+                <div id="dueDateScrollContainer" class="dd-container-scroll-h">
+                    <div>All Time</div>
+                    <div>Today</div>
+                    <div>Tomorrow</div>
+                    <div>This Week</div>
+                </div>
+                <span>
+                    <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"  height="0.6rem" viewBox="0 0 451.846 451.847" xml:space="preserve"><g stroke-width="0"></g><g stroke-linecap="round" stroke-linejoin="round"></g><path d="M345.441,248.292L151.154,442.573c-12.359,12.365-32.397,12.365-44.75,0c-12.354-12.354-12.354-32.391,0-44.744 L278.318,225.92L106.409,54.017c-12.354-12.359-12.354-32.394,0-44.748c12.354-12.359,32.391-12.359,44.75,0l194.287,194.284 c6.177,6.18,9.262,14.271,9.262,22.366C354.708,234.018,351.617,242.115,345.441,248.292z"></path></svg>
+                </span>
             </div>
         </div>
         <!-- main content contains todos -->
@@ -179,7 +195,7 @@
                     </div>
                     <section id="language-selection">
                         <span>English</span>
-                        <span>German</span>
+                        <span>Deutsch</span>
                     </section>
                 </div>
                 <div class="dropdown">

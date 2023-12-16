@@ -7,7 +7,6 @@ import './style.css';
 export const userConfig = {
     primaryColor: 'rgb(255, 209, 220',
     secondaryColor: 'rgb(184, 216, 184',
-    darkMode: false,
 };
 
 export function saveUserConfigToLocalStorage() {
@@ -28,13 +27,11 @@ export function getUserConfigFromLocalStorage() {
 
 export const darkModeMediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
 
-function handleDarkModeChange(e) {
+export function handleDarkModeChange(e) {
     if (e.matches) {
         darkmode();
-        userConfig.darkMode = true;
     } else {
         lightmode();
-        userConfig.darkMode = false;
     };
 };
 
