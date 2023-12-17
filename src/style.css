@@ -156,6 +156,14 @@ input {
     fill: var(--primary-text-color);
 }
 
+.due-date-filter > span {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 2rem;
+    height: 2rem;
+}
+
 .dd-container-scroll-h {
     display: flex;
     width: 5rem;
