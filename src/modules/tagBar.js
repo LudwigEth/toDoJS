@@ -27,6 +27,8 @@ tagBar.addCategoryButton.addEventListener('click', tagBarAddCategoryEvents);
 tagBar.existingCategoryContainer.addEventListener('click', filterToDoItemsByCategory);
 tagBar.removeCategoryButton.addEventListener('click', removeCategoryButtonEvents);
 tagBar.editCategoryButton.addEventListener('click', editCategoryButtonEvents);
+tagBar.dueDateFilter.firstElementChild.addEventListener('click', swipeDueDateFilterLeft);
+tagBar.dueDateFilter.lastElementChild.addEventListener('click', swipeDueDateFilterRight);
 
 let activeCategoryFilter = '';
 
@@ -285,4 +287,30 @@ export function toggleTagBar(submitEvent, cancelEvent) {
         tagBar.cancelButton.removeEventListener('click', cancelEvent);
         tagBar.input.removeEventListener('keydown', confirmNewCategoryOnKeyDown);
     };
+};
+
+export function updateDueDateFilterArrows() {
+    const maxScrollLeft = tagBar.dueDateScrollContainer.scrollWidth - tagBar.dueDateScrollContainer.clientWidth;
+    tagBar.dueDateFilter.firstElementChild.style.opacity = tagBar.dueDateScrollContainer.scrollLeft > 0 ? '1' : '0.5';
+    tagBar.dueDateFilter.lastElementChild.style.opacity = tagBar.dueDateScrollContainer.scrollLeft < maxScrollLeft ? '1' : '0.5';
+};
+
+export function swipeDueDateFilterLeft() {
+    tagBar.dueDateScrollContainer.scrollBy({
+        left: -tagBar.dueDateScrollContainer.clientWidth,
+        behavior: 'smooth',
+    });
+    setTimeout(() => {
+        updateDueDateFilterArrows();
+    }, 500);
+};
+
+export function swipeDueDateFilterRight() {
+    tagBar.dueDateScrollContainer.scrollBy({
+        left: tagBar.dueDateScrollContainer.clientWidth,
+        behavior: 'smooth',
+    });
+    setTimeout(() => {
+        updateDueDateFilterArrows();
+    }, 500);
 };
