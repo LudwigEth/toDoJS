@@ -90,7 +90,7 @@ export function removeSubtaskContainer(e) {
 
 export function submitNewToDo() {
     const toDoDescription = taskModal.mainTask.value.trim();
-    const dueDate = new Date();
+    let dueDate;
     let category = 'All';
 
     if (!toDoDescription) {

@@ -302,7 +302,7 @@ export function swipeDueDateFilterLeft() {
     });
     setTimeout(() => {
         updateDueDateFilterArrows();
-    }, 500);
+    }, 300);
 };
 
 export function swipeDueDateFilterRight() {
@@ -312,5 +312,5 @@ export function swipeDueDateFilterRight() {
     });
     setTimeout(() => {
         updateDueDateFilterArrows();
-    }, 500);
+    }, 300);
 };
