@@ -14,8 +14,8 @@ export const tagBar = {
     existingCategoryContainer: document.getElementById('scrollItemContainer'),
     settingsButton: document.getElementById('btn-settings'),
     menuDots: document.getElementById('menuDots'),
-    // dueDateFilter: document.getElementById('due-date-filter'),
-    // dueDateScrollContainer: document.getElementById('dueDateScrollContainer'),
+    dueDateFilter: document.getElementById('due-date-filter'),
+    dueDateScrollContainer: document.getElementById('dueDateScrollContainer'),
     get settingsDialog() { return document.getElementById('dialog-settings-tasks'); },
     get removeCategoryButton() { return document.getElementById('removeCategory'); },
     get addCategoryButton() { return document.getElementById('addCategory'); },
@@ -27,8 +27,8 @@ tagBar.addCategoryButton.addEventListener('click', tagBarAddCategoryEvents);
 tagBar.existingCategoryContainer.addEventListener('click', filterToDoItemsByCategory);
 tagBar.removeCategoryButton.addEventListener('click', removeCategoryButtonEvents);
 tagBar.editCategoryButton.addEventListener('click', editCategoryButtonEvents);
-// tagBar.dueDateFilter.firstElementChild.addEventListener('click', swipeDueDateFilterLeft);
-// tagBar.dueDateFilter.lastElementChild.addEventListener('click', swipeDueDateFilterRight);
+tagBar.dueDateFilter.firstElementChild.addEventListener('click', swipeDueDateFilterLeft);
+tagBar.dueDateFilter.lastElementChild.addEventListener('click', swipeDueDateFilterRight);
 
 let activeCategoryFilter = '';
 
@@ -102,6 +102,9 @@ export function initTagBarSettingsEvents(callback) {
     taskModal.floatingButton.addEventListener('click', callback);
     taskModal.floatingButton.classList.toggle('upAndRotate');
     mainContent.main.classList.toggle('blur');
+    tagBar.dueDateFilter.classList.toggle('blur');
+    tagBar.dueDateFilter.firstElementChild.removeEventListener('click', swipeDueDateFilterLeft);
+    tagBar.dueDateFilter.lastElementChild.removeEventListener('click', swipeDueDateFilterRight);
 };
 
 export function undoTagBarSettingsEvents(callback) {
@@ -111,6 +114,9 @@ export function undoTagBarSettingsEvents(callback) {
     taskModal.floatingButton.removeEventListener('click', callback);
     taskModal.floatingButton.addEventListener('click', newTaskButtonEventListeners);
     tagBar.existingCategoryContainer.addEventListener('click', filterToDoItemsByCategory);
+    tagBar.dueDateFilter.classList.toggle('blur');
+    tagBar.dueDateFilter.firstElementChild.addEventListener('click', swipeDueDateFilterLeft);
+    tagBar.dueDateFilter.lastElementChild.addEventListener('click', swipeDueDateFilterRight);
     setTimeout(() => {
         taskModal.floatingButton.classList.remove('upAndRotate', 'downAndRotate');
     }, 666);
@@ -289,28 +295,28 @@ export function toggleTagBar(submitEvent, cancelEvent) {
     };
 };
 
-// export function updateDueDateFilterArrows() {
-//     const maxScrollLeft = tagBar.dueDateScrollContainer.scrollWidth - tagBar.dueDateScrollContainer.clientWidth;
-//     tagBar.dueDateFilter.firstElementChild.style.opacity = tagBar.dueDateScrollContainer.scrollLeft > 0 ? '1' : '0.5';
-//     tagBar.dueDateFilter.lastElementChild.style.opacity = tagBar.dueDateScrollContainer.scrollLeft < maxScrollLeft ? '1' : '0.5';
-// };
+export function updateDueDateFilterArrows() {
+    const maxScrollLeft = tagBar.dueDateScrollContainer.scrollWidth - tagBar.dueDateScrollContainer.clientWidth;
+    tagBar.dueDateFilter.firstElementChild.style.opacity = tagBar.dueDateScrollContainer.scrollLeft > 0 ? '1' : '0.5';
+    tagBar.dueDateFilter.lastElementChild.style.opacity = tagBar.dueDateScrollContainer.scrollLeft < maxScrollLeft ? '1' : '0.5';
+};
 
-// export function swipeDueDateFilterLeft() {
-//     tagBar.dueDateScrollContainer.scrollBy({
-//         left: -tagBar.dueDateScrollContainer.clientWidth,
-//         behavior: 'smooth',
-//     });
-//     setTimeout(() => {
-//         updateDueDateFilterArrows();
-//     }, 300);
-// };
+export function swipeDueDateFilterLeft() {
+    tagBar.dueDateScrollContainer.scrollBy({
+        left: -tagBar.dueDateScrollContainer.clientWidth,
+        behavior: 'smooth',
+    });
+    setTimeout(() => {
+        updateDueDateFilterArrows();
+    }, 300);
+};
 
-// export function swipeDueDateFilterRight() {
-//     tagBar.dueDateScrollContainer.scrollBy({
-//         left: tagBar.dueDateScrollContainer.clientWidth,
-//         behavior: 'smooth',
-//     });
-//     setTimeout(() => {
-//         updateDueDateFilterArrows();
-//     }, 300);
-// };
+export function swipeDueDateFilterRight() {
+    tagBar.dueDateScrollContainer.scrollBy({
+        left: tagBar.dueDateScrollContainer.clientWidth,
+        behavior: 'smooth',
+    });
+    setTimeout(() => {
+        updateDueDateFilterArrows();
+    }, 300);
+};
