@@ -57,17 +57,6 @@ input {
     overflow: hidden;
 }
 
-
-/* colors */
-
-.primary-color {
-
-}
-
-.secondary-color {
-
-}
-
 /* wrappers */
 
 .wrapper-content {
@@ -773,10 +762,10 @@ main.wrapper-content {
 }
 
 /* modals */
-
+/* 
 .calendar {
     
-}
+} */
 
 #dialog-settings-tasks {
     position: absolute;
@@ -934,10 +923,6 @@ main.wrapper-content {
 
 #btn-submitToDo path {
     stroke: #000;
-}
-
-.path-color {
-
 }
 
 .addNewTaskInput {
