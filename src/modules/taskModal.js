@@ -182,7 +182,11 @@ export function categoryDialogEvents(e) {
             initTagBarSettingsEvents(backToTaskModal);
             toggleTagBar(confirmAddCategory, cancelAddCategory);
         };
-        taskModal.categoryButton.textContent = getChildTextContent(taskModal.categoriesDialog, 'BUTTON', e);
+        if (getChildTextContent(taskModal.categoriesDialog, 'BUTTON', e) === 'No Category') {
+            taskModal.categoryButton.textContent = 'category';
+        } else {
+            taskModal.categoryButton.textContent = getChildTextContent(taskModal.categoriesDialog, 'BUTTON', e);
+        };
         taskModal.categoriesDialog.close();
         taskModal.categoriesDialog.removeEventListener('click', categoryDialogEvents);
         taskModal.categoriesDialog.removeEventListener('keydown', keyDownEventsCategoriesDialog);
@@ -227,11 +231,14 @@ export function populateCategoriesDialog() {
     while (taskModal.categoriesWrapper.firstChild) {
         taskModal.categoriesWrapper.removeChild(taskModal.categoriesWrapper.firstChild);
     };
+    if (categories.length > 1) {
+        taskModal.categoriesWrapper.appendChild(createCategoryButton('No Category'));
+    };
     for (let i = 1; i < categories.length; i++) {
         taskModal.categoriesWrapper.appendChild(createCategoryButton(categories[i]));
     };
     if (taskModal.categoriesWrapper.innerHTML === '') {
-        taskModal.categoriesWrapper.appendChild(createCategoryButton('Add Category'))
+        taskModal.categoriesWrapper.appendChild(createCategoryButton('Add Category'));
     };
 };
 
