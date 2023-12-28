@@ -29,6 +29,8 @@ tagBar.removeCategoryButton.addEventListener('click', removeCategoryButtonEvents
 tagBar.editCategoryButton.addEventListener('click', editCategoryButtonEvents);
 tagBar.dueDateFilter.firstElementChild.addEventListener('click', swipeDueDateFilterLeft);
 tagBar.dueDateFilter.lastElementChild.addEventListener('click', swipeDueDateFilterRight);
+tagBar.dueDateScrollContainer.firstElementChild.addEventListener('touchend', updateDueDateFilterArrows);
+tagBar.dueDateScrollContainer.lastElementChild.addEventListener('touchend', updateDueDateFilterArrows);
 
 let activeCategoryFilter = '';
 
@@ -296,9 +298,11 @@ export function toggleTagBar(submitEvent, cancelEvent) {
 };
 
 export function updateDueDateFilterArrows() {
-    const maxScrollLeft = tagBar.dueDateScrollContainer.scrollWidth - tagBar.dueDateScrollContainer.clientWidth;
-    tagBar.dueDateFilter.firstElementChild.style.opacity = tagBar.dueDateScrollContainer.scrollLeft > 0 ? '1' : '0.5';
-    tagBar.dueDateFilter.lastElementChild.style.opacity = tagBar.dueDateScrollContainer.scrollLeft < maxScrollLeft ? '1' : '0.5';
+    setTimeout(() => {
+        const maxScrollLeft = tagBar.dueDateScrollContainer.scrollWidth - tagBar.dueDateScrollContainer.clientWidth;
+        tagBar.dueDateFilter.firstElementChild.style.opacity = tagBar.dueDateScrollContainer.scrollLeft > 0 ? '1' : '0.5';
+        tagBar.dueDateFilter.lastElementChild.style.opacity = tagBar.dueDateScrollContainer.scrollLeft < maxScrollLeft ? '1' : '0.5';
+    }, 300);
 };
 
 export function swipeDueDateFilterLeft() {
@@ -306,9 +310,7 @@ export function swipeDueDateFilterLeft() {
         left: -tagBar.dueDateScrollContainer.clientWidth,
         behavior: 'smooth',
     });
-    setTimeout(() => {
-        updateDueDateFilterArrows();
-    }, 300);
+    updateDueDateFilterArrows();
 };
 
 export function swipeDueDateFilterRight() {
@@ -316,7 +318,5 @@ export function swipeDueDateFilterRight() {
         left: tagBar.dueDateScrollContainer.clientWidth,
         behavior: 'smooth',
     });
-    setTimeout(() => {
-        updateDueDateFilterArrows();
-    }, 300);
+    updateDueDateFilterArrows();
 };
